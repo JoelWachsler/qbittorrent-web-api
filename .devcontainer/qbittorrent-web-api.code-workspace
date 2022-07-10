@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../parser"
+		},
+		{
+			"path": "../md-parser"
+		},
+		{
+			"path": "../api-gen"
+		},
+	],
+	"settings": {}
+}
