@@ -4,26 +4,6 @@ on:
       - '**' 
       - '!main'
 jobs:
-  lint:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install latest stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          components: rustfmt, clippy
-      
-      - name: Run cargo check
-        uses: actions-rs/cargo@v1
-        with:
-          command: check
-
-      - name: Run cargo clippy
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: -- -D warnings
   test:
     runs-on: ubuntu-22.04
     services:
@@ -37,10 +17,45 @@ jobs:
       - name: Install latest stable
         uses: actions-rs/toolchain@v1
         with:
+          profile: minimal
           toolchain: stable
+          override: true
 
       - name: Run tests
         uses: actions-rs/cargo@v1
         with:
           command: test
           args: --workspace
+
+  fmt:
+    name: Rustfmt
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt
+          override: true
+      - uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
+
+  clippy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: clippy
+          override: true
+      
+      - name: Run cargo clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: -- -D warnings
