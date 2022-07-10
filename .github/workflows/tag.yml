@@ -14,11 +14,8 @@ jobs:
           VERSION=$(cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g')
           echo "::set-output name=version::$VERSION"
       
-      - name: Get previous output
-        run: echo "${{ steps.determine-version.outputs.version }}"
-      
       - uses: Klemensas/action-autotag@stable
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          version: "${{ steps.determine-version.outputs.result }}"
+          version: "${{ steps.determine-version.outputs.version }}"
           tag_prefix: "v"
