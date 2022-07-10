@@ -33,31 +33,32 @@ jobs:
   publish:
     runs-on: ubuntu-22.04
     needs: tag
-    if: ${{ needs.tag.outputs.should_publish == 'true' }}
+    # if: ${{ needs.tag.outputs.should_publish == 'true' }}
     steps:
-      - uses: actions/checkout@v2
+      - run: echo ${{ needs.tag.outputs.should_publish }}
+      # - uses: actions/checkout@v2
 
-      - name: Verify version
-        run: ./.github/verify_version.sh
+      # - name: Verify version
+      #   run: ./.github/verify_version.sh
 
-      - name: Install latest stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+      # - name: Install latest stable
+      #   uses: actions-rs/toolchain@v1
+      #   with:
+      #     toolchain: stable
 
-      - name: Login
-        uses: actions-rs/cargo@v1
-        with:
-          command: login
-          args: ${{ secrets.CRATES_IO_TOKEN }}
+      # - name: Login
+      #   uses: actions-rs/cargo@v1
+      #   with:
+      #     command: login
+      #     args: ${{ secrets.CRATES_IO_TOKEN }}
 
-      - name: Publish qbittorrent-web-api-gen
-        uses: actions-rs/cargo@v1
-        with:
-          command: publish
-          args: --package qbittorrent-web-api-gen
+      # - name: Publish qbittorrent-web-api-gen
+      #   uses: actions-rs/cargo@v1
+      #   with:
+      #     command: publish
+      #     args: --package qbittorrent-web-api-gen
 
-      - name: Publish qbittorrent-web-api
-        uses: actions-rs/cargo@v1
-        with:
-          command: publish
+      # - name: Publish qbittorrent-web-api
+      #   uses: actions-rs/cargo@v1
+      #   with:
+      #     command: publish
