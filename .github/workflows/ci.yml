@@ -22,6 +22,12 @@ jobs:
           command: clippy --D warnings
   test:
     runs-on: ubuntu-22.04
+    services:
+      # Needed for tests to pass
+      qbittorrent:
+        image: linuxserver/qbittorrent:4.4.3
+        ports:
+          - 8080:8080
     steps:
       - uses: actions/checkout@v2
       - name: Install latest stable
