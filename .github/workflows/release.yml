@@ -1,5 +1,5 @@
 on:
-  create:
+  push:
     branches:
       - 'create_release/*' 
 jobs:
