@@ -1,0 +1,45 @@
+on:
+  - push
+jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+      
+      - name: Run cargo check
+        uses: actions-rs/cargo@v1
+        with:
+          command: check
+
+      - name: Run cargo clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: -- -D warnings
+  test:
+    runs-on: ubuntu-22.04
+    services:
+      # Needed for tests to pass
+      qbittorrent:
+        image: linuxserver/qbittorrent:4.4.3
+        ports:
+          - 8080:8080
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - name: Run tests
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --workspace
+  

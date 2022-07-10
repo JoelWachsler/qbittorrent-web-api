@@ -16,9 +16,7 @@ pub struct Table {
 
 impl Table {
     fn raw(&self) -> String {
-        let mut output = Vec::new();
-        output.push(self.header.raw.clone());
-        output.push(self.split.clone());
+        let mut output = vec![self.header.raw.clone(), self.split.clone()];
         for row in self.rows.clone() {
             output.push(row.raw);
         }
@@ -84,7 +82,7 @@ impl MdToken {
     fn from(content: &str) -> Vec<MdToken> {
         let mut output = Vec::new();
 
-        let mut iter = content.lines().into_iter();
+        let mut iter = content.lines();
         while let Some(line) = iter.next() {
             // assume this is a table
             if line.contains('|') {
