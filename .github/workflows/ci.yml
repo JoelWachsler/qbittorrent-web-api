@@ -1,8 +1,7 @@
 on:
   - push
 jobs:
-  check:
-    name: Rust project
+  lint:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +20,15 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: clippy
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
 
       - name: Run tests
         uses: actions-rs/cargo@v1
