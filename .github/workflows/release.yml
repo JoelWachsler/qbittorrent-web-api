@@ -1,3 +1,4 @@
+name: Prepare new release
 on:
   create:
     branches:
