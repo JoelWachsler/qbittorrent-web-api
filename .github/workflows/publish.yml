@@ -1,0 +1,34 @@
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Verify version
+        run: ./.github/verify_version.sh
+
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Login
+        uses: actions-rs/cargo@v1
+        with:
+          command: login
+          args: ${{ secrets.CRATES_IO_TOKEN }}
+
+      - name: Publish qbittorrent-web-api-gen
+        uses: actions-rs/cargo@v1
+        with:
+          command: publish
+          args: --package qbittorrent-web-api-gen
+
+      - name: Publish qbittorrent-web-api
+        uses: actions-rs/cargo@v1
+        with:
+          command: publish

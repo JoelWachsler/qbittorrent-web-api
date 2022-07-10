@@ -14,8 +14,8 @@ jobs:
           VERSION=$(cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g')
           echo "::set-output name=version::$VERSION"
       
-      - uses: Klemensas/action-autotag@stable
-        with:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          version: "${{ steps.determine-version.outputs.version }}"
-          tag_prefix: "v"
+      - name: Create and push tag
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git push origin "v${{ steps.determine-version.outputs.version }}"
