@@ -11,5 +11,5 @@ jobs:
       - uses: Klemensas/action-autotag@stable
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          version: "$(cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g')"
+          version: "$(cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/\"//g')"
           tag_prefix: "v"
