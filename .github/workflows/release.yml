@@ -13,9 +13,11 @@ jobs:
         with:
           toolchain: stable
           override: true
-      
+
       - name: Install cargo-edit
-        run: cargo install cargo-edit
+        uses: baptiste0928/cargo-install@v1
+        with:
+          crate: cargo-install
 
       - name: Determine version
         id: vars
