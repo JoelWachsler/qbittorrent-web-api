@@ -59,10 +59,10 @@ jobs:
           command: publish
           args: --package qbittorrent-web-api-gen
 
-      - name: Sleep for 10 seconds - wait for qbittorrent-web-api-gen to be available
+      - name: Sleep for 30 seconds - wait for qbittorrent-web-api-gen to be available
         uses: jakejarvis/wait-action@master
         with:
-          time: '10s'
+          time: '30s'
 
       - name: Publish qbittorrent-web-api
         uses: actions-rs/cargo@v1
