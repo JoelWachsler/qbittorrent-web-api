@@ -22,6 +22,12 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: publish
+          args: --package qbittorrent-web-api-gen
+
+      - name: Publish qbittorrent-web-api
+        uses: actions-rs/cargo@v1
+        with:
+          command: publish
 
       # - name: Publish qbittorrent-web-api
       #   uses: actions-rs/cargo@v1
