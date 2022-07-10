@@ -52,4 +52,5 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
+          base: origin/create_release/${{ steps.vars.outputs.result }}"
           branch: main
