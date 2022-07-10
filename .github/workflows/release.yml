@@ -31,7 +31,9 @@ jobs:
           result-encoding: string
       
       - name: Bump version
-        run: cargo set-version --workspace ${{ steps.vars.outputs.result }}
+        run: |
+          cargo set-version --workspace ${{ steps.vars.outputs.result }}
+          cargo generate-lockfile
 
       - name: Commit files
         run: |
