@@ -16,8 +16,6 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Extract 
-
       - name: Login
         uses: actions-rs/cargo@v1
         with:
