@@ -29,10 +29,7 @@ jobs:
           result-encoding: string
       
       - name: Bump version
-        uses: actions-rs/toolchain@v1
-        with:
-          command: set-version
-          args: --workspace ${{ steps.vars.outputs.result }}
+        run: cargo set-version --workspace ${{ steps.vars.outputs.result }}
 
       - name: Commit files
         run: |
