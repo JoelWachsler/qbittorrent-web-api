@@ -35,34 +35,29 @@ jobs:
     needs: tag
     if: ${{ needs.tag.outputs.should_publish == 'true' }}
     steps:
-      - run: echo needs.tag.outputs.should_publish ${{ needs.tag.outputs.should_publish }}
-      - run: echo needs.tag.outputs.should_publish == 'true' ${{ needs.tag.outputs.should_publish == 'true' }}
-      - run: echo needs.tag.outputs.should_publish == 'false' ${{ needs.tag.outputs.should_publish == 'false' }}
-      - run: echo needs.tag.outputs.should_publish == true ${{ needs.tag.outputs.should_publish == true }}
-      - run: echo needs.tag.outputs.should_publish == false ${{ needs.tag.outputs.should_publish == false }}
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      # - name: Verify version
-      #   run: ./.github/verify_version.sh
+      - name: Verify version
+        run: ./.github/verify_version.sh
 
-      # - name: Install latest stable
-      #   uses: actions-rs/toolchain@v1
-      #   with:
-      #     toolchain: stable
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
 
-      # - name: Login
-      #   uses: actions-rs/cargo@v1
-      #   with:
-      #     command: login
-      #     args: ${{ secrets.CRATES_IO_TOKEN }}
+      - name: Login
+        uses: actions-rs/cargo@v1
+        with:
+          command: login
+          args: ${{ secrets.CRATES_IO_TOKEN }}
 
-      # - name: Publish qbittorrent-web-api-gen
-      #   uses: actions-rs/cargo@v1
-      #   with:
-      #     command: publish
-      #     args: --package qbittorrent-web-api-gen
+      - name: Publish qbittorrent-web-api-gen
+        uses: actions-rs/cargo@v1
+        with:
+          command: publish
+          args: --package qbittorrent-web-api-gen
 
-      # - name: Publish qbittorrent-web-api
-      #   uses: actions-rs/cargo@v1
-      #   with:
-      #     command: publish
+      - name: Publish qbittorrent-web-api
+        uses: actions-rs/cargo@v1
+        with:
+          command: publish
