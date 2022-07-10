@@ -10,10 +10,10 @@ jobs:
 
       - name: Determine version
         id: determine-version
-        run: cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g'
+        run: echo "::set-output name=version::cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/\"//g'"
       
       - name: Get previous output
-        run: echo "${{ steps.determine-version.outputs.result }}"
+        run: echo "${{ steps.determine-version.outputs.version }}"
       
       - uses: Klemensas/action-autotag@stable
         with:
