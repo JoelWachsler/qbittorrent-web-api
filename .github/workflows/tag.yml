@@ -7,9 +7,16 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
+
+      - name: Determine version
+        id: determine-version
+        run: cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g'
+      
+      - name: Get previous output
+        run: echo "${{ steps.determine-version.outputs }}"
       
       - uses: Klemensas/action-autotag@stable
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          version: "$(cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/\"//g')"
+          version: "${{ steps.determine-version.outputs.result }}"
           tag_prefix: "v"
