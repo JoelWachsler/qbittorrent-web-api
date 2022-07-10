@@ -1,5 +1,5 @@
 use anyhow::Result;
-use api_gen::QBittorrentApiGen;
+use qbittorrent_web_api_gen::QBittorrentApiGen;
 
 const USERNAME: &str = "admin";
 const PASSWORD: &str = "adminadmin";
@@ -11,7 +11,16 @@ struct Api {}
 #[tokio::main]
 async fn main() -> Result<()> {
     let api = Api::login(BASE_URL, USERNAME, PASSWORD).await?;
-    api.logout().await?;
+
+    let _ = api
+        .log()
+        .main()
+        .normal(true)
+        .info(false)
+        .warning(true)
+        .critical(false)
+        .send()
+        .await?;
 
     Ok(())
 }

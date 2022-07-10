@@ -1,8 +1,9 @@
 use std::collections::HashMap;
 
-use md_parser::MdContent;
-
-use crate::types::{Type, OPTIONAL};
+use crate::{
+    md_parser::MdContent,
+    parser::types::{Type, OPTIONAL},
+};
 
 pub fn get_parameters(content: &[MdContent]) -> Option<Vec<Type>> {
     let mut it = content

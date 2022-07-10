@@ -1,7 +1,6 @@
-use md_parser::MdContent;
 use regex::Regex;
 
-use crate::util;
+use crate::{md_parser::MdContent, parser::util};
 
 pub fn get_group_url(content: &[MdContent]) -> String {
     let row = util::find_content_contains(content, "API methods are under")

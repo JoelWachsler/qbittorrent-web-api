@@ -1,4 +1,4 @@
-use md_parser::MdContent;
+use crate::md_parser::MdContent;
 
 pub fn find_content_starts_with(content: &[MdContent], starts_with: &str) -> Option<String> {
     content.iter().find_map(|row| match row {

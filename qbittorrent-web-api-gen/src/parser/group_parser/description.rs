@@ -1,4 +1,4 @@
-use md_parser::MdContent;
+use crate::md_parser::MdContent;
 
 pub fn get_group_description(content: &[MdContent]) -> Option<String> {
     let return_desc = content

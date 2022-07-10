@@ -1,5 +1,5 @@
 use anyhow::Result;
-use api_gen::QBittorrentApiGen;
+use qbittorrent_web_api_gen::QBittorrentApiGen;
 
 const USERNAME: &str = "admin";
 const PASSWORD: &str = "adminadmin";
