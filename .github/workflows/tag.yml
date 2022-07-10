@@ -13,7 +13,7 @@ jobs:
         run: cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g'
       
       - name: Get previous output
-        run: echo "${{ steps.determine-version.outputs }}"
+        run: echo "${{ steps.determine-version.outputs.result }}"
       
       - uses: Klemensas/action-autotag@stable
         with:
