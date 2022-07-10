@@ -25,7 +25,7 @@ jobs:
             const { GITHUB_REF } = process.env
             const version = GITHUB_REF.replace('refs/tags/create_release/', '')
             console.log(`Got the following version: ${version}`)
-            return tag
+            return version
           result-encoding: string
       
       - name: Bump version
