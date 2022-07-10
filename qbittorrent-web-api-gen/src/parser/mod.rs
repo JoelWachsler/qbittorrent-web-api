@@ -4,8 +4,9 @@ pub mod types;
 mod util;
 
 use group_parser::parse_groups;
-use md_parser::{self, TokenTree};
 use types::Type;
+
+use crate::md_parser::{self, TokenTree};
 
 #[derive(Debug)]
 pub struct ApiGroup {
@@ -66,7 +67,7 @@ mod tests {
     use std::fs;
 
     fn parse() -> TokenTree {
-        let content = include_str!("api-4_1.md");
+        let content = include_str!("../../api-4_1.md");
         let md_tree = md_parser::TokenTreeFactory::create(content);
 
         let output = format!("{:#?}", md_tree);

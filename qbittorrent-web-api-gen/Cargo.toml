@@ -1,13 +1,17 @@
 [package]
-name = "api-gen"
+name = "qbittorrent-web-api-gen"
 version = "0.1.0"
 edition = "2021"
+license-file = "../LICENSE"
+keywords = ["qbittorrent"]
+repository = "https://github.com/JoelWachsler/qbittorrent-web-api"
+description = "Auto generated api for qBittorrent"
+exclude = ["*.txt", "tests"]
 
 [lib]
 proc-macro = true
 
 [dependencies]
-parser = { path = "../parser" }
 syn = { version = "1.0.98", features = ["extra-traits"]}
 quote = "1.0.20"
 proc-macro2 = "1.0.40"

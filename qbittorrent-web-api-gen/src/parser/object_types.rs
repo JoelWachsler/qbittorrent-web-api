@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
-use md_parser::MdContent;
+use crate::{md_parser::MdContent, parser::types::TypeDescriptions};
 
-use crate::types::{TypeDescription, TypeDescriptions};
+use super::types::TypeDescription;
 
 pub fn get_object_types(content: &[MdContent]) -> HashMap<String, TypeDescription> {
     let mut output = HashMap::new();

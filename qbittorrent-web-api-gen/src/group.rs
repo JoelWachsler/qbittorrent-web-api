@@ -1,11 +1,10 @@
 use std::{collections::HashMap, vec::Vec};
 
 use case::CaseExt;
-use parser::types::TypeInfo;
 use quote::{format_ident, quote};
 use regex::Regex;
 
-use crate::{skeleton::auth_ident, util};
+use crate::{parser::{self, types::TypeInfo}, skeleton::auth_ident, util};
 
 pub fn generate_groups(groups: Vec<parser::ApiGroup>) -> proc_macro2::TokenStream {
     let gr = groups

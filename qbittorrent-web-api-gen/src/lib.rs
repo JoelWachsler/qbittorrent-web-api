@@ -1,6 +1,8 @@
 mod group;
 mod skeleton;
 mod util;
+mod parser;
+mod md_parser;
 
 use case::CaseExt;
 use proc_macro::TokenStream;
@@ -10,7 +12,7 @@ use syn::parse_macro_input;
 
 use crate::group::generate_groups;
 
-const API_CONTENT: &str = include_str!("api-4_1.md");
+const API_CONTENT: &str = include_str!("../api-4_1.md");
 
 #[proc_macro_derive(QBittorrentApiGen, attributes(api_gen))]
 pub fn derive(input: TokenStream) -> TokenStream {

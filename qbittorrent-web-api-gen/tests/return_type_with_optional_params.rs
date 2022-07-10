@@ -1,5 +1,5 @@
 use anyhow::Result;
-use api_gen::QBittorrentApiGen;
+use qbittorrent_web_api_gen::QBittorrentApiGen;
 use tokio::time::{sleep, Duration};
 
 const USERNAME: &str = "admin";

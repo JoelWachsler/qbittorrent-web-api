@@ -1,13 +1,13 @@
+use crate::md_parser::TokenTree;
+
+use self::{return_type::get_return_type, parameters::get_parameters};
+
+use super::{ApiGroup, ApiMethod, util};
+
 mod description;
 mod parameters;
 mod return_type;
 mod url_parser;
-
-use md_parser::TokenTree;
-
-use crate::{util, ApiGroup, ApiMethod};
-
-use self::{parameters::get_parameters, return_type::get_return_type};
 
 pub fn parse_groups(trees: Vec<TokenTree>) -> Vec<ApiGroup> {
     trees.into_iter().map(parse_api_group).collect()
