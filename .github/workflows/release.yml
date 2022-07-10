@@ -12,6 +12,12 @@ jobs:
         with:
           toolchain: stable
 
+      - name: Login
+        uses: actions-rs/cargo@v1
+        with:
+          command: login
+          args: --token ${{ secrets.CRATES_IO_TOKEN }}
+
       - name: Publish qbittorrent-web-api-gen
         uses: actions-rs/cargo@v1
         with:
