@@ -14,6 +14,7 @@ jobs:
         with:
           toolchain: stable
           override: true
+          profile: minimal
 
       - name: Install cargo-edit
         uses: baptiste0928/cargo-install@v1
