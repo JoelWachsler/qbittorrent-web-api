@@ -26,6 +26,9 @@ jobs:
           git push origin "v${{ steps.determine-version.outputs.version }}" || SHOULD_PUBLISH="false"
           echo "::set-output name=should_publish::$SHOULD_PUBLISH"
 
+      - name: Result
+        run: "The result is: ${{ steps.create-and-push-tag.output.should_publish }}"
+
   publish:
     runs-on: ubuntu-22.04
     needs: tag
