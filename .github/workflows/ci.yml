@@ -1,5 +1,8 @@
 on:
-  - push
+  push:
+    branches:
+      - '**' 
+      - '!main'
 jobs:
   lint:
     runs-on: ubuntu-22.04
@@ -35,11 +38,9 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          components: rustfmt, clippy
 
       - name: Run tests
         uses: actions-rs/cargo@v1
         with:
           command: test
           args: --workspace
-  
