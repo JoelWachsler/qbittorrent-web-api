@@ -22,8 +22,8 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git tag "v${{ steps.determine-version.outputs.version }}" -a -m "Create new release"
-          SHOULD_PUBLISH="true"
-          git push origin "v${{ steps.determine-version.outputs.version }}" || SHOULD_PUBLISH="false"
+          SHOULD_PUBLISH='true'
+          git push origin "v${{ steps.determine-version.outputs.version }}" || SHOULD_PUBLISH='false'
           echo "::set-output name=should_publish::$SHOULD_PUBLISH"
 
       - name: Result
@@ -33,7 +33,7 @@ jobs:
   publish:
     runs-on: ubuntu-22.04
     needs: tag
-    if: ${{ needs.tag.outputs.should_publish == true }}
+    if: ${{ needs.tag.outputs.should_publish == 'true' }}
     steps:
       - uses: actions/checkout@v2
 
