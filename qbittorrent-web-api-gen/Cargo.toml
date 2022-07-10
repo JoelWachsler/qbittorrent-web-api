@@ -6,6 +6,7 @@ license-file = "../LICENSE"
 keywords = ["qbittorrent"]
 repository = "https://github.com/JoelWachsler/qbittorrent-web-api"
 description = "Auto generated api for qBittorrent"
+exclude = ["*.txt", "tests"]
 
 [lib]
 proc-macro = true
