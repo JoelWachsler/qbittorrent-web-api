@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - 'main' 
+jobs:
+  tag:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Determine version
+        id: version
+        run: cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g'
+      
+      - uses: Klemensas/action-autotag@stable
+        with:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          version: "${{ steps.previous_step.outputs.version }}"
