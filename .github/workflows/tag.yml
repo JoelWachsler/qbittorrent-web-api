@@ -10,7 +10,9 @@ jobs:
 
       - name: Determine version
         id: determine-version
-        run: echo "::set-output name=version::cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/\"//g'"
+        run: |
+          VERSION=$(cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g')
+          echo "::set-output name=version::$VERSION"
       
       - name: Get previous output
         run: echo "${{ steps.determine-version.outputs.version }}"
