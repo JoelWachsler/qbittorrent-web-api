@@ -6,7 +6,7 @@ jobs:
   tag:
     runs-on: ubuntu-22.04
     outputs:
-      should_publish: ${{ steps.create-and-push-tag.output.should_publish }}
+      should_publish: ${{ steps.create-and-push-tag.outputs.should_publish }}
     steps:
       - uses: actions/checkout@v2
 
@@ -27,7 +27,7 @@ jobs:
           echo "::set-output name=should_publish::$SHOULD_PUBLISH"
 
       - name: Result
-        run: "The result is: ${{ steps.create-and-push-tag.output.should_publish }}"
+        run: "The result is: ${{ steps.create-and-push-tag.outputs.should_publish }}"
 
   publish:
     runs-on: ubuntu-22.04
