@@ -1,8 +1,8 @@
 mod group;
+mod md_parser;
+mod parser;
 mod skeleton;
 mod util;
-mod parser;
-mod md_parser;
 
 use case::CaseExt;
 use proc_macro::TokenStream;
