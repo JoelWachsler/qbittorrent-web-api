@@ -1,10 +1,33 @@
 on:
   push:
-    tags:
-      - '**'
+    branches:
+      - 'main' 
 jobs:
+  tag:
+    runs-on: ubuntu-22.04
+    outputs:
+      should_publish: ${{ steps.create-and-push-tag.output.should_publish }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Determine version
+        id: determine-version
+        run: |
+          VERSION=$(cat Cargo.toml | grep version | head -1 | sed 's/version = //' | sed 's/"//g')
+          echo "::set-output name=version::$VERSION"
+      
+      - name: Create and push tag
+        id: create-and-push-tag
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git tag "v${{ steps.determine-version.outputs.version }}" -a -m "Create new release"
+          git push origin "v${{ steps.determine-version.outputs.version }}" || echo "::set-output name=should_publish::false"
+
   publish:
     runs-on: ubuntu-22.04
+    needs: tag
+    if: ${{ needs.tag.outputs.should_publish }} != "false"
     steps:
       - uses: actions/checkout@v2
 
