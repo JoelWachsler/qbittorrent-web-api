@@ -2,6 +2,9 @@
 name = "qbittorrent-web-api-gen"
 version = "0.1.0"
 edition = "2021"
+license-file = "../LICENSE"
+keywords = ["qbittorrent"]
+repository = "https://github.com/JoelWachsler/qbittorrent-web-api"
 
 [lib]
 proc-macro = true
