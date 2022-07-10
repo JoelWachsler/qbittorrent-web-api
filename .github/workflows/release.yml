@@ -3,7 +3,7 @@ on:
     branches:
       - 'create_release/*' 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
