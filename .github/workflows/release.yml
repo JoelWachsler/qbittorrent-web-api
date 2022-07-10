@@ -20,7 +20,6 @@ jobs:
         uses: baptiste0928/cargo-install@v1
         with:
           crate: cargo-edit
-          cache-key: cargo-edit
 
       - name: Determine version
         id: vars
