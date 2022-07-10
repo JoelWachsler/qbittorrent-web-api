@@ -35,11 +35,11 @@ jobs:
     needs: tag
     # if: ${{ needs.tag.outputs.should_publish == 'true' }}
     steps:
-      - run: echo ${{ needs.tag.outputs.should_publish }}
-      - run: echo ${{ needs.tag.outputs.should_publish == 'true' }}
-      - run: echo ${{ needs.tag.outputs.should_publish == 'false' }}
-      - run: echo ${{ needs.tag.outputs.should_publish == true }}
-      - run: echo ${{ needs.tag.outputs.should_publish == false }}
+      - run: echo needs.tag.outputs.should_publish ${{ needs.tag.outputs.should_publish }}
+      - run: echo needs.tag.outputs.should_publish == 'true' ${{ needs.tag.outputs.should_publish == 'true' }}
+      - run: echo needs.tag.outputs.should_publish == 'false' ${{ needs.tag.outputs.should_publish == 'false' }}
+      - run: echo needs.tag.outputs.should_publish == true ${{ needs.tag.outputs.should_publish == true }}
+      - run: echo needs.tag.outputs.should_publish == false ${{ needs.tag.outputs.should_publish == false }}
       # - uses: actions/checkout@v2
 
       # - name: Verify version
