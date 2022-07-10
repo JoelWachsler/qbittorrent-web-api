@@ -1,6 +1,6 @@
 [package]
 name = "qbittorrent-web-api-gen"
-version = "0.2.6"
+version = "0.2.9"
 edition = "2021"
 license-file = "../LICENSE"
 keywords = ["qbittorrent"]
