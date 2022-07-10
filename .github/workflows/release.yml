@@ -7,10 +7,16 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
+
+      - name: Verify version
+        run: ./.github/verify_version.sh
+
       - name: Install latest stable
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+
+      - name: Extract 
 
       - name: Login
         uses: actions-rs/cargo@v1
@@ -29,8 +35,4 @@ jobs:
         with:
           command: publish
 
-      # - name: Publish qbittorrent-web-api
-      #   uses: actions-rs/cargo@v1
-      #   with:
-      #     command: publish
   
