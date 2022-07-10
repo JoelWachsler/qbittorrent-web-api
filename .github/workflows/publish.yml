@@ -27,12 +27,13 @@ jobs:
           echo "::set-output name=should_publish::$SHOULD_PUBLISH"
 
       - name: Result
-        run: "The result is: ${{ steps.create-and-push-tag.outputs.should_publish }}"
+        run: |
+          echo "The result is: ${{ steps.create-and-push-tag.outputs.should_publish }}"
 
   publish:
     runs-on: ubuntu-22.04
     needs: tag
-    if: ${{ needs.tag.outputs.should_publish }} == "true"
+    if: ${{ needs.tag.outputs.should_publish == "true" }}
     steps:
       - uses: actions/checkout@v2
 
