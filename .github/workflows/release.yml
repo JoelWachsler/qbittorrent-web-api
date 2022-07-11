@@ -48,6 +48,9 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
+          # Need to use our own token in order to trigger additional workflows
+          # after the branch is crated.
+          token: ${{ secrets.PAT_TOKEN }}
           title: "Create release ${{ steps.vars.outputs.result }}"
           commit-message: "Create release ${{ steps.vars.outputs.result }}"
           body: "Create release ${{ steps.vars.outputs.result }}"
