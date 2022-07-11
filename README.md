@@ -28,7 +28,7 @@ async fn main() -> Result<()> {
         .send()
         .await?;
 
-    println!("{:#?}", &logs);
+    println!("{:#?}", logs);
 
     // current torrent info
     let info = api.torrent_management().info().send().await?;
