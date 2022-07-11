@@ -26,7 +26,7 @@ pub fn derive(input: TokenStream) -> TokenStream {
     let impl_ident = syn::Ident::new(&format!("{}_impl", ident).to_snake(), ident.span());
 
     quote! {
-        mod #impl_ident {
+        pub mod #impl_ident {
             #skeleton
             #groups
         }
