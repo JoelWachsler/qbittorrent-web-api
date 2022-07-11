@@ -17,7 +17,7 @@ async fn main() -> Result<()> {
     const TORRENT_URL: &str = "http://www.legittorrents.info/download.php?id=5cc013e801095be61d768e609e3039da58616fd0&f=Oddepoxy%20-%20Oddepoxy%20(2013)%20[OGG%20320%20CBR].torrent";
     let _ = api.torrent_management().add(TORRENT_URL).send().await?;
 
-    let mut tries = 5;
+    let mut tries = 10;
     while tries > 0 {
         let info = api.torrent_management().info().send().await?;
         if let Some(first) = &info.get(0) {
