@@ -6,3 +6,9 @@ status = [
   "fmt",
   "clippy",
 ]
+
+pr_status = [
+  "test",
+  "fmt",
+  "clippy",
+]
