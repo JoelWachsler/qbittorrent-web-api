@@ -51,6 +51,5 @@ jobs:
           title: "Create release ${{ steps.vars.outputs.result }}"
           commit-message: "Create release ${{ steps.vars.outputs.result }}"
           body: "Create release ${{ steps.vars.outputs.result }}"
-          base: main
           branch: create_release/${{ steps.vars.outputs.result }}
           delete-branch: true
