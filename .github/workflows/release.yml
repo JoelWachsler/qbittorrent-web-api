@@ -45,3 +45,4 @@ jobs:
           commit-message: "Create release ${{ steps.vars.outputs.result }}"
           body: "Create release ${{ steps.vars.outputs.result }}"
           branch: main
+          delete-branch: true
