@@ -1,0 +1,1 @@
+This is the implementation for the crate `qbittorrent-web-api` - use that crate instead.
