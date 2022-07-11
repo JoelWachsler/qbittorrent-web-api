@@ -2,5 +2,13 @@ delete_merged_branches = true
 update_base_for_deletes = true
 
 status = [
-  "test"
+  "test",
+  "fmt",
+  "clippy",
+]
+
+pr_status = [
+  "test",
+  "fmt",
+  "clippy",
 ]

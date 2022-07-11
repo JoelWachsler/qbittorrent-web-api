@@ -9,7 +9,7 @@ env:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     if: "startsWith(github.ref, 'refs/heads/create_release/')"
 
@@ -51,5 +51,6 @@ jobs:
           title: "Create release ${{ steps.vars.outputs.result }}"
           commit-message: "Create release ${{ steps.vars.outputs.result }}"
           body: "Create release ${{ steps.vars.outputs.result }}"
-          branch: main
+          base: main
+          branch: create_release/${{ steps.vars.outputs.result }}
           delete-branch: true
