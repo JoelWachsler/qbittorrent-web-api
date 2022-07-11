@@ -20,6 +20,7 @@ jobs:
         uses: baptiste0928/cargo-install@v1
         with:
           crate: cargo-edit
+          version: 0.9.1
 
       - name: Determine version
         id: vars
@@ -49,7 +50,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          branch: main
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v4
+      #   with:
+      #     base: origin/create_release/${{ steps.vars.outputs.result }}"
+      #     branch: main
