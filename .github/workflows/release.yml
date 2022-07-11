@@ -2,10 +2,10 @@ name: Prepare new release
 on:
   create:
     branches:
-      - 'create_release/*' 
 jobs:
   release:
     runs-on: ubuntu-22.04
+    if: "startsWith(github.ref, 'refs/heads/create_release/')"
     steps:
       - uses: actions/checkout@v3
 
