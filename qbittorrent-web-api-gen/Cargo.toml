@@ -2,7 +2,7 @@
 name = "qbittorrent-web-api-gen"
 version = "0.2.32"
 edition = "2021"
-license-file = "../LICENSE"
+license = "MIT"
 keywords = ["qbittorrent"]
 repository = "https://github.com/JoelWachsler/qbittorrent-web-api"
 description = "Auto generated api for qBittorrent"
