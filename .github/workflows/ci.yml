@@ -1,17 +1,25 @@
 name: CI
+
 on:
   push:
-    branches:
-      - '**' 
+    branches: [main, staging, trying]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     services:
       # Needed for tests to pass
       qbittorrent:
         image: linuxserver/qbittorrent:4.4.3
         ports:
           - 8080:8080
+
     steps:
       - uses: actions/checkout@v3
 
@@ -27,14 +35,21 @@ jobs:
           profile: minimal
           override: true
 
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --verbose
+
       - name: Run tests
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --workspace
+          args: --workspace --verbose
 
   fmt:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -52,7 +67,8 @@ jobs:
           args: --all -- --check
 
   clippy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 

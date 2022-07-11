@@ -1,13 +1,19 @@
 name: Extra
+
 on:
   push:
     branches:
       - main
+
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
   # Need to have the same name as where this dependency is used,
   # otherwise the cache key won't be the same.
   release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
       # build and cache this here in order to reuse it's cache in feature branches
       - name: Install cargo-edit
