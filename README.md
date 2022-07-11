@@ -1,6 +1,6 @@
 # qBittorrent web api for Rust
 
-This is an automatic async implementation of the qBittorrent 4.1 web api. The api generation is based on the wiki markdown file which can be seen [here](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)).
+This is an automatic async implementation of the qBittorrent 4.1 web api. The api generation is based on the wiki markdown file which can be found [here](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)).
 
 ## Example
 
