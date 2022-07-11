@@ -1,4 +1,7 @@
-use crate::{md_parser::MdContent, parser::{ReturnType, object_types::get_object_types, ReturnTypeParameter, types::Type}};
+use crate::{
+    md_parser::MdContent,
+    parser::{object_types::get_object_types, types::Type, ReturnType, ReturnTypeParameter},
+};
 
 pub fn get_return_type(content: &[MdContent]) -> Option<ReturnType> {
     let table = content

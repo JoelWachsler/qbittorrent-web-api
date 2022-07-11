@@ -1,8 +1,8 @@
 use crate::md_parser::TokenTree;
 
-use self::{return_type::get_return_type, parameters::get_parameters};
+use self::{parameters::get_parameters, return_type::get_return_type};
 
-use super::{ApiGroup, ApiMethod, util};
+use super::{util, ApiGroup, ApiMethod};
 
 mod description;
 mod parameters;
