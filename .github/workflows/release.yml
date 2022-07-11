@@ -1,11 +1,18 @@
 name: Prepare new release
+
 on:
   create:
     branches:
+
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
   release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     if: "startsWith(github.ref, 'refs/heads/create_release/')"
+
     steps:
       - uses: actions/checkout@v3
 
