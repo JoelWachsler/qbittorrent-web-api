@@ -4,7 +4,9 @@ on:
     branches:
       - main
 jobs:
-  extra:
+  # Need to have the same name as where this dependency is used,
+  # otherwise the cache key won't be the same.
+  release:
     runs-on: ubuntu-22.04
     steps:
       # build and cache this here in order to reuse it's cache in feature branches
