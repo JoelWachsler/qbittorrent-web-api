@@ -5,7 +5,7 @@ edition = "2021"
 license = "MIT"
 keywords = ["qbittorrent"]
 repository = "https://github.com/JoelWachsler/qbittorrent-web-api"
-description = "Auto generated api for qBittorrent"
+description = "Generated web api for qBittorrent"
 exclude = ["*.txt", "tests"]
 
 [lib]
