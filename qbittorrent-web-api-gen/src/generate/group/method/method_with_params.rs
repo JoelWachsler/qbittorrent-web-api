@@ -22,37 +22,39 @@ pub fn create_method_with_params(
         .iter()
         .filter(|param| !param.get_type_info().is_optional);
 
-    let mandatory_param_args = mandatory_params.clone().map(|param| {
-        let name = util::to_ident(&param.get_type_info().name.to_snake());
+    let param_to_ident = |param: &types::Type| {
         let t = util::to_ident(&param.to_borrowed_type());
 
         if param.should_borrow() {
-            quote! {
-                #name: &#t
-            }
+            quote! { &#t }
         } else {
-            quote! {
-                #name: #t
-            }
+            quote! { #t }
         }
-    });
+    };
+
+    let param_name = |param: &types::Type| {
+        let name_as_str = param.get_type_info().name.to_snake();
+        (util::to_ident(&name_as_str), name_as_str)
+    };
+
+    let param_with_name = |param: &types::Type| {
+        let (name, ..) = param_name(param);
+        let t = param_to_ident(param);
+
+        quote! { #name: #t }
+    };
+
+    let mandatory_param_args = mandatory_params.clone().map(|param| param_with_name(param));
 
     let mandatory_param_names = mandatory_params.clone().map(|param| {
-        let name = util::to_ident(&param.get_type_info().name.to_snake());
-
-        quote! {
-            #name
-        }
+        let (name, ..) = param_name(param);
+        quote! { #name }
     });
 
     let mandatory_param_args_clone = mandatory_param_args.clone();
     let mandatory_param_form_build = mandatory_params.map(|param| {
-        let n = &param.get_type_info().name;
-        let name = util::to_ident(&n.to_snake());
-
-        quote! {
-            let form = form.text(#n, #name.to_string());
-        }
+        let (name, name_as_str) = param_name(param);
+        quote! { let form = form.text(#name_as_str, #name.to_string()); }
     });
 
     let optional_params = params
