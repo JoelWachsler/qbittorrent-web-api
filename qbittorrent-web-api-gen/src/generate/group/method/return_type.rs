@@ -36,25 +36,7 @@ pub fn create_return_type(
                 let enum_fields: Vec<proc_macro2::TokenStream> = type_description
                     .values
                     .iter()
-                    .map(|value| {
-                        let v = &value.value;
-                        let re = Regex::new(r#"\(.*\)"#).unwrap();
-                        let desc = &value
-                            .description
-                            .replace(' ', "_")
-                            .replace('-', "_")
-                            .replace(',', "_");
-                        let desc_without_parentheses = re.replace_all(desc, "");
-                        let ident = util::to_ident(&desc_without_parentheses.to_camel());
-
-                        util::add_docs(
-                            &Some(value.description.clone()),
-                            quote! {
-                                #[serde(rename = #v)]
-                                #ident
-                            },
-                        )
-                    })
+                    .map(create_number_enum_value)
                     .collect();
 
                 Some((name, enum_fields))
@@ -67,18 +49,7 @@ pub fn create_return_type(
                 let enum_fields: Vec<proc_macro2::TokenStream> = type_description
                     .values
                     .iter()
-                    .map(|type_description| {
-                        let value = &type_description.value;
-                        let value_as_ident = util::to_ident(&value.to_camel());
-
-                        util::add_docs(
-                            &Some(type_description.description.clone()),
-                            quote! {
-                                #[serde(rename = #value)]
-                                #value_as_ident
-                            },
-                        )
-                    })
+                    .map(create_string_enum_value)
                     .collect();
 
                 Some((name, enum_fields))
@@ -169,4 +140,40 @@ pub fn create_return_type(
             #(#enum_types)*
         },
     ))
+}
+
+fn create_string_enum_value(
+    type_description: &types::TypeDescriptions,
+) -> proc_macro2::TokenStream {
+    let value = &type_description.value;
+    let value_as_ident = util::to_ident(&value.to_camel());
+    create_enum_field(&value_as_ident, value, &type_description.description)
+}
+
+fn create_number_enum_value(value: &types::TypeDescriptions) -> proc_macro2::TokenStream {
+    let v = &value.value;
+    let re = Regex::new(r#"\(.*\)"#).unwrap();
+    let desc = &value
+        .description
+        .replace(' ', "_")
+        .replace('-', "_")
+        .replace(',', "_");
+    let desc_without_parentheses = re.replace_all(desc, "");
+    let ident = util::to_ident(&desc_without_parentheses.to_camel());
+
+    create_enum_field(&ident, v, &value.description)
+}
+
+fn create_enum_field(
+    ident: &syn::Ident,
+    rename: &str,
+    description: &str,
+) -> proc_macro2::TokenStream {
+    util::add_docs(
+        &Some(description.to_string()),
+        quote! {
+            #[serde(rename = #rename)]
+            #ident
+        },
+    )
 }
