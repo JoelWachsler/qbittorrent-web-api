@@ -1,6 +1,6 @@
 use quote::quote;
 
-use super::{send_method_builder::SendMethodBuilder, return_type::create_return_type};
+use super::{return_type::create_return_type, send_method_builder::SendMethodBuilder};
 use crate::parser;
 
 pub fn create_method_without_params(

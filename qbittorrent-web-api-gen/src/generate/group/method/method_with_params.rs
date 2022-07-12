@@ -3,7 +3,7 @@ use quote::quote;
 
 use crate::{generate::util, parser, types};
 
-use super::{send_method_builder::SendMethodBuilder, return_type::create_return_type};
+use super::{return_type::create_return_type, send_method_builder::SendMethodBuilder};
 
 pub fn create_method_with_params(
     group: &parser::ApiGroup,
@@ -28,7 +28,8 @@ pub fn create_method_with_params(
 
     let group_name = util::to_ident(&group.name.to_camel());
     let send_builder =
-        SendMethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth }).with_form();
+        SendMethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth })
+            .with_form();
 
     let generate_send_impl = |send_method: proc_macro2::TokenStream| {
         let optional_params = generate_optional_params(params);
