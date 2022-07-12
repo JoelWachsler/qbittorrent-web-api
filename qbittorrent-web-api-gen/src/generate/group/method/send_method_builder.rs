@@ -2,7 +2,7 @@ use quote::quote;
 
 use crate::generate::util;
 
-pub struct MethodBuilder {
+pub struct SendMethodBuilder {
     method_name: syn::Ident,
     url: String,
     auth_module_path: proc_macro2::TokenStream,
@@ -11,7 +11,7 @@ pub struct MethodBuilder {
     form: bool,
 }
 
-impl MethodBuilder {
+impl SendMethodBuilder {
     pub fn new(
         method_name: &syn::Ident,
         url: &str,

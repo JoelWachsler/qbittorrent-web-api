@@ -1,6 +1,6 @@
 use quote::quote;
 
-use super::{method_builder::MethodBuilder, return_type::create_return_type};
+use super::{send_method_builder::SendMethodBuilder, return_type::create_return_type};
 use crate::parser;
 
 pub fn create_method_without_params(
@@ -9,7 +9,7 @@ pub fn create_method_without_params(
     method_name: proc_macro2::Ident,
     url: &str,
 ) -> (proc_macro2::TokenStream, Option<proc_macro2::TokenStream>) {
-    let builder = MethodBuilder::new(&method_name, url, quote! { self.auth })
+    let builder = SendMethodBuilder::new(&method_name, url, quote! { self.auth })
         .description(&method.description);
 
     match create_return_type(group, method) {

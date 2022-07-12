@@ -3,7 +3,7 @@ use quote::quote;
 
 use crate::{generate::util, parser, types};
 
-use super::{method_builder::MethodBuilder, return_type::create_return_type};
+use super::{send_method_builder::SendMethodBuilder, return_type::create_return_type};
 
 pub fn create_method_with_params(
     group: &parser::ApiGroup,
@@ -12,40 +12,30 @@ pub fn create_method_with_params(
     method_name: &proc_macro2::Ident,
     url: &str,
 ) -> (proc_macro2::TokenStream, Option<proc_macro2::TokenStream>) {
-    let parameter_type = util::to_ident(&format!(
+    let param_type = util::to_ident(&format!(
         "{}{}Parameters",
         group.name.to_camel(),
         method.name.to_camel()
     ));
 
     let mandatory_params = mandatory_params(params);
-    let mandatory_param_args = mandatory_params
-        .iter()
-        .map(|param| param_with_name(param))
-        .collect::<Vec<proc_macro2::TokenStream>>();
+    let mandatory_param_args = generate_mandatory_params(&mandatory_params);
 
     let mandatory_param_names = mandatory_params.iter().map(|param| {
         let (name, ..) = param_name(param);
         quote! { #name }
     });
 
-    let mandatory_param_form_build = mandatory_params.iter().map(|param| {
-        let (name, name_as_str) = param_name(param);
-        quote! { let form = form.text(#name_as_str, #name.to_string()); }
-    });
-
-    let optional_params = params
-        .iter()
-        .filter(|param| param.get_type_info().is_optional)
-        .map(generate_optional_parameter);
-
     let group_name = util::to_ident(&group.name.to_camel());
     let send_builder =
-        MethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth }).with_form();
+        SendMethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth }).with_form();
 
     let generate_send_impl = |send_method: proc_macro2::TokenStream| {
+        let optional_params = generate_optional_params(params);
+        let mandatory_param_form_build = generate_mandatory_param_builder(&mandatory_params);
+
         quote! {
-            impl<'a> #parameter_type<'a> {
+            impl<'a> #param_type<'a> {
                 fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
                     let form = reqwest::multipart::Form::new();
                     #(#mandatory_param_form_build)*
@@ -70,24 +60,52 @@ pub fn create_method_with_params(
         None => generate_send_impl(send_builder.build()),
     };
 
-    (
-        util::add_docs(
-            &method.description,
-            quote! {
-                pub fn #method_name(&self, #(#mandatory_param_args),*) -> #parameter_type {
-                    #parameter_type::new(self, #(#mandatory_param_names),*)
-                }
-            },
-        ),
-        Some(quote! {
-            pub struct #parameter_type<'a> {
-                group: &'a #group_name<'a>,
-                form: reqwest::multipart::Form,
+    let builder = util::add_docs(
+        &method.description,
+        quote! {
+            pub fn #method_name(&self, #(#mandatory_param_args),*) -> #param_type {
+                #param_type::new(self, #(#mandatory_param_names),*)
             }
+        },
+    );
 
-            #send
-        }),
-    )
+    let group_impl = quote! {
+        pub struct #param_type<'a> {
+            group: &'a #group_name<'a>,
+            form: reqwest::multipart::Form,
+        }
+
+        #send
+    };
+
+    (builder, Some(group_impl))
+}
+
+fn generate_mandatory_params(mandatory_params: &[&types::Type]) -> Vec<proc_macro2::TokenStream> {
+    mandatory_params
+        .iter()
+        .map(|param| param_with_name(param))
+        .collect()
+}
+
+fn generate_mandatory_param_builder(
+    mandatory_params: &[&types::Type],
+) -> Vec<proc_macro2::TokenStream> {
+    mandatory_params
+        .iter()
+        .map(|param| {
+            let (name, name_as_str) = param_name(param);
+            quote! { let form = form.text(#name_as_str, #name.to_string()); }
+        })
+        .collect()
+}
+
+fn generate_optional_params(params: &[types::Type]) -> Vec<proc_macro2::TokenStream> {
+    params
+        .iter()
+        .filter(|param| param.get_type_info().is_optional)
+        .map(generate_optional_param)
+        .collect()
 }
 
 fn mandatory_params(params: &[types::Type]) -> Vec<&types::Type> {
@@ -97,7 +115,7 @@ fn mandatory_params(params: &[types::Type]) -> Vec<&types::Type> {
         .collect()
 }
 
-fn generate_optional_parameter(param: &types::Type) -> proc_macro2::TokenStream {
+fn generate_optional_param(param: &types::Type) -> proc_macro2::TokenStream {
     let n = &param.get_type_info().name;
     let name = util::to_ident(&n.to_snake());
     let t = util::to_ident(&param.to_borrowed_type());
@@ -106,6 +124,7 @@ fn generate_optional_parameter(param: &types::Type) -> proc_macro2::TokenStream 
     } else {
         quote! { #t }
     };
+
     util::add_docs(
         &param.get_type_info().description,
         quote! {
