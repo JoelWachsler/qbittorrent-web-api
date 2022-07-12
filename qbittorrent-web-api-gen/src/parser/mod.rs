@@ -1,6 +1,6 @@
 use crate::{md_parser, types};
 
-use self::{parameters::get_parameters, return_type::get_return_type, url_parser::get_method_url};
+use self::{parameters::parse_parameters, return_type::get_return_type, url_parser::get_method_url};
 
 mod description;
 mod object_types;
@@ -39,6 +39,12 @@ pub struct ReturnTypeParameter {
     pub return_type: types::Type,
 }
 
+pub fn parse_api_groups(content: &str) -> Vec<ApiGroup> {
+    parse_groups(extract_relevant_parts(md_parser::TokenTreeFactory::create(
+        content,
+    )))
+}
+
 fn extract_relevant_parts(tree: md_parser::TokenTree) -> Vec<md_parser::TokenTree> {
     let relevant: Vec<md_parser::TokenTree> = tree
         .children
@@ -54,12 +60,6 @@ fn extract_relevant_parts(tree: md_parser::TokenTree) -> Vec<md_parser::TokenTre
         .collect();
 
     relevant
-}
-
-pub fn parse_api_groups(content: &str) -> Vec<ApiGroup> {
-    parse_groups(extract_relevant_parts(md_parser::TokenTreeFactory::create(
-        content,
-    )))
 }
 
 pub fn parse_groups(trees: Vec<md_parser::TokenTree>) -> Vec<ApiGroup> {
@@ -105,7 +105,7 @@ fn parse_api_method(child: md_parser::TokenTree) -> Option<ApiMethod> {
 fn to_api_method(child: &md_parser::TokenTree, name: &str) -> ApiMethod {
     let method_description = description::get_method_description(&child.content);
     let return_type = get_return_type(&child.content);
-    let parameters = get_parameters(&child.content);
+    let parameters = parse_parameters(&child.content);
     let method_url = get_method_url(&child.content);
 
     ApiMethod {

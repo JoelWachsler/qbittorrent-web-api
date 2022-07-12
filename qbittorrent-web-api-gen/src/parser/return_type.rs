@@ -1,6 +1,6 @@
 use crate::{
     md_parser::MdContent,
-    parser::{object_types::get_object_types, types, ReturnType, ReturnTypeParameter},
+    parser::{object_types::parse_object_types, types, ReturnType, ReturnTypeParameter},
 };
 
 pub fn get_return_type(content: &[MdContent]) -> Option<ReturnType> {
@@ -18,7 +18,7 @@ pub fn get_return_type(content: &[MdContent]) -> Option<ReturnType> {
             _ => None,
         })?;
 
-    let types = get_object_types(content);
+    let types = parse_object_types(content);
 
     let parameters = table
         .rows
