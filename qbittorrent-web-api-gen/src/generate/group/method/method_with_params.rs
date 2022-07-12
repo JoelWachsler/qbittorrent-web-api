@@ -63,23 +63,21 @@ pub fn create_method_with_params(
             let name = util::to_ident(&n.to_snake());
             let t = util::to_ident(&param.to_borrowed_type());
 
-            let method = if param.should_borrow() {
-                quote! {
-                    pub fn #name(mut self, value: &#t) -> Self {
-                        self.form = self.form.text(#n, value.to_string());
-                        self
-                    }
-                }
+            let builder_param = if param.should_borrow() {
+                quote! { &#t }
             } else {
-                quote! {
-                    pub fn #name(mut self, value: #t) -> Self {
-                        self.form = self.form.text(#n, value.to_string());
-                        self
-                    }
-                }
+                quote! { #t }
             };
 
-            util::add_docs(&param.get_type_info().description, method)
+            util::add_docs(
+                &param.get_type_info().description,
+                quote! {
+                    pub fn #name(mut self, value: #builder_param) -> Self {
+                        self.form = self.form.text(#n, value.to_string());
+                        self
+                    }
+                },
+            )
         });
 
     let group_name = util::to_ident(&group.name.to_camel());
