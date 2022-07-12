@@ -7,14 +7,15 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use regex::Regex;
 
-use crate::{parser, types, util};
+use crate::{md_parser, parser, types, util};
 
 use self::skeleton::{auth_ident, generate_skeleton};
 
 pub fn generate(ast: &syn::DeriveInput, api_content: &str) -> TokenStream {
     let ident = &ast.ident;
 
-    let api_groups = parser::parse_api_groups(api_content);
+    let token_tree = md_parser::TokenTreeFactory::create(api_content);
+    let api_groups = parser::parse_api_groups(token_tree);
 
     let skeleton = generate_skeleton(ident);
     let groups = generate_groups(api_groups);

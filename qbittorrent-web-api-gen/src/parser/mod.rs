@@ -1,38 +1,11 @@
 use crate::{md_parser, types};
 
-use self::api_group::parse_api_group;
+use self::group::parse_api_group;
 
-mod api_group;
-mod api_method;
-mod description;
+mod group;
 mod object_types;
 mod parameters;
-mod return_type;
-mod url_parser;
 mod util;
-
-#[derive(Debug)]
-pub struct ApiGroup {
-    pub name: String,
-    pub methods: Vec<ApiMethod>,
-    pub description: Option<String>,
-    pub url: String,
-}
-
-#[derive(Debug)]
-pub struct ApiMethod {
-    pub name: String,
-    pub description: Option<String>,
-    pub parameters: Option<Vec<types::Type>>,
-    pub return_type: Option<ReturnType>,
-    pub url: String,
-}
-
-#[derive(Debug)]
-pub struct ReturnType {
-    pub is_list: bool,
-    pub parameters: Vec<ReturnTypeParameter>,
-}
 
 #[derive(Debug)]
 pub struct ReturnTypeParameter {
@@ -41,10 +14,18 @@ pub struct ReturnTypeParameter {
     pub return_type: types::Type,
 }
 
-pub fn parse_api_groups(content: &str) -> Vec<ApiGroup> {
-    parse_groups(extract_relevant_parts(md_parser::TokenTreeFactory::create(
-        content,
-    )))
+pub use group::ApiGroup;
+pub use group::ApiMethod;
+
+pub fn parse_api_groups(token_tree: md_parser::TokenTree) -> Vec<ApiGroup> {
+    parse_groups(extract_relevant_parts(token_tree))
+}
+
+pub fn parse_groups(trees: Vec<md_parser::TokenTree>) -> Vec<ApiGroup> {
+    trees
+        .into_iter()
+        .map(|tree| parse_api_group(&tree))
+        .collect()
 }
 
 fn extract_relevant_parts(tree: md_parser::TokenTree) -> Vec<md_parser::TokenTree> {
@@ -62,10 +43,6 @@ fn extract_relevant_parts(tree: md_parser::TokenTree) -> Vec<md_parser::TokenTre
         .collect();
 
     relevant
-}
-
-pub fn parse_groups(trees: Vec<md_parser::TokenTree>) -> Vec<ApiGroup> {
-    trees.into_iter().map(parse_api_group).collect()
 }
 
 #[cfg(test)]

@@ -1,18 +1,36 @@
-use crate::md_parser;
+mod description;
+mod return_type;
+mod url;
 
-use super::{
-    description::parse_method_description, parameters::parse_parameters,
-    return_type::parse_return_type, url_parser::get_method_url, util, ApiMethod,
+use crate::{
+    md_parser,
+    parser::{parameters::parse_parameters, util},
+    types,
 };
 
-pub fn parse_api_method(child: md_parser::TokenTree) -> Option<ApiMethod> {
+use self::{
+    description::parse_method_description,
+    return_type::{parse_return_type, ReturnType},
+    url::get_method_url,
+};
+
+#[derive(Debug)]
+pub struct ApiMethod {
+    pub name: String,
+    pub description: Option<String>,
+    pub parameters: Option<Vec<types::Type>>,
+    pub return_type: Option<ReturnType>,
+    pub url: String,
+}
+
+pub fn parse_api_method(child: &md_parser::TokenTree) -> Option<ApiMethod> {
     util::find_content_starts_with(&child.content, "Name: ")
         .map(|name| {
             name.trim_start_matches("Name: ")
                 .trim_matches('`')
                 .to_string()
         })
-        .map(|name| to_api_method(&child, &name))
+        .map(|name| to_api_method(child, &name))
 }
 
 fn to_api_method(child: &md_parser::TokenTree, name: &str) -> ApiMethod {

@@ -1,7 +1,13 @@
 use crate::{
     md_parser::MdContent,
-    parser::{object_types::parse_object_types, types, ReturnType, ReturnTypeParameter},
+    parser::{object_types::parse_object_types, types, ReturnTypeParameter},
 };
+
+#[derive(Debug)]
+pub struct ReturnType {
+    pub is_list: bool,
+    pub parameters: Vec<ReturnTypeParameter>,
+}
 
 pub fn parse_return_type(content: &[MdContent]) -> Option<ReturnType> {
     let table = content

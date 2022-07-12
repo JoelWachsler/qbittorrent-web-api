@@ -1,21 +1,5 @@
 use crate::md_parser::MdContent;
 
-pub fn parse_group_description(content: &[MdContent]) -> Option<String> {
-    let return_desc = content
-        .iter()
-        .map(|row| row.inner_value_as_string())
-        .collect::<Vec<String>>()
-        .join("\n")
-        .trim()
-        .to_string();
-
-    if return_desc.is_empty() {
-        None
-    } else {
-        Some(return_desc)
-    }
-}
-
 pub fn parse_method_description(content: &[MdContent]) -> Option<String> {
     let return_desc = content
         .iter()
