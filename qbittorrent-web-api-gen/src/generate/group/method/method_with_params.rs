@@ -22,24 +22,20 @@ pub fn create_method_with_params(
         .iter()
         .filter(|param| !param.get_type_info().is_optional);
 
-    let param_to_ident = |param: &types::Type| {
-        let t = util::to_ident(&param.to_borrowed_type());
-
-        if param.should_borrow() {
-            quote! { &#t }
-        } else {
-            quote! { #t }
-        }
-    };
-
     let param_name = |param: &types::Type| {
         let name_as_str = param.get_type_info().name.to_snake();
         (util::to_ident(&name_as_str), name_as_str)
     };
 
     let param_with_name = |param: &types::Type| {
+        let t = util::to_ident(&param.to_borrowed_type());
+
         let (name, ..) = param_name(param);
-        let t = param_to_ident(param);
+        let t = if param.should_borrow() {
+            quote! { &#t }
+        } else {
+            quote! { #t }
+        };
 
         quote! { #name: #t }
     };
@@ -94,31 +90,26 @@ pub fn create_method_with_params(
         }
     };
 
+    let generate_send_impl = |send_method: proc_macro2::TokenStream| {
+        quote! {
+            impl<'a> #parameter_type<'a> {
+                #send_new_method
+                #(#optional_params)*
+                #send_method
+            }
+        }
+    };
+
     let send = match create_return_type(group, method) {
         Some((return_type_name, return_type)) => {
-            let send_method = send_builder.return_type(&return_type_name).build();
+            let send_impl = generate_send_impl(send_builder.return_type(&return_type_name).build());
 
             quote! {
-                impl<'a> #parameter_type<'a> {
-                    #send_new_method
-                    #(#optional_params)*
-                    #send_method
-                }
-
+                #send_impl
                 #return_type
             }
         }
-        None => {
-            let send_method = send_builder.build();
-
-            quote! {
-                impl<'a> #parameter_type<'a> {
-                    #send_new_method
-                    #(#optional_params)*
-                    #send_method
-                }
-            }
-        }
+        None => generate_send_impl(send_builder.build()),
     };
 
     (
