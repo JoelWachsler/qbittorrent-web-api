@@ -1,6 +1,6 @@
 use crate::md_parser::MdContent;
 
-pub fn get_group_description(content: &[MdContent]) -> Option<String> {
+pub fn parse_group_description(content: &[MdContent]) -> Option<String> {
     let return_desc = content
         .iter()
         .map(|row| row.inner_value_as_string())
@@ -16,7 +16,7 @@ pub fn get_group_description(content: &[MdContent]) -> Option<String> {
     }
 }
 
-pub fn get_method_description(content: &[MdContent]) -> Option<String> {
+pub fn parse_method_description(content: &[MdContent]) -> Option<String> {
     let return_desc = content
         .iter()
         // skip until we get to the "Returns:" text

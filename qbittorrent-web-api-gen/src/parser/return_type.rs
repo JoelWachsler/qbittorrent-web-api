@@ -3,7 +3,7 @@ use crate::{
     parser::{object_types::parse_object_types, types, ReturnType, ReturnTypeParameter},
 };
 
-pub fn get_return_type(content: &[MdContent]) -> Option<ReturnType> {
+pub fn parse_return_type(content: &[MdContent]) -> Option<ReturnType> {
     let table = content
         .iter()
         // The response is a ...        <-- Trying to find this line
