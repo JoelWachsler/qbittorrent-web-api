@@ -24,17 +24,19 @@ pub fn create_return_type(
         )
     };
 
-    let enum_types_with_names =
-        return_type
-            .parameters
-            .iter()
-            .flat_map(|parameter| match &parameter.return_type {
-                types::Type::Number(types::TypeInfo {
-                    ref name,
-                    type_description: Some(type_description),
-                    ..
-                }) => {
-                    let enum_fields = type_description.values.iter().map(|value| {
+    let enum_types_with_names = return_type
+        .parameters
+        .iter()
+        .flat_map(|parameter| match &parameter.return_type {
+            types::Type::Number(types::TypeInfo {
+                ref name,
+                type_description: Some(type_description),
+                ..
+            }) => {
+                let enum_fields: Vec<proc_macro2::TokenStream> = type_description
+                    .values
+                    .iter()
+                    .map(|value| {
                         let v = &value.value;
                         let re = Regex::new(r#"\(.*\)"#).unwrap();
                         let desc = &value
@@ -52,27 +54,20 @@ pub fn create_return_type(
                                 #ident
                             },
                         )
-                    });
+                    })
+                    .collect();
 
-                    let enum_name = util::to_ident(&to_enum_name(name));
-
-                    Some((
-                        name,
-                        quote! {
-                            #[allow(clippy::enum_variant_names)]
-                            #[derive(Debug, Deserialize, PartialEq, Eq)]
-                            pub enum #enum_name {
-                                #(#enum_fields,)*
-                            }
-                        },
-                    ))
-                }
-                types::Type::String(types::TypeInfo {
-                    ref name,
-                    type_description: Some(type_description),
-                    ..
-                }) => {
-                    let enum_fields = type_description.values.iter().map(|type_description| {
+                Some((name, enum_fields))
+            }
+            types::Type::String(types::TypeInfo {
+                ref name,
+                type_description: Some(type_description),
+                ..
+            }) => {
+                let enum_fields: Vec<proc_macro2::TokenStream> = type_description
+                    .values
+                    .iter()
+                    .map(|type_description| {
                         let value = &type_description.value;
                         let value_as_ident = util::to_ident(&value.to_camel());
 
@@ -83,23 +78,27 @@ pub fn create_return_type(
                                 #value_as_ident
                             },
                         )
-                    });
+                    })
+                    .collect();
 
-                    let enum_name = util::to_ident(&to_enum_name(name));
+                Some((name, enum_fields))
+            }
+            _ => None,
+        })
+        .flat_map(|(name, enum_fields)| {
+            let enum_name = util::to_ident(&to_enum_name(name));
 
-                    Some((
-                        name,
-                        quote! {
-                            #[allow(clippy::enum_variant_names)]
-                            #[derive(Debug, Deserialize, PartialEq, Eq)]
-                            pub enum #enum_name {
-                                #(#enum_fields,)*
-                            }
-                        },
-                    ))
-                }
-                _ => None,
-            });
+            Some((
+                name,
+                quote! {
+                    #[allow(clippy::enum_variant_names)]
+                    #[derive(Debug, Deserialize, PartialEq, Eq)]
+                    pub enum #enum_name {
+                        #(#enum_fields,)*
+                    }
+                },
+            ))
+        });
 
     let enum_names: HashMap<&String, String> = enum_types_with_names
         .clone()
