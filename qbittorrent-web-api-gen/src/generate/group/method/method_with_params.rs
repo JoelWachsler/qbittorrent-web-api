@@ -86,20 +86,22 @@ pub fn create_method_with_params(
     let send_builder =
         MethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth }).with_form();
 
+    let send_new_method = quote! {
+        fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
+            let form = reqwest::multipart::Form::new();
+            #(#mandatory_param_form_build)*
+            Self { group, form }
+        }
+    };
+
     let send = match create_return_type(group, method) {
         Some((return_type_name, return_type)) => {
             let send_method = send_builder.return_type(&return_type_name).build();
 
             quote! {
                 impl<'a> #parameter_type<'a> {
-                    fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
-                        let form = reqwest::multipart::Form::new();
-                        #(#mandatory_param_form_build)*
-                        Self { group, form }
-                    }
-
+                    #send_new_method
                     #(#optional_params)*
-
                     #send_method
                 }
 
@@ -111,14 +113,8 @@ pub fn create_method_with_params(
 
             quote! {
                 impl<'a> #parameter_type<'a> {
-                    fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
-                        let form = reqwest::multipart::Form::new();
-                        #(#mandatory_param_form_build)*
-                        Self { group, form }
-                    }
-
+                    #send_new_method
                     #(#optional_params)*
-
                     #send_method
                 }
             }
