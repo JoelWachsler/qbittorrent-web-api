@@ -3,8 +3,6 @@ use crate::{md_parser, types};
 use self::group::parse_api_group;
 
 mod group;
-mod object_types;
-mod parameters;
 mod util;
 
 #[derive(Debug)]

@@ -1,15 +1,13 @@
 mod description;
+mod parameters;
 mod return_type;
 mod url;
 
-use crate::{
-    md_parser,
-    parser::{parameters::parse_parameters, util},
-    types,
-};
+use crate::{md_parser, parser::util, types};
 
 use self::{
     description::parse_method_description,
+    parameters::parse_parameters,
     return_type::{parse_return_type, ReturnType},
     url::get_method_url,
 };

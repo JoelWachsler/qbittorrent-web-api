@@ -1,4 +1,5 @@
 mod skeleton;
+mod util;
 
 use std::{collections::HashMap, vec::Vec};
 
@@ -7,7 +8,7 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use regex::Regex;
 
-use crate::{md_parser, parser, types, util};
+use crate::{md_parser, parser, types};
 
 use self::skeleton::{auth_ident, generate_skeleton};
 

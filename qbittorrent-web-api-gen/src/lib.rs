@@ -2,7 +2,6 @@ mod generate;
 mod md_parser;
 mod parser;
 mod types;
-mod util;
 
 use proc_macro::TokenStream;
 use syn::parse_macro_input;

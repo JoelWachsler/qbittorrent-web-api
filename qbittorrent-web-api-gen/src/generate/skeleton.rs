@@ -1,6 +1,6 @@
 use quote::quote;
 
-use crate::util;
+use super::util;
 
 pub const AUTH_IDENT: &str = "Authenticated";
 
