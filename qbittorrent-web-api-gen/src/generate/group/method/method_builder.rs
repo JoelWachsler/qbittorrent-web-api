@@ -8,6 +8,7 @@ pub struct MethodBuilder {
     auth_module_path: proc_macro2::TokenStream,
     return_type: Option<proc_macro2::TokenStream>,
     description: Option<String>,
+    form: bool,
 }
 
 impl MethodBuilder {
@@ -22,6 +23,7 @@ impl MethodBuilder {
             auth_module_path,
             return_type: None,
             description: None,
+            form: false,
         }
     }
 
@@ -35,6 +37,11 @@ impl MethodBuilder {
         self
     }
 
+    pub fn with_form(mut self) -> Self {
+        self.form = true;
+        self
+    }
+
     pub fn build(&self) -> proc_macro2::TokenStream {
         let method_name = &self.method_name;
         let (return_type, parse_type) = match &self.return_type {
@@ -43,13 +50,19 @@ impl MethodBuilder {
         };
         let url = &self.url;
         let auth_module_path = &self.auth_module_path;
+        let form = if self.form {
+            quote! { .multipart(self.form) }
+        } else {
+            quote! {}
+        };
 
         util::add_docs(
             &self.description,
             quote! {
-                pub async fn #method_name(&self) -> Result<#return_type> {
+                pub async fn #method_name(self) -> Result<#return_type> {
                     let res = #auth_module_path
                         .authenticated_client(#url)
+                        #form
                         .send()
                         .await?
                         #parse_type

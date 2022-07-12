@@ -3,7 +3,7 @@ use quote::quote;
 
 use crate::{generate::util, parser, types};
 
-use super::return_type::create_return_type;
+use super::{method_builder::MethodBuilder, return_type::create_return_type};
 
 pub fn create_method_with_params(
     group: &parser::ApiGroup,
@@ -83,9 +83,13 @@ pub fn create_method_with_params(
         });
 
     let group_name = util::to_ident(&group.name.to_camel());
+    let send_builder =
+        MethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth }).with_form();
 
     let send = match create_return_type(group, method) {
         Some((return_type_name, return_type)) => {
+            let send_method = send_builder.return_type(&return_type_name).build();
+
             quote! {
                 impl<'a> #parameter_type<'a> {
                     fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
@@ -96,24 +100,15 @@ pub fn create_method_with_params(
 
                     #(#optional_params)*
 
-                    pub async fn send(self) -> Result<#return_type_name> {
-                        let res = self.group
-                            .auth
-                            .authenticated_client(#url)
-                            .multipart(self.form)
-                            .send()
-                            .await?
-                            .json::<#return_type_name>()
-                            .await?;
-
-                        Ok(res)
-                    }
+                    #send_method
                 }
 
                 #return_type
             }
         }
         None => {
+            let send_method = send_builder.build();
+
             quote! {
                 impl<'a> #parameter_type<'a> {
                     fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
@@ -124,18 +119,7 @@ pub fn create_method_with_params(
 
                     #(#optional_params)*
 
-                    pub async fn send(self) -> Result<String> {
-                        let res = self.group
-                            .auth
-                            .authenticated_client(#url)
-                            .multipart(self.form)
-                            .send()
-                            .await?
-                            .text()
-                            .await?;
-
-                        Ok(res)
-                    }
+                    #send_method
                 }
             }
         }
