@@ -5,11 +5,11 @@ mod url;
 
 use crate::{md_parser, parser::util, types};
 
+pub use return_type::ReturnType;
+
 use self::{
-    description::parse_method_description,
-    parameters::parse_parameters,
-    return_type::{parse_return_type, ReturnType},
-    url::get_method_url,
+    description::parse_method_description, parameters::parse_parameters,
+    return_type::parse_return_type, url::get_method_url,
 };
 
 #[derive(Debug)]
