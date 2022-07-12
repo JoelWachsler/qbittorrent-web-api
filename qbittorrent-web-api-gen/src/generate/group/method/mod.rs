@@ -1,6 +1,7 @@
 mod method_with_params;
 mod method_without_params;
 mod return_type;
+mod method_builder;
 
 use crate::{generate::util, parser};
 use case::CaseExt;

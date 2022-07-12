@@ -2,10 +2,8 @@ use quote::quote;
 
 use super::util;
 
-pub const AUTH_IDENT: &str = "Authenticated";
-
 pub fn auth_ident() -> proc_macro2::Ident {
-    util::to_ident(AUTH_IDENT)
+    util::to_ident("Authenticated")
 }
 
 pub fn generate_skeleton(ident: &syn::Ident) -> proc_macro2::TokenStream {
