@@ -1,14 +1,32 @@
+mod skeleton;
+
 use std::{collections::HashMap, vec::Vec};
 
 use case::CaseExt;
+use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use regex::Regex;
 
-use crate::{
-    parser::{self, types::TypeInfo},
-    skeleton::auth_ident,
-    util,
-};
+use crate::{parser, types, util};
+
+use self::skeleton::{auth_ident, generate_skeleton};
+
+pub fn generate(ast: &syn::DeriveInput, api_content: &str) -> TokenStream {
+    let ident = &ast.ident;
+
+    let api_groups = parser::parse_api_groups(api_content);
+
+    let skeleton = generate_skeleton(ident);
+    let groups = generate_groups(api_groups);
+    let impl_ident = syn::Ident::new(&format!("{}_impl", ident).to_snake(), ident.span());
+
+    quote! {
+        pub mod #impl_ident {
+            #skeleton
+            #groups
+        }
+    }
+}
 
 pub fn generate_groups(groups: Vec<parser::ApiGroup>) -> proc_macro2::TokenStream {
     let gr = groups
@@ -138,7 +156,7 @@ fn create_method_without_params(
 fn create_method_with_params(
     group: &parser::ApiGroup,
     method: &parser::ApiMethod,
-    params: &[parser::types::Type],
+    params: &[types::Type],
     method_name: &proc_macro2::Ident,
     url: &str,
 ) -> (proc_macro2::TokenStream, Option<proc_macro2::TokenStream>) {
@@ -314,7 +332,7 @@ fn create_return_type(
             .parameters
             .iter()
             .flat_map(|parameter| match &parameter.return_type {
-                parser::types::Type::Number(TypeInfo {
+                types::Type::Number(types::TypeInfo {
                     ref name,
                     type_description: Some(type_description),
                     ..
@@ -352,7 +370,7 @@ fn create_return_type(
                         },
                     ))
                 }
-                parser::types::Type::String(TypeInfo {
+                types::Type::String(types::TypeInfo {
                     ref name,
                     type_description: Some(type_description),
                     ..

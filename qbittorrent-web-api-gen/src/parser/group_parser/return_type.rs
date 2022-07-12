@@ -1,6 +1,6 @@
 use crate::{
     md_parser::MdContent,
-    parser::{object_types::get_object_types, types::Type, ReturnType, ReturnTypeParameter},
+    parser::{object_types::get_object_types, types, ReturnType, ReturnTypeParameter},
 };
 
 pub fn get_return_type(content: &[MdContent]) -> Option<ReturnType> {
@@ -26,7 +26,7 @@ pub fn get_return_type(content: &[MdContent]) -> Option<ReturnType> {
         .map(|parameter| ReturnTypeParameter {
             name: parameter.columns[0].clone(),
             description: parameter.columns[2].clone(),
-            return_type: Type::from(
+            return_type: types::Type::from(
                 &parameter.columns[1],
                 &parameter.columns[0],
                 Some(parameter.columns[2].clone()),

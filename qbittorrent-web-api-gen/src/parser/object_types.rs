@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{md_parser::MdContent, parser::types::TypeDescriptions};
+use crate::{md_parser::MdContent, parser::types};
 
 use super::types::TypeDescription;
 
@@ -17,7 +17,7 @@ pub fn get_object_types(content: &[MdContent]) -> HashMap<String, TypeDescriptio
                     let enum_types = table
                         .rows
                         .iter()
-                        .map(|row| TypeDescriptions {
+                        .map(|row| types::TypeDescriptions {
                             value: row.columns[0].to_string(),
                             description: row.columns[1].to_string(),
                         })

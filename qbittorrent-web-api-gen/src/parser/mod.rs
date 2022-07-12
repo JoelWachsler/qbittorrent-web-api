@@ -1,12 +1,13 @@
 mod group_parser;
 mod object_types;
-pub mod types;
 mod util;
 
 use group_parser::parse_groups;
-use types::Type;
 
-use crate::md_parser::{self, TokenTree};
+use crate::{
+    md_parser::{self, TokenTree},
+    types,
+};
 
 #[derive(Debug)]
 pub struct ApiGroup {
@@ -20,7 +21,7 @@ pub struct ApiGroup {
 pub struct ApiMethod {
     pub name: String,
     pub description: Option<String>,
-    pub parameters: Option<Vec<Type>>,
+    pub parameters: Option<Vec<types::Type>>,
     pub return_type: Option<ReturnType>,
     pub url: String,
 }
@@ -35,7 +36,7 @@ pub struct ReturnType {
 pub struct ReturnTypeParameter {
     pub name: String,
     pub description: String,
-    pub return_type: Type,
+    pub return_type: types::Type,
 }
 
 fn extract_relevant_parts(tree: TokenTree) -> Vec<TokenTree> {
