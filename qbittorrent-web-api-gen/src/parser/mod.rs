@@ -1,45 +1,32 @@
-mod group_parser;
-mod object_types;
-pub mod types;
+use crate::{md_parser, types};
+
+use self::group::parse_api_group;
+
+mod group;
 mod util;
-
-use group_parser::parse_groups;
-use types::Type;
-
-use crate::md_parser::{self, TokenTree};
-
-#[derive(Debug)]
-pub struct ApiGroup {
-    pub name: String,
-    pub methods: Vec<ApiMethod>,
-    pub description: Option<String>,
-    pub url: String,
-}
-
-#[derive(Debug)]
-pub struct ApiMethod {
-    pub name: String,
-    pub description: Option<String>,
-    pub parameters: Option<Vec<Type>>,
-    pub return_type: Option<ReturnType>,
-    pub url: String,
-}
-
-#[derive(Debug)]
-pub struct ReturnType {
-    pub is_list: bool,
-    pub parameters: Vec<ReturnTypeParameter>,
-}
 
 #[derive(Debug)]
 pub struct ReturnTypeParameter {
     pub name: String,
     pub description: String,
-    pub return_type: Type,
+    pub return_type: types::Type,
 }
 
-fn extract_relevant_parts(tree: TokenTree) -> Vec<TokenTree> {
-    let relevant: Vec<TokenTree> = tree
+pub use group::{ApiGroup, ApiMethod, ReturnType};
+
+pub fn parse_api_groups(token_tree: md_parser::TokenTree) -> Vec<ApiGroup> {
+    parse_groups(extract_relevant_parts(token_tree))
+}
+
+pub fn parse_groups(trees: Vec<md_parser::TokenTree>) -> Vec<ApiGroup> {
+    trees
+        .into_iter()
+        .map(|tree| parse_api_group(&tree))
+        .collect()
+}
+
+fn extract_relevant_parts(tree: md_parser::TokenTree) -> Vec<md_parser::TokenTree> {
+    let relevant: Vec<md_parser::TokenTree> = tree
         .children
         .into_iter()
         .skip_while(|row| match &row.title {
@@ -55,18 +42,12 @@ fn extract_relevant_parts(tree: TokenTree) -> Vec<TokenTree> {
     relevant
 }
 
-pub fn parse_api_groups(content: &str) -> Vec<ApiGroup> {
-    parse_groups(extract_relevant_parts(md_parser::TokenTreeFactory::create(
-        content,
-    )))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use std::fs;
 
-    fn parse() -> TokenTree {
+    fn parse() -> md_parser::TokenTree {
         let content = include_str!("../../api-4_1.md");
         let md_tree = md_parser::TokenTreeFactory::create(content);
 
