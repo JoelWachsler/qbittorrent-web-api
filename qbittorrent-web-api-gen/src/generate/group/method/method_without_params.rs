@@ -9,42 +9,39 @@ pub fn create_method_without_params(
     method_name: proc_macro2::Ident,
     url: &str,
 ) -> (proc_macro2::TokenStream, Option<proc_macro2::TokenStream>) {
-    match create_return_type(group, method) {
+    let res = match create_return_type(group, method) {
         Some((return_type_name, return_type)) => (
-            util::add_docs(
-                &method.description,
-                quote! {
-                    pub async fn #method_name(&self) -> Result<#return_type_name> {
-                        let res = self.auth
-                            .authenticated_client(#url)
-                            .send()
-                            .await?
-                            .json::<#return_type_name>()
-                            .await?;
+            quote! {
+                pub async fn #method_name(&self) -> Result<#return_type_name> {
+                    let res = self.auth
+                        .authenticated_client(#url)
+                        .send()
+                        .await?
+                        .json::<#return_type_name>()
+                        .await?;
 
-                        Ok(res)
-                    }
-                },
-            ),
+                    Ok(res)
+                }
+            },
             Some(return_type),
         ),
         None => (
-            util::add_docs(
-                &method.description,
-                quote! {
-                    pub async fn #method_name(&self) -> Result<String> {
-                        let res = self.auth
-                            .authenticated_client(#url)
-                            .send()
-                            .await?
-                            .text()
-                            .await?;
+            quote! {
+                pub async fn #method_name(&self) -> Result<String> {
+                    let res = self.auth
+                        .authenticated_client(#url)
+                        .send()
+                        .await?
+                        .text()
+                        .await?;
 
-                        Ok(res)
-                    }
-                },
-            ), // assume that all methods without a return type returns a string
+                    Ok(res)
+                }
+            },
+            // assume that all methods without a return type returns a string
             None,
         ),
-    }
+    };
+
+    (util::add_docs(&method.description, res.0), res.1)
 }
