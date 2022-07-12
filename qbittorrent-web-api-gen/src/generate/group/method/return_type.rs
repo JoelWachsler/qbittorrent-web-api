@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use case::CaseExt;
-use quote::{quote, format_ident};
+use quote::{format_ident, quote};
 use regex::Regex;
 
 use crate::{generate::util, parser, types};
