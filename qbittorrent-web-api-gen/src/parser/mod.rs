@@ -1,13 +1,13 @@
-mod group_parser;
+use crate::{md_parser, types};
+
+use self::{parameters::get_parameters, return_type::get_return_type, url_parser::get_method_url};
+
+mod description;
 mod object_types;
+mod parameters;
+mod return_type;
+mod url_parser;
 mod util;
-
-use group_parser::parse_groups;
-
-use crate::{
-    md_parser::{self, TokenTree},
-    types,
-};
 
 #[derive(Debug)]
 pub struct ApiGroup {
@@ -39,8 +39,8 @@ pub struct ReturnTypeParameter {
     pub return_type: types::Type,
 }
 
-fn extract_relevant_parts(tree: TokenTree) -> Vec<TokenTree> {
-    let relevant: Vec<TokenTree> = tree
+fn extract_relevant_parts(tree: md_parser::TokenTree) -> Vec<md_parser::TokenTree> {
+    let relevant: Vec<md_parser::TokenTree> = tree
         .children
         .into_iter()
         .skip_while(|row| match &row.title {
@@ -62,12 +62,67 @@ pub fn parse_api_groups(content: &str) -> Vec<ApiGroup> {
     )))
 }
 
+pub fn parse_groups(trees: Vec<md_parser::TokenTree>) -> Vec<ApiGroup> {
+    trees.into_iter().map(parse_api_group).collect()
+}
+
+fn parse_api_group(tree: md_parser::TokenTree) -> ApiGroup {
+    let methods = tree
+        .children
+        .into_iter()
+        .flat_map(parse_api_method)
+        .collect();
+
+    let group_description = description::get_group_description(&tree.content);
+    let group_url = url_parser::get_group_url(&tree.content);
+
+    let name = tree
+        .title
+        .unwrap()
+        .to_lowercase()
+        .trim_end_matches("(experimental)")
+        .trim()
+        .replace(' ', "_");
+
+    ApiGroup {
+        name,
+        methods,
+        description: group_description,
+        url: group_url,
+    }
+}
+
+fn parse_api_method(child: md_parser::TokenTree) -> Option<ApiMethod> {
+    util::find_content_starts_with(&child.content, "Name: ")
+        .map(|name| {
+            name.trim_start_matches("Name: ")
+                .trim_matches('`')
+                .to_string()
+        })
+        .map(|name| to_api_method(&child, &name))
+}
+
+fn to_api_method(child: &md_parser::TokenTree, name: &str) -> ApiMethod {
+    let method_description = description::get_method_description(&child.content);
+    let return_type = get_return_type(&child.content);
+    let parameters = get_parameters(&child.content);
+    let method_url = get_method_url(&child.content);
+
+    ApiMethod {
+        name: name.to_string(),
+        description: method_description,
+        parameters,
+        return_type,
+        url: method_url,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use std::fs;
 
-    fn parse() -> TokenTree {
+    fn parse() -> md_parser::TokenTree {
         let content = include_str!("../../api-4_1.md");
         let md_tree = md_parser::TokenTreeFactory::create(content);
 
