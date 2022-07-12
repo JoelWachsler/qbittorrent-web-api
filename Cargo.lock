@@ -545,7 +545,7 @@ dependencies = [
 
 [[package]]
 name = "qbittorrent-web-api"
-version = "0.3.0"
+version = "0.3.2"
 dependencies = [
  "qbittorrent-web-api-gen",
  "reqwest",
@@ -557,7 +557,7 @@ dependencies = [
 
 [[package]]
 name = "qbittorrent-web-api-gen"
-version = "0.3.0"
+version = "0.3.2"
 dependencies = [
  "anyhow",
  "case",
