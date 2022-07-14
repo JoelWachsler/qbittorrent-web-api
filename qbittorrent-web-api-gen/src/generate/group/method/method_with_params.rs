@@ -6,7 +6,7 @@ use quote::quote;
 
 use crate::{
     generate::util,
-    parser::{self, ApiParameters},
+    parser::{self, ApiMethod, ApiParameters},
     types,
 };
 
@@ -26,8 +26,6 @@ pub fn create_method_with_params(
     ));
 
     let parameters = Parameters::new(params);
-
-    let mandatory_param_args = parameters.mandatory.generate_params();
 
     let group_name = util::to_ident(&group.name.to_camel());
     let send_builder =
@@ -49,16 +47,7 @@ pub fn create_method_with_params(
         None => send_impl_generator.generate(send_builder),
     };
 
-    let mandatory_param_names = parameters.mandatory.names();
-
-    let builder = util::add_docs(
-        &method.description,
-        quote! {
-            pub fn #method_name(&self, #(#mandatory_param_args),*) -> #param_type {
-                #param_type::new(self, #(#mandatory_param_names),*)
-            }
-        },
-    );
+    let builder = generate_builder(&parameters, method, method_name, &param_type);
 
     let group_impl = quote! {
         pub struct #param_type<'a> {
@@ -70,6 +59,25 @@ pub fn create_method_with_params(
     };
 
     (builder, Some(group_impl))
+}
+
+fn generate_builder(
+    parameters: &Parameters,
+    method: &ApiMethod,
+    method_name: &proc_macro2::Ident,
+    param_type: &proc_macro2::Ident,
+) -> proc_macro2::TokenStream {
+    let mandatory_param_names = parameters.mandatory.names();
+    let mandatory_param_args = parameters.mandatory.generate_params();
+
+    util::add_docs(
+        &method.description,
+        quote! {
+            pub fn #method_name(&self, #(#mandatory_param_args),*) -> #param_type {
+                #param_type::new(self, #(#mandatory_param_names),*)
+            }
+        },
+    )
 }
 
 #[derive(Debug)]
