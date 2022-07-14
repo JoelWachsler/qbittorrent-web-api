@@ -7,9 +7,15 @@ keywords = ["qbittorrent"]
 repository = "https://github.com/JoelWachsler/qbittorrent-web-api"
 description = "Generated web api for qBittorrent"
 exclude = ["*.txt", "tests"]
+# we use trybuild instead
+autotests = false
 
 [lib]
 proc-macro = true
+
+[[test]]
+name = "tests"
+path = "tests/tests.rs"
 
 [dependencies]
 syn = { version = "1.0.98", features = ["extra-traits"]}
