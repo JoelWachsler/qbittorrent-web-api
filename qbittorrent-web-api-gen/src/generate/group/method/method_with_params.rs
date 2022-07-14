@@ -1,6 +1,7 @@
 use std::rc::Rc;
 
 use case::CaseExt;
+use proc_macro2::TokenStream;
 use quote::quote;
 
 use crate::{
@@ -17,56 +18,38 @@ pub fn create_method_with_params(
     params: &parser::ApiParameters,
     method_name: &proc_macro2::Ident,
     url: &str,
-) -> (proc_macro2::TokenStream, Option<proc_macro2::TokenStream>) {
+) -> (TokenStream, Option<TokenStream>) {
     let param_type = util::to_ident(&format!(
         "{}{}Parameters",
         group.name.to_camel(),
         method.name.to_camel()
     ));
 
-    let rc_params = Rc::new(params);
+    let parameters = Parameters::new(params);
 
-    let mandatory_params = MandatoryParams::new(&rc_params);
-    let optional_params = OptionalParams::new(&rc_params);
-
-    let mandatory_param_args = mandatory_params.generate_params();
+    let mandatory_param_args = parameters.mandatory.generate_params();
 
     let group_name = util::to_ident(&group.name.to_camel());
     let send_builder =
         SendMethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth })
             .with_form();
 
-    let generate_send_impl = |send_method: proc_macro2::TokenStream| {
-        let optional_params = optional_params.generate_params();
-        let mandatory_param_form_build = mandatory_params.param_builder();
-
-        quote! {
-            impl<'a> #param_type<'a> {
-                fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
-                    let form = reqwest::multipart::Form::new();
-                    #(#mandatory_param_form_build)*
-                    Self { group, form }
-                }
-
-                #(#optional_params)*
-                #send_method
-            }
-        }
-    };
+    let send_impl_generator = SendImplGenerator::new(&group_name, &parameters, &param_type);
 
     let send = match create_return_type(group, method) {
         Some((return_type_name, return_type)) => {
-            let send_impl = generate_send_impl(send_builder.return_type(&return_type_name).build());
+            let send_impl =
+                send_impl_generator.generate(send_builder.return_type(&return_type_name));
 
             quote! {
                 #send_impl
                 #return_type
             }
         }
-        None => generate_send_impl(send_builder.build()),
+        None => send_impl_generator.generate(send_builder),
     };
 
-    let mandatory_param_names = mandatory_params.names();
+    let mandatory_param_names = parameters.mandatory.names();
 
     let builder = util::add_docs(
         &method.description,
@@ -90,6 +73,71 @@ pub fn create_method_with_params(
 }
 
 #[derive(Debug)]
+struct SendImplGenerator<'a> {
+    group_name: &'a proc_macro2::Ident,
+    parameters: &'a Parameters<'a>,
+    param_type: &'a proc_macro2::Ident,
+}
+
+impl<'a> SendImplGenerator<'a> {
+    fn new(
+        group_name: &'a proc_macro2::Ident,
+        parameters: &'a Parameters<'a>,
+        param_type: &'a proc_macro2::Ident,
+    ) -> Self {
+        Self {
+            group_name,
+            parameters,
+            param_type,
+        }
+    }
+
+    fn generate(&self, send_method_builder: SendMethodBuilder) -> TokenStream {
+        let parameters = self.parameters;
+
+        let optional_builder_methods = parameters.optional.generate_builder_methods();
+        let mandatory_param_form_build = parameters.mandatory.form_builder();
+        let mandatory_param_args = parameters.mandatory.generate_params();
+        let param_type = self.param_type;
+        let group_name = self.group_name;
+        let send_method = send_method_builder.build();
+
+        quote! {
+            impl<'a> #param_type<'a> {
+                fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
+                    let form = reqwest::multipart::Form::new();
+                    #(#mandatory_param_form_build)*
+                    Self { group, form }
+                }
+
+                #(#optional_builder_methods)*
+                #send_method
+            }
+        }
+    }
+}
+
+#[derive(Debug)]
+struct Parameters<'a> {
+    mandatory: MandatoryParams<'a>,
+    optional: OptionalParams<'a>,
+}
+
+impl<'a> Parameters<'a> {
+    fn new(api_parameters: &'a ApiParameters) -> Self {
+        let rc_params = Rc::new(api_parameters);
+
+        let mandatory = MandatoryParams::new(&rc_params);
+        let optional = OptionalParams::new(&rc_params);
+
+        Self {
+            mandatory,
+            optional,
+        }
+    }
+}
+
+#[derive(Debug)]
 struct MandatoryParams<'a> {
     params: &'a ApiParameters,
 }
@@ -99,7 +147,7 @@ impl<'a> MandatoryParams<'a> {
         Self { params }
     }
 
-    fn generate_params(&self) -> Vec<proc_macro2::TokenStream> {
+    fn generate_params(&self) -> Vec<TokenStream> {
         self.params
             .mandatory
             .iter()
@@ -107,7 +155,7 @@ impl<'a> MandatoryParams<'a> {
             .collect()
     }
 
-    fn param_builder(&self) -> Vec<proc_macro2::TokenStream> {
+    fn form_builder(&self) -> Vec<TokenStream> {
         self.params
             .mandatory
             .iter()
@@ -120,7 +168,7 @@ impl<'a> MandatoryParams<'a> {
             .collect()
     }
 
-    fn names(&self) -> Vec<proc_macro2::TokenStream> {
+    fn names(&self) -> Vec<TokenStream> {
         self.params
             .mandatory
             .iter()
@@ -140,29 +188,32 @@ impl<'a> OptionalParams<'a> {
         Self { params }
     }
 
-    fn generate_params(&self) -> Vec<proc_macro2::TokenStream> {
+    fn generate_builder_methods(&self) -> Vec<TokenStream> {
         self.params
             .optional
             .iter()
-            .map(Self::generate_param)
+            .map(Self::generate_builder_method)
             .collect()
     }
 
-    fn generate_param(param: &types::Type) -> proc_macro2::TokenStream {
-        let n = &param.get_type_info().name;
-        let name = util::to_ident(&n.to_snake());
-        let t = util::to_ident(&param.to_borrowed_type());
+    fn generate_builder_method(param: &types::Type) -> TokenStream {
+        let parameter = param.to_parameter();
+        let name = parameter.name();
+        let name_ident = parameter.name_ident();
+
+        let param_type = util::to_ident(&param.to_borrowed_type());
+
         let builder_param = if param.should_borrow() {
-            quote! { &#t }
+            quote! { &#param_type }
         } else {
-            quote! { #t }
+            quote! { #param_type }
         };
 
         util::add_docs(
             &param.get_type_info().description,
             quote! {
-                pub fn #name(mut self, value: #builder_param) -> Self {
-                    self.form = self.form.text(#n, value.to_string());
+                pub fn #name_ident(mut self, value: #builder_param) -> Self {
+                    self.form = self.form.text(#name, value.to_string());
                     self
                 }
             },
@@ -188,7 +239,7 @@ impl<'a> Parameter<'a> {
         util::to_ident(&self.name())
     }
 
-    fn generate_param_with_name(&self) -> proc_macro2::TokenStream {
+    fn generate_param_with_name(&self) -> TokenStream {
         let t = util::to_ident(&self.p_type.to_borrowed_type());
 
         let name_ident = self.name_ident();
