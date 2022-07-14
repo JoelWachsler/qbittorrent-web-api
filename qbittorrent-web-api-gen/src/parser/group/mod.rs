@@ -5,7 +5,7 @@ mod url;
 use crate::md_parser;
 
 use self::{description::parse_group_description, method::parse_api_method, url::get_group_url};
-pub use method::{ApiMethod, ReturnType};
+pub use method::*;
 
 #[derive(Debug)]
 pub struct ApiGroup {

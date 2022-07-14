@@ -8,30 +8,33 @@
                     "Upon success, the response will contain a cookie with your SID. You must supply the cookie whenever you want to perform an operation that requires authentication.\n\nExample showing how to login and execute a command that requires authentication using `curl`:\n\n```sh\n$ curl -i --header 'Referer: http://localhost:8080' --data 'username=admin&password=adminadmin' http://localhost:8080/api/v2/auth/login\nHTTP/1.1 200 OK\nContent-Encoding:\nContent-Length: 3\nContent-Type: text/plain; charset=UTF-8\nSet-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/\n$ curl http://localhost:8080/api/v2/torrents/info --cookie \"SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ\"\n```\n\nNote: Set `Referer` or `Origin` header to the exact same domain and port as used in the HTTP query `Host` header.",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "username",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Username used to access the WebUI",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "password",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Password used to access the WebUI",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "username",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Username used to access the WebUI",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "password",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Password used to access the WebUI",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "login",
@@ -2599,63 +2602,66 @@
                     "The response is a JSON array in which each element is an entry of the log.\n\nEach element of the array has the following properties:\n\n\nExample:\n\n```JSON\n[\n    {\n        \"id\":0,\n        \"message\":\"qBittorrent v3.4.0 started\",\n        \"timestamp\":1507969127860,\n        \"type\":1\n    },\n    {\n        \"id\":1,\n        \"message\":\"qBittorrent is trying to listen on any interface port: 19036\",\n        \"timestamp\":1507969127869,\n        \"type\":2\n    },\n    {\n        \"id\":2,\n        \"message\":\"Peer ID: -qB3400-\",\n        \"timestamp\":1507969127870,\n        \"type\":1\n    },\n    {\n        \"id\":3,\n        \"message\":\"HTTP User-Agent is 'qBittorrent/3.4.0'\",\n        \"timestamp\":1507969127870,\n        \"type\":1\n    },\n    {\n        \"id\":4,\n        \"message\":\"DHT support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":5,\n        \"message\":\"Local Peer Discovery support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":6,\n        \"message\":\"PeX support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":7,\n        \"message\":\"Anonymous mode [OFF]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":8,\n        \"message\":\"Encryption support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":9,\n        \"message\":\"Embedded Tracker [OFF]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":10,\n        \"message\":\"UPnP / NAT-PMP support [ON]\",\n        \"timestamp\":1507969127873,\n        \"type\":2\n    },\n    {\n        \"id\":11,\n        \"message\":\"Web UI: Now listening on port 8080\",\n        \"timestamp\":1507969127883,\n        \"type\":1\n    },\n    {\n        \"id\":12,\n        \"message\":\"Options were saved successfully.\",\n        \"timestamp\":1507969128055,\n        \"type\":1\n    },\n    {\n        \"id\":13,\n        \"message\":\"qBittorrent is successfully listening on interface :: port: TCP/19036\",\n        \"timestamp\":1507969128270,\n        \"type\":2\n    },\n    {\n        \"id\":14,\n        \"message\":\"qBittorrent is successfully listening on interface 0.0.0.0 port: TCP/19036\",\n        \"timestamp\":1507969128271,\n        \"type\":2\n    },\n    {\n        \"id\":15,\n        \"message\":\"qBittorrent is successfully listening on interface 0.0.0.0 port: UDP/19036\",\n        \"timestamp\":1507969128272,\n        \"type\":2\n    }\n]\n```",
                 ),
                 parameters: Some(
-                    [
-                        Bool(
-                            TypeInfo {
-                                name: "normal",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Include normal messages (default: true)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Bool(
-                            TypeInfo {
-                                name: "info",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Include info messages (default: true)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Bool(
-                            TypeInfo {
-                                name: "warning",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Include warning messages (default: true)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Bool(
-                            TypeInfo {
-                                name: "critical",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Include critical messages (default: true)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "last_known_id",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Exclude messages with \"message id\" <= last_known_id (default: -1)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [],
+                        optional: [
+                            Bool(
+                                TypeInfo {
+                                    name: "normal",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Include normal messages (default: true)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Bool(
+                                TypeInfo {
+                                    name: "info",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Include info messages (default: true)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Bool(
+                                TypeInfo {
+                                    name: "warning",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Include warning messages (default: true)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Bool(
+                                TypeInfo {
+                                    name: "critical",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Include critical messages (default: true)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "last_known_id",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Exclude messages with \"message id\" <= last_known_id (default: -1)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: Some(
                     ReturnType {
@@ -2732,19 +2738,22 @@
                     "The response a JSON array. Each element of the array of objects (each object is the information relative to a peer) containing the following fields",
                 ),
                 parameters: Some(
-                    [
-                        Number(
-                            TypeInfo {
-                                name: "last_known_id",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Exclude messages with \"message id\" <= last_known_id (default: -1)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [],
+                        optional: [
+                            Number(
+                                TypeInfo {
+                                    name: "last_known_id",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Exclude messages with \"message id\" <= last_known_id (default: -1)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: None,
                 url: "peers",
@@ -2764,19 +2773,22 @@
                     "The response is a JSON object with the following possible fields\n\n\nExample:\n\n```JSON\n{\n    \"rid\":15,\n    \"torrents\":\n    {\n        \"8c212779b4abde7c6bc608063a0d008b7e40ce32\":\n        {\n            \"state\":\"pausedUP\"\n        }\n    }\n}\n```",
                 ),
                 parameters: Some(
-                    [
-                        Number(
-                            TypeInfo {
-                                name: "rid",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            Number(
+                                TypeInfo {
+                                    name: "rid",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: Some(
                     ReturnType {
@@ -2928,30 +2940,33 @@
                     "The response is TODO",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Torrent hash",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "rid",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Torrent hash",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "rid",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "torrentPeers",
@@ -3146,19 +3161,22 @@
                 name: "setDownloadLimit",
                 description: None,
                 parameters: Some(
-                    [
-                        Number(
-                            TypeInfo {
-                                name: "limit",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The global download speed limit to set in bytes/second",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            Number(
+                                TypeInfo {
+                                    name: "limit",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The global download speed limit to set in bytes/second",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "setDownloadLimit",
@@ -3176,19 +3194,22 @@
                 name: "setUploadLimit",
                 description: None,
                 parameters: Some(
-                    [
-                        Number(
-                            TypeInfo {
-                                name: "limit",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The global upload speed limit to set in bytes/second",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            Number(
+                                TypeInfo {
+                                    name: "limit",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The global upload speed limit to set in bytes/second",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "setUploadLimit",
@@ -3197,19 +3218,22 @@
                 name: "banPeers",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "peers",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The peer to ban, or multiple peers separated by a pipe \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "peers",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The peer to ban, or multiple peers separated by a pipe \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "banPeers",
@@ -3229,96 +3253,99 @@
                     "The response is a JSON array with the following fields\n\n\nPossible values of `state`:\n\n\nExample:\n\n```JSON\n[\n    {\n        \"dlspeed\":9681262,\n        \"eta\":87,\n        \"f_l_piece_prio\":false,\n        \"force_start\":false,\n        \"hash\":\"8c212779b4abde7c6bc608063a0d008b7e40ce32\",\n        \"category\":\"\",\n        \"tags\": \"\",\n        \"name\":\"debian-8.1.0-amd64-CD-1.iso\",\n        \"num_complete\":-1,\n        \"num_incomplete\":-1,\n        \"num_leechs\":2,\n        \"num_seeds\":54,\n        \"priority\":1,\n        \"progress\":0.16108787059783936,\n        \"ratio\":0,\n        \"seq_dl\":false,\n        \"size\":657457152,\n        \"state\":\"downloading\",\n        \"super_seeding\":false,\n        \"upspeed\":0\n    },\n    {\n        another_torrent_info\n    }\n]\n```",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "filter",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Filter torrent list by state. Allowed state filters: all, downloading, seeding, completed, paused, active, inactive, resumed, stalled, stalled_uploading, stalled_downloading, errored",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "category",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Get torrents with the given category (empty string means \"without category\"; no \"category\" parameter means \"any category\" <- broken until [#11748](https://github.com/qbittorrent/qBittorrent/issues/11748) is resolved). Remember to URL-encode the category name. For example, My category becomes My%20category",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "tag",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Get torrents with the given tag (empty string means \"without tag\"; no \"tag\" parameter means \"any tag\". Remember to URL-encode the category name. For example, My tag becomes My%20tag",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "sort",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Sort torrents by given key. They can be sorted using any field of the response's JSON array (which are documented below) as the sort key.",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Bool(
-                            TypeInfo {
-                                name: "reverse",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Enable reverse sorting. Defaults to false",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "limit",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Limit the number of torrents returned",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "offset",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Set offset (if less than 0, offset from end)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Filter by hashes. Can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [],
+                        optional: [
+                            String(
+                                TypeInfo {
+                                    name: "filter",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Filter torrent list by state. Allowed state filters: all, downloading, seeding, completed, paused, active, inactive, resumed, stalled, stalled_uploading, stalled_downloading, errored",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "category",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Get torrents with the given category (empty string means \"without category\"; no \"category\" parameter means \"any category\" <- broken until [#11748](https://github.com/qbittorrent/qBittorrent/issues/11748) is resolved). Remember to URL-encode the category name. For example, My category becomes My%20category",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "tag",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Get torrents with the given tag (empty string means \"without tag\"; no \"tag\" parameter means \"any tag\". Remember to URL-encode the category name. For example, My tag becomes My%20tag",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "sort",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Sort torrents by given key. They can be sorted using any field of the response's JSON array (which are documented below) as the sort key.",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Bool(
+                                TypeInfo {
+                                    name: "reverse",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Enable reverse sorting. Defaults to false",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "limit",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Limit the number of torrents returned",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "offset",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Set offset (if less than 0, offset from end)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Filter by hashes. Can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: Some(
                     ReturnType {
@@ -4091,19 +4118,22 @@
                     "The response is:\n\n- empty, if the torrent hash is invalid\n- otherwise, a JSON object with the following fields\n\n\nNB: `-1` is returned if the type of the property is integer but its value is not known.\n\nExample:\n\n```JSON\n{\n    \"addition_date\":1438429165,\n    \"comment\":\"\\\"Debian CD from cdimage.debian.org\\\"\",\n    \"completion_date\":1438429234,\n    \"created_by\":\"\",\n    \"creation_date\":1433605214,\n    \"dl_limit\":-1,\n    \"dl_speed\":0,\n    \"dl_speed_avg\":9736015,\n    \"eta\":8640000,\n    \"last_seen\":1438430354,\n    \"nb_connections\":3,\n    \"nb_connections_limit\":250,\n    \"peers\":1,\n    \"peers_total\":89,\n    \"piece_size\":524288,\n    \"pieces_have\":1254,\n    \"pieces_num\":1254,\n    \"reannounce\":672,\n    \"save_path\":\"/Downloads/debian-8.1.0-amd64-CD-1.iso\",\n    \"seeding_time\":1128,\n    \"seeds\":1,\n    \"seeds_total\":254,\n    \"share_ratio\":0.00072121022562178299,\n    \"time_elapsed\":1197,\n    \"total_downloaded\":681521119,\n    \"total_downloaded_session\":681521119,\n    \"total_size\":657457152,\n    \"total_uploaded\":491520,\n    \"total_uploaded_session\":491520,\n    \"total_wasted\":23481724,\n    \"up_limit\":-1,\n    \"up_speed\":0,\n    \"up_speed_avg\":410\n}\n```",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent you want to get the generic properties of",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent you want to get the generic properties of",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "properties",
@@ -4114,19 +4144,22 @@
                     "The response is a JSON array, where each element contains info about one tracker, with the following fields\n\n\nPossible values of `status`:\n\n\nExample:\n\n```JSON\n[\n    {\n        \"msg\":\"\",\n        \"num_peers\":100,\n        \"status\":2,\n        \"url\":\"http://bttracker.debian.org:6969/announce\"\n    },\n    {\n        another_tracker_info\n    }\n]\n```",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent you want to get the trackers of",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent you want to get the trackers of",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: Some(
                     ReturnType {
@@ -4288,19 +4321,22 @@
                     "The response is a JSON array, where each element is information about one webseed, with the following fields\n\n\nExample:\n\n```JSON\n[\n    {\n        \"url\":\"http://some_url/\"\n    },\n    {\n        \"url\":\"http://some_other_url/\"\n    }\n]\n```",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent you want to get the webseeds of",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent you want to get the webseeds of",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: Some(
                     ReturnType {
@@ -4332,30 +4368,34 @@
                     "The response is:\n\n- empty, if the torrent hash is invalid\n- otherwise, a JSON array, where each element contains info about one file, with the following fields\n\n\nPossible values of `priority`:\n\n\nExample:\n\n```JSON\n\n[\n    {\n        \"index\":0,\n        \"is_seed\":false,\n        \"name\":\"debian-8.1.0-amd64-CD-1.iso\",\n        \"piece_range\":[0,1253],\n        \"priority\":1,\n        \"progress\":0,\n        \"size\":657457152,\n        \"availability\":0.5,\n    }\n]\n```",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent you want to get the contents of",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "indexes",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "The indexes of the files you want to retrieve. indexes can contain multiple values separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent you want to get the contents of",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [
+                            String(
+                                TypeInfo {
+                                    name: "indexes",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "The indexes of the files you want to retrieve. indexes can contain multiple values separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: None,
                 url: "files",
@@ -4366,19 +4406,22 @@
                     "The response is:\n\n- empty, if the torrent hash is invalid\n- otherwise, an array of states (integers) of all pieces (in order) of a specific torrent.\n\nValue meanings are defined as below:\n\n\nExample:\n\n```JSON\n[0,0,2,1,0,0,2,1]\n```",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent you want to get the pieces' states of",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent you want to get the pieces' states of",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "pieceStates",
@@ -4389,19 +4432,22 @@
                     "The response is:\n\n- empty, if the torrent hash is invalid\n- otherwise, an array of hashes (strings) of all pieces (in order) of a specific torrent.\n\nExample:\n\n```JSON\n[\"54eddd830a5b58480a6143d616a97e3a6c23c439\",\"f8a99d225aa4241db100f88407fc3bdaead583ab\",\"928fb615b9bd4dd8f9e9022552c8f8f37ef76f58\"]\n```",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent you want to get the pieces' hashes of",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent you want to get the pieces' hashes of",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "pieceHashes",
@@ -4410,19 +4456,22 @@
                 name: "pause",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to pause. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to pause. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "pause",
@@ -4431,19 +4480,22 @@
                 name: "resume",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to resume. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to resume. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "resume",
@@ -4452,19 +4504,22 @@
                 name: "delete",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to delete. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to delete. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "delete",
@@ -4473,19 +4528,22 @@
                 name: "recheck",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to recheck. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to recheck. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "recheck",
@@ -4494,19 +4552,22 @@
                 name: "reannounce",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to reannounce. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to reannounce. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "reannounce",
@@ -4515,184 +4576,188 @@
                 name: "add",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "urls",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "URLs separated with newlines",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "savepath",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Download folder",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "cookie",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Cookie sent to download the .torrent file",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "category",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Category for the torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "tags",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Tags for the torrent, split by ','",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "skip_checking",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Skip hash checking. Possible values are true, false (default)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "paused",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Add torrents in the paused state. Possible values are true, false (default)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "root_folder",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Create the root folder. Possible values are true, false, unset (default)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "rename",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Rename torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "upLimit",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Set torrent upload speed limit. Unit in bytes/second",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "dlLimit",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Set torrent download speed limit. Unit in bytes/second",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Float(
-                            TypeInfo {
-                                name: "ratioLimit",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Set torrent share ratio limit",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "seedingTimeLimit",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Set torrent seeding time limit. Unit in seconds",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Bool(
-                            TypeInfo {
-                                name: "autoTMM",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Whether Automatic Torrent Management should be used",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "sequentialDownload",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Enable sequential download. Possible values are true, false (default)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "firstLastPiecePrio",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Prioritize download first last piece. Possible values are true, false (default)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "urls",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "URLs separated with newlines",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [
+                            String(
+                                TypeInfo {
+                                    name: "savepath",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Download folder",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "cookie",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Cookie sent to download the .torrent file",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "category",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Category for the torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "tags",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Tags for the torrent, split by ','",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "skip_checking",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Skip hash checking. Possible values are true, false (default)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "paused",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Add torrents in the paused state. Possible values are true, false (default)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "root_folder",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Create the root folder. Possible values are true, false, unset (default)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "rename",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Rename torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "upLimit",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Set torrent upload speed limit. Unit in bytes/second",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "dlLimit",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Set torrent download speed limit. Unit in bytes/second",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Float(
+                                TypeInfo {
+                                    name: "ratioLimit",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Set torrent share ratio limit",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "seedingTimeLimit",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Set torrent seeding time limit. Unit in seconds",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Bool(
+                                TypeInfo {
+                                    name: "autoTMM",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Whether Automatic Torrent Management should be used",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "sequentialDownload",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Enable sequential download. Possible values are true, false (default)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "firstLastPiecePrio",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Prioritize download first last piece. Possible values are true, false (default)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: None,
                 url: "add",
@@ -4708,41 +4773,44 @@
                 name: "editTracker",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "origUrl",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The tracker URL you want to edit",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "newUrl",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The new URL to replace the origUrl",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "origUrl",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The tracker URL you want to edit",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "newUrl",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The new URL to replace the origUrl",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "editTracker",
@@ -4751,30 +4819,33 @@
                 name: "removeTrackers",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "urls",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "URLs to remove, separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "urls",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "URLs to remove, separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "removeTrackers",
@@ -4783,30 +4854,33 @@
                 name: "addPeers",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent, or multiple hashes separated by a pipe \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "peers",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The peer to add, or multiple peers separated by a pipe \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent, or multiple hashes separated by a pipe \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "peers",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The peer to add, or multiple peers separated by a pipe \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "addPeers",
@@ -4815,19 +4889,22 @@
                 name: "increasePrio",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to increase the priority of. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to increase the priority of. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "increasePrio",
@@ -4836,19 +4913,22 @@
                 name: "decreasePrio",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to decrease the priority of. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to decrease the priority of. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "decreasePrio",
@@ -4857,19 +4937,22 @@
                 name: "topPrio",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to set to the maximum priority. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to set to the maximum priority. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "topPrio",
@@ -4878,19 +4961,22 @@
                 name: "bottomPrio",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to set to the minimum priority. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to set to the minimum priority. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "bottomPrio",
@@ -4899,41 +4985,44 @@
                 name: "filePrio",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "id",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "File ids, separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "priority",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "File priority to set (consult [torrent contents API](#get-torrent-contents) for possible values)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "id",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "File ids, separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "priority",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "File priority to set (consult [torrent contents API](#get-torrent-contents) for possible values)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "filePrio",
@@ -5061,19 +5150,22 @@
                 name: "toggleSequentialDownload",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to toggle sequential download for. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to toggle sequential download for. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "toggleSequentialDownload",
@@ -5082,19 +5174,22 @@
                 name: "toggleFirstLastPiecePrio",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hashes",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hashes of the torrents you want to toggle the first/last piece priority for. hashes can contain multiple hashes separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hashes",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hashes of the torrents you want to toggle the first/last piece priority for. hashes can contain multiple hashes separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "toggleFirstLastPiecePrio",
@@ -5117,41 +5212,44 @@
                 name: "renameFile",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "oldPath",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The old path of the torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "newPath",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The new path to use for the file",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "oldPath",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The old path of the torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "newPath",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The new path to use for the file",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "renameFile",
@@ -5160,41 +5258,44 @@
                 name: "renameFolder",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "hash",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The hash of the torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "oldPath",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The old path of the torrent",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "newPath",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "The new path to use for the file",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "hash",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The hash of the torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "oldPath",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The old path of the torrent",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "newPath",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "The new path to use for the file",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "renameFolder",
@@ -5212,19 +5313,22 @@
                 name: "addFolder",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "path",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Full path of added folder (e.g. \"The Pirate Bay\\Top100\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "path",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Full path of added folder (e.g. \"The Pirate Bay\\Top100\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "addFolder",
@@ -5233,30 +5337,34 @@
                 name: "addFeed",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "url",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "URL of RSS feed (e.g. \"[http://thepiratebay.org/rss//top100/200](http://thepiratebay.org/rss//top100/200)\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "path",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "Full path of added folder (e.g. \"The Pirate Bay\\Top100\\Video\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "url",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "URL of RSS feed (e.g. \"[http://thepiratebay.org/rss//top100/200](http://thepiratebay.org/rss//top100/200)\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [
+                            String(
+                                TypeInfo {
+                                    name: "path",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "Full path of added folder (e.g. \"The Pirate Bay\\Top100\\Video\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: None,
                 url: "addFeed",
@@ -5265,19 +5373,22 @@
                 name: "removeItem",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "path",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Full path of removed item (e.g. \"The Pirate Bay\\Top100\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "path",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Full path of removed item (e.g. \"The Pirate Bay\\Top100\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "removeItem",
@@ -5286,30 +5397,33 @@
                 name: "moveItem",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "itemPath",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "destPath",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "New full path of item (e.g. \"The Pirate Bay\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "itemPath",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "destPath",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "New full path of item (e.g. \"The Pirate Bay\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "moveItem",
@@ -5318,19 +5432,22 @@
                 name: "items",
                 description: None,
                 parameters: Some(
-                    [
-                        Bool(
-                            TypeInfo {
-                                name: "withData",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "True if you need current feed articles",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [],
+                        optional: [
+                            Bool(
+                                TypeInfo {
+                                    name: "withData",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "True if you need current feed articles",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: None,
                 url: "items",
@@ -5339,30 +5456,34 @@
                 name: "markAsRead",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "itemPath",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "articleId",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "ID of article",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "itemPath",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [
+                            String(
+                                TypeInfo {
+                                    name: "articleId",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "ID of article",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: None,
                 url: "markAsRead",
@@ -5371,19 +5492,22 @@
                 name: "refreshItem",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "itemPath",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "itemPath",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "refreshItem",
@@ -5392,30 +5516,33 @@
                 name: "setRule",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "ruleName",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Rule name (e.g. \"Punisher\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "ruleDef",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "JSON encoded rule definition",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "ruleName",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Rule name (e.g. \"Punisher\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "ruleDef",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "JSON encoded rule definition",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "setRule",
@@ -5424,30 +5551,33 @@
                 name: "renameRule",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "ruleName",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Rule name (e.g. \"Punisher\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "newRuleName",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "New rule name (e.g. \"The Punisher\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "ruleName",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Rule name (e.g. \"Punisher\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "newRuleName",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "New rule name (e.g. \"The Punisher\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "renameRule",
@@ -5456,19 +5586,22 @@
                 name: "removeRule",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "ruleName",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Rule name (e.g. \"Punisher\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "ruleName",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Rule name (e.g. \"Punisher\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "removeRule",
@@ -5502,41 +5635,44 @@
                     "The response is a JSON object with the following fields\n\n\nExample:\n\n```JSON\n{\n    \"id\": 12345\n}\n```",
                 ),
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "pattern",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Pattern to search for (e.g. \"Ubuntu 18.04\")",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "plugins",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Plugins to use for searching (e.g. \"legittorrents\"). Supports multiple plugins separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        String(
-                            TypeInfo {
-                                name: "category",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Categories to limit your search to (e.g. \"legittorrents\"). Available categories depend on the specified plugins. Also supports all",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "pattern",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Pattern to search for (e.g. \"Ubuntu 18.04\")",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "plugins",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Plugins to use for searching (e.g. \"legittorrents\"). Supports multiple plugins separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            String(
+                                TypeInfo {
+                                    name: "category",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Categories to limit your search to (e.g. \"legittorrents\"). Available categories depend on the specified plugins. Also supports all",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: Some(
                     ReturnType {
@@ -5566,19 +5702,22 @@
                 name: "stop",
                 description: None,
                 parameters: Some(
-                    [
-                        Number(
-                            TypeInfo {
-                                name: "id",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "ID of the search job",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            Number(
+                                TypeInfo {
+                                    name: "id",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "ID of the search job",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "stop",
@@ -5589,19 +5728,22 @@
                     "The response is a JSON array of objects containing the following fields\n\n\nExample:\n\n```JSON\n[\n    {\n        \"id\": 12345,\n        \"status\": \"Running\",\n        \"total\": 170\n    }\n]\n```",
                 ),
                 parameters: Some(
-                    [
-                        Number(
-                            TypeInfo {
-                                name: "id",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "ID of the search job. If not specified, all search jobs are returned",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [],
+                        optional: [
+                            Number(
+                                TypeInfo {
+                                    name: "id",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "ID of the search job. If not specified, all search jobs are returned",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: Some(
                     ReturnType {
@@ -5663,41 +5805,45 @@
                     "The response is a JSON object with the following fields\n\n\n\n\nExample:\n\n```JSON\n{\n    \"results\": [\n        {\n            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41\",\n            \"fileName\": \"Ubuntu-10.04-32bit-NeTV.ova\",\n            \"fileSize\": -1,\n            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41&f=Ubuntu-10.04-32bit-NeTV.ova.torrent\",\n            \"nbLeechers\": 1,\n            \"nbSeeders\": 0,\n            \"siteUrl\": \"http://www.legittorrents.info\"\n        },\n        {\n            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475\",\n            \"fileName\": \"mangOH-Legato-17_06-Ubuntu-16_04.ova\",\n            \"fileSize\": -1,\n            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475&f=mangOH-Legato-17_06-Ubuntu-16_04.ova.torrent\",\n            \"nbLeechers\": 0,\n            \"nbSeeders\": 59,\n            \"siteUrl\": \"http://www.legittorrents.info\"\n        }\n    ],\n    \"status\": \"Running\",\n    \"total\": 2\n}\n```",
                 ),
                 parameters: Some(
-                    [
-                        Number(
-                            TypeInfo {
-                                name: "id",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "ID of the search job",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "limit",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "max number of results to return. 0 or negative means no limit",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Number(
-                            TypeInfo {
-                                name: "offset",
-                                is_optional: true,
-                                is_list: false,
-                                description: Some(
-                                    "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            Number(
+                                TypeInfo {
+                                    name: "id",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "ID of the search job",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [
+                            Number(
+                                TypeInfo {
+                                    name: "limit",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "max number of results to return. 0 or negative means no limit",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Number(
+                                TypeInfo {
+                                    name: "offset",
+                                    is_optional: true,
+                                    is_list: false,
+                                    description: Some(
+                                        "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                    },
                 ),
                 return_type: Some(
                     ReturnType {
@@ -5757,19 +5903,22 @@
                 name: "delete",
                 description: None,
                 parameters: Some(
-                    [
-                        Number(
-                            TypeInfo {
-                                name: "id",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "ID of the search job",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            Number(
+                                TypeInfo {
+                                    name: "id",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "ID of the search job",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "delete",
@@ -5883,19 +6032,22 @@
                 name: "installPlugin",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "sources",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Url or file path of the plugin to install (e.g. \"[https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py](https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py)\"). Supports multiple sources separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "sources",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Url or file path of the plugin to install (e.g. \"[https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py](https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py)\"). Supports multiple sources separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "installPlugin",
@@ -5904,19 +6056,22 @@
                 name: "uninstallPlugin",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "names",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Name of the plugin to uninstall (e.g. \"legittorrents\"). Supports multiple names separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "names",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Name of the plugin to uninstall (e.g. \"legittorrents\"). Supports multiple names separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "uninstallPlugin",
@@ -5925,30 +6080,33 @@
                 name: "enablePlugin",
                 description: None,
                 parameters: Some(
-                    [
-                        String(
-                            TypeInfo {
-                                name: "names",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Name of the plugin to enable/disable (e.g. \"legittorrents\"). Supports multiple names separated by \\",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                        Bool(
-                            TypeInfo {
-                                name: "enable",
-                                is_optional: false,
-                                is_list: false,
-                                description: Some(
-                                    "Whether the plugins should be enabled",
-                                ),
-                                type_description: None,
-                            },
-                        ),
-                    ],
+                    ApiParameters {
+                        mandatory: [
+                            String(
+                                TypeInfo {
+                                    name: "names",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Name of the plugin to enable/disable (e.g. \"legittorrents\"). Supports multiple names separated by \\",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                            Bool(
+                                TypeInfo {
+                                    name: "enable",
+                                    is_optional: false,
+                                    is_list: false,
+                                    description: Some(
+                                        "Whether the plugins should be enabled",
+                                    ),
+                                    type_description: None,
+                                },
+                            ),
+                        ],
+                        optional: [],
+                    },
                 ),
                 return_type: None,
                 url: "enablePlugin",

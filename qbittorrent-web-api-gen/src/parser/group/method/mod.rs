@@ -16,9 +16,37 @@ use self::{
 pub struct ApiMethod {
     pub name: String,
     pub description: Option<String>,
-    pub parameters: Option<Vec<types::Type>>,
+    pub parameters: Option<ApiParameters>,
     pub return_type: Option<ReturnType>,
     pub url: String,
+}
+
+#[derive(Debug)]
+pub struct ApiParameters {
+    pub mandatory: Vec<types::Type>,
+    pub optional: Vec<types::Type>,
+}
+
+impl ApiParameters {
+    fn new(params: Vec<types::Type>) -> Self {
+        let (mandatory, optional) = params.into_iter().fold(
+            (vec![], vec![]),
+            |(mut mandatory, mut optional), parameter| {
+                if parameter.get_type_info().is_optional {
+                    optional.push(parameter);
+                } else {
+                    mandatory.push(parameter);
+                }
+
+                (mandatory, optional)
+            },
+        );
+
+        Self {
+            mandatory,
+            optional,
+        }
+    }
 }
 
 pub fn parse_api_method(child: &md_parser::TokenTree) -> Option<ApiMethod> {
@@ -34,7 +62,7 @@ pub fn parse_api_method(child: &md_parser::TokenTree) -> Option<ApiMethod> {
 fn to_api_method(child: &md_parser::TokenTree, name: &str) -> ApiMethod {
     let method_description = parse_method_description(&child.content);
     let return_type = parse_return_type(&child.content);
-    let parameters = parse_parameters(&child.content);
+    let parameters = parse_parameters(&child.content).map(|params| ApiParameters::new(params));
     let method_url = get_method_url(&child.content);
 
     ApiMethod {

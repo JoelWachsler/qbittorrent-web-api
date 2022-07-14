@@ -12,7 +12,7 @@ pub struct ReturnTypeParameter {
     pub return_type: types::Type,
 }
 
-pub use group::{ApiGroup, ApiMethod, ReturnType};
+pub use group::*;
 
 pub fn parse_api_groups(token_tree: md_parser::TokenTree) -> Vec<ApiGroup> {
     parse_groups(extract_relevant_parts(token_tree))
