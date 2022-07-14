@@ -19,4 +19,5 @@ fn tests() {
     t.pass("tests/add_torrent.rs");
     t.pass("tests/another_struct_name.rs");
     t.pass("tests/access_impl_types.rs");
+    t.pass("tests/search_types.rs");
 }
