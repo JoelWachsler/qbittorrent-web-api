@@ -29,8 +29,7 @@ pub fn create_method_with_params(
     let mandatory_params = MandatoryParams::new(&rc_params);
     let optional_params = OptionalParams::new(&rc_params);
 
-    // let mandatory_param_args = generate_mandatory_params(&params.mandatory);
-    let mandatory_param_args = mandatory_params.generate_mandatory_params();
+    let mandatory_param_args = mandatory_params.generate_params();
 
     let group_name = util::to_ident(&group.name.to_camel());
     let send_builder =
@@ -38,7 +37,7 @@ pub fn create_method_with_params(
             .with_form();
 
     let generate_send_impl = |send_method: proc_macro2::TokenStream| {
-        let optional_params = optional_params.generate_optional_params();
+        let optional_params = optional_params.generate_params();
         let mandatory_param_form_build = mandatory_params.param_builder();
 
         quote! {
@@ -100,34 +99,23 @@ impl<'a> MandatoryParams<'a> {
         Self { params }
     }
 
-    fn generate_mandatory_params(&self) -> Vec<proc_macro2::TokenStream> {
+    fn generate_params(&self) -> Vec<proc_macro2::TokenStream> {
         self.params
             .mandatory
             .iter()
-            .map(Self::param_with_name)
+            .map(|p| p.to_parameter().generate_param_with_name())
             .collect()
-    }
-
-    fn param_with_name(param: &types::Type) -> proc_macro2::TokenStream {
-        let t = util::to_ident(&param.to_borrowed_type());
-
-        let (name, ..) = Self::name(param);
-        let t = if param.should_borrow() {
-            quote! { &#t }
-        } else {
-            quote! { #t }
-        };
-
-        quote! { #name: #t }
     }
 
     fn param_builder(&self) -> Vec<proc_macro2::TokenStream> {
         self.params
             .mandatory
             .iter()
+            .map(|p| p.to_parameter())
             .map(|param| {
-                let (name, name_as_str) = Self::name(param);
-                quote! { let form = form.text(#name_as_str, #name.to_string()); }
+                let name_ident = param.name_ident();
+                let name = param.name();
+                quote! { let form = form.text(#name, #name_ident.to_string()); }
             })
             .collect()
     }
@@ -136,16 +124,9 @@ impl<'a> MandatoryParams<'a> {
         self.params
             .mandatory
             .iter()
-            .map(|param| {
-                let (name, ..) = Self::name(param);
-                quote! { #name }
-            })
+            .map(|p| p.to_parameter().name_ident())
+            .map(|name_ident| quote! { #name_ident })
             .collect()
-    }
-
-    fn name(param: &types::Type) -> (proc_macro2::Ident, String) {
-        let name_as_str = param.get_type_info().name.to_snake();
-        (util::to_ident(&name_as_str), name_as_str)
     }
 }
 
@@ -159,15 +140,15 @@ impl<'a> OptionalParams<'a> {
         Self { params }
     }
 
-    fn generate_optional_params(&self) -> Vec<proc_macro2::TokenStream> {
+    fn generate_params(&self) -> Vec<proc_macro2::TokenStream> {
         self.params
             .optional
             .iter()
-            .map(Self::generate_optional_param)
+            .map(Self::generate_param)
             .collect()
     }
 
-    fn generate_optional_param(param: &types::Type) -> proc_macro2::TokenStream {
+    fn generate_param(param: &types::Type) -> proc_macro2::TokenStream {
         let n = &param.get_type_info().name;
         let name = util::to_ident(&n.to_snake());
         let t = util::to_ident(&param.to_borrowed_type());
@@ -186,5 +167,43 @@ impl<'a> OptionalParams<'a> {
                 }
             },
         )
+    }
+}
+
+#[derive(Debug)]
+struct Parameter<'a> {
+    p_type: &'a types::Type,
+}
+
+impl<'a> Parameter<'a> {
+    fn new(p_type: &'a types::Type) -> Self {
+        Self { p_type }
+    }
+
+    fn name(&self) -> String {
+        self.p_type.get_type_info().name.to_snake()
+    }
+
+    fn name_ident(&self) -> proc_macro2::Ident {
+        util::to_ident(&self.name())
+    }
+
+    fn generate_param_with_name(&self) -> proc_macro2::TokenStream {
+        let t = util::to_ident(&self.p_type.to_borrowed_type());
+
+        let name_ident = self.name_ident();
+        let t = if self.p_type.should_borrow() {
+            quote! { &#t }
+        } else {
+            quote! { #t }
+        };
+
+        quote! { #name_ident: #t }
+    }
+}
+
+impl types::Type {
+    fn to_parameter<'a>(&'a self) -> Parameter<'a> {
+        Parameter::new(self)
     }
 }
