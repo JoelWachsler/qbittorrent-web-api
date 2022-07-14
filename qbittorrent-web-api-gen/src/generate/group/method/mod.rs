@@ -17,13 +17,16 @@ pub fn generate_methods(
     auth: &syn::Ident,
     group_name_camel: &syn::Ident,
 ) -> proc_macro2::TokenStream {
-    let methods_and_param_structs = group
+    let methods_and_extra = group
         .methods
         .iter()
         .map(|method| generate_method(group, method));
 
-    let methods = methods_and_param_structs.clone().map(|(method, ..)| method);
-    let structs = methods_and_param_structs.flat_map(|(_, s)| s);
+    let methods = methods_and_extra
+        .clone()
+        .map(|MethodsAndExtra { methods, .. }| methods);
+
+    let extra = methods_and_extra.flat_map(|MethodsAndExtra { extra: structs, .. }| structs);
 
     quote! {
         impl <'a> #group_name_camel<'a> {
@@ -34,14 +37,31 @@ pub fn generate_methods(
             #(#methods)*
         }
 
-        #(#structs)*
+        #(#extra)*
     }
 }
 
-fn generate_method(
-    group: &parser::ApiGroup,
-    method: &parser::ApiMethod,
-) -> (proc_macro2::TokenStream, Option<proc_macro2::TokenStream>) {
+#[derive(Debug)]
+pub struct MethodsAndExtra {
+    methods: proc_macro2::TokenStream,
+    extra: Option<proc_macro2::TokenStream>,
+}
+
+impl MethodsAndExtra {
+    pub fn new(methods: proc_macro2::TokenStream) -> Self {
+        Self {
+            methods,
+            extra: None,
+        }
+    }
+
+    pub fn with_structs(mut self, structs: proc_macro2::TokenStream) -> Self {
+        self.extra = Some(structs);
+        self
+    }
+}
+
+fn generate_method(group: &parser::ApiGroup, method: &parser::ApiMethod) -> MethodsAndExtra {
     let method_name = util::to_ident(&method.name.to_snake());
     let url = format!("/api/v2/{}/{}", group.url, method.url);
 

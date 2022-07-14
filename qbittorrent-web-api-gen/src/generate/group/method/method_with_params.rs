@@ -10,7 +10,9 @@ use crate::{
     types,
 };
 
-use super::{return_type::create_return_type, send_method_builder::SendMethodBuilder};
+use super::{
+    return_type::create_return_type, send_method_builder::SendMethodBuilder, MethodsAndExtra,
+};
 
 pub fn create_method_with_params(
     group: &parser::ApiGroup,
@@ -18,7 +20,7 @@ pub fn create_method_with_params(
     params: &parser::ApiParameters,
     method_name: &proc_macro2::Ident,
     url: &str,
-) -> (TokenStream, Option<TokenStream>) {
+) -> MethodsAndExtra {
     let param_type = util::to_ident(&format!(
         "{}{}Parameters",
         group.name.to_camel(),
@@ -27,38 +29,43 @@ pub fn create_method_with_params(
 
     let parameters = Parameters::new(params);
 
-    let group_name = util::to_ident(&group.name.to_camel());
-    let send_builder =
-        SendMethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth })
-            .with_form();
+    if parameters.optional.is_empty() {
+        let fooz = quote! {};
+        MethodsAndExtra::new(fooz)
+    } else {
+        let group_name = util::to_ident(&group.name.to_camel());
+        let send_builder =
+            SendMethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth })
+                .with_form();
 
-    let send_impl_generator = SendImplGenerator::new(&group_name, &parameters, &param_type);
+        let send_impl_generator = SendImplGenerator::new(&group_name, &parameters, &param_type);
 
-    let send = match create_return_type(group, method) {
-        Some((return_type_name, return_type)) => {
-            let send_impl =
-                send_impl_generator.generate(send_builder.return_type(&return_type_name));
+        let send = match create_return_type(group, method) {
+            Some((return_type_name, return_type)) => {
+                let send_impl =
+                    send_impl_generator.generate(send_builder.return_type(&return_type_name));
 
-            quote! {
-                #send_impl
-                #return_type
+                quote! {
+                    #send_impl
+                    #return_type
+                }
             }
-        }
-        None => send_impl_generator.generate(send_builder),
-    };
+            None => send_impl_generator.generate(send_builder),
+        };
 
-    let builder = generate_builder(&parameters, method, method_name, &param_type);
+        let builder = generate_builder(&parameters, method, method_name, &param_type);
 
-    let group_impl = quote! {
-        pub struct #param_type<'a> {
-            group: &'a #group_name<'a>,
-            form: reqwest::multipart::Form,
-        }
+        let group_impl = quote! {
+            pub struct #param_type<'a> {
+                group: &'a #group_name<'a>,
+                form: reqwest::multipart::Form,
+            }
 
-        #send
-    };
+            #send
+        };
 
-    (builder, Some(group_impl))
+        MethodsAndExtra::new(builder).with_structs(group_impl)
+    }
 }
 
 fn generate_builder(
@@ -194,6 +201,10 @@ impl<'a> OptionalParams<'a> {
         Self {
             params: Parameter::from(&params.optional),
         }
+    }
+
+    fn is_empty(&self) -> bool {
+        self.params.is_empty()
     }
 
     fn generate_builder_methods(&self) -> Vec<TokenStream> {
