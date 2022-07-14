@@ -10,11 +10,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 USER vscode
 
-# RUN rustup default nightly \
-#     && cargo install cargo-expand \
-#     && rustup component add rustfmt \
-#     && rustup component add clippy
-
 RUN cargo install cargo-expand \
     && rustup component add rustfmt \
     && rustup component add clippy
