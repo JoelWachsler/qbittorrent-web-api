@@ -203,7 +203,7 @@ impl<'a> Parameter<'a> {
 }
 
 impl types::Type {
-    fn to_parameter<'a>(&'a self) -> Parameter<'a> {
+    fn to_parameter(&self) -> Parameter<'_> {
         Parameter::new(self)
     }
 }
