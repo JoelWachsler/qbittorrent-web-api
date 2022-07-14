@@ -73,93 +73,59 @@ impl TokenTreeFactory {
 mod tests {
     use super::*;
 
+    macro_rules! run_test {
+        ($test_file:expr) => {
+            use pretty_assertions::assert_eq;
+
+            // given
+            let input = include_str!(concat!("token_tree_factory_tests/", $test_file, ".md"));
+
+            // when
+            let tree = TokenTreeFactory::create(input);
+
+            // then
+            let tree_as_str = format!("{tree:#?}");
+            let should_be =
+                include_str!(concat!("token_tree_factory_tests/", $test_file, ".check"));
+            assert_eq!(tree_as_str, should_be);
+        };
+    }
+
+    // use this macro when creating/updating as test
+    #[allow(unused_macros)]
+    macro_rules! update_test {
+        ($test_file:expr) => {
+            use std::fs;
+
+            let input = include_str!(concat!("token_tree_factory_tests/", $test_file, ".md"));
+            let tree = TokenTreeFactory::create(input);
+            let tree_as_str = format!("{tree:#?}");
+            fs::write(concat!($test_file, ".check"), tree_as_str).unwrap();
+        };
+    }
+
     #[test]
     fn should_remove_surrounding_asterix() {
-        // given
-        let input = r#"
-# A
-**B**
-        "#
-        .trim_matches('\n')
-        .trim();
-
-        // when
-        let tree = TokenTreeFactory::create(input);
-
-        // then
-        println!("{:#?}", tree);
-        let first = tree.children.first().unwrap();
-        let content = first.content.first().unwrap();
-        assert_eq!(*content, MdContent::Asterix("B".into()));
+        run_test!("should_remove_surrounding_asterix");
     }
 
     #[test]
     fn should_remove_surrounding_hash() {
-        // given
-        let input = r#"
-# A #
-        "#
-        .trim_matches('\n')
-        .trim();
-
-        // when
-        let tree = TokenTreeFactory::create(input);
-
-        // then
-        println!("{:#?}", tree);
-        assert_eq!(tree.children.first().unwrap().title, Some("A".into()));
+        run_test!("should_remove_surrounding_hash");
     }
 
     #[test]
     fn single_level() {
-        // given
-        let input = r#"
-# A
-Foo
-        "#
-        .trim_matches('\n')
-        .trim();
-
-        // when
-        let tree = TokenTreeFactory::create(input);
-
-        // then
-        println!("{:#?}", tree);
-        assert_eq!(tree.title, None);
-        let first_child = tree.children.first().unwrap();
-        assert_eq!(first_child.title, Some("A".into()));
+        run_test!("single_level");
     }
 
     #[test]
     fn complex() {
-        // given
-        let input = r#"
-# A
-Foo
-## B
-# C
-## D
-Bar
-        "#
-        .trim_matches('\n')
-        .trim();
+        run_test!("complex");
+    }
 
-        // when
-        let tree = TokenTreeFactory::create(input);
-
-        // then
-        println!("{:#?}", tree);
-        assert_eq!(tree.title, None);
-        assert_eq!(tree.children.len(), 2);
-
-        let first = tree.children.get(0).unwrap();
-        assert_eq!(first.title, Some("A".into()));
-        assert_eq!(first.children.len(), 1);
-        assert_eq!(first.children.first().unwrap().title, Some("B".into()));
-
-        let second = tree.children.get(1).unwrap();
-        assert_eq!(second.title, Some("C".into()));
-        assert_eq!(second.children.len(), 1);
-        assert_eq!(second.children.first().unwrap().title, Some("D".into()));
+    #[test]
+    fn log() {
+        run_test!("log");
     }
 }

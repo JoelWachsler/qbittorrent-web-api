@@ -1,0 +1,503 @@
+TokenTree {
+    title: None,
+    content: [],
+    children: [
+        TokenTree {
+            title: Some(
+                "Log",
+            ),
+            content: [
+                Text(
+                    "",
+                ),
+                Text(
+                    "All Log API methods are under \"log\", e.g.: `/api/v2/log/methodName`.",
+                ),
+                Text(
+                    "",
+                ),
+            ],
+            children: [
+                TokenTree {
+                    title: Some(
+                        "Get log",
+                    ),
+                    content: [
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Name: `main`",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Parameters:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Parameter       | Type    | Description",
+                                    columns: [
+                                        "Parameter",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`normal`        | bool    | Include normal messages (default: `true`)",
+                                        columns: [
+                                            "normal",
+                                            "bool",
+                                            "Include normal messages (default: true)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`info`          | bool    | Include info messages (default: `true`)",
+                                        columns: [
+                                            "info",
+                                            "bool",
+                                            "Include info messages (default: true)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`warning`       | bool    | Include warning messages (default: `true`)",
+                                        columns: [
+                                            "warning",
+                                            "bool",
+                                            "Include warning messages (default: true)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`critical`      | bool    | Include critical messages (default: `true`)",
+                                        columns: [
+                                            "critical",
+                                            "bool",
+                                            "Include critical messages (default: true)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`last_known_id` | integer | Exclude messages with \"message id\" <= `last_known_id` (default: `-1`)",
+                                        columns: [
+                                            "last_known_id",
+                                            "integer",
+                                            "Exclude messages with \"message id\" <= last_known_id (default: -1)",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "Example:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "```http",
+                        ),
+                        Text(
+                            "/api/v2/log/main?normal=true&info=true&warning=true&critical=true&last_known_id=-1",
+                        ),
+                        Text(
+                            "```",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Returns:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "HTTP Status Code                  | Scenario",
+                                    columns: [
+                                        "HTTP Status Code",
+                                        "Scenario",
+                                    ],
+                                },
+                                split: "----------------------------------|---------------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "200                               | All scenarios- see JSON below",
+                                        columns: [
+                                            "200",
+                                            "All scenarios- see JSON below",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "The response is a JSON array in which each element is an entry of the log.",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Each element of the array has the following properties:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Property    | Type    | Description",
+                                    columns: [
+                                        "Property",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`id`        | integer | ID of the message",
+                                        columns: [
+                                            "id",
+                                            "integer",
+                                            "ID of the message",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`message`   | string  | Text of the message",
+                                        columns: [
+                                            "message",
+                                            "string",
+                                            "Text of the message",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`timestamp` | integer | Milliseconds since epoch",
+                                        columns: [
+                                            "timestamp",
+                                            "integer",
+                                            "Milliseconds since epoch",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`type`      | integer | Type of the message: Log::NORMAL: `1`, Log::INFO: `2`, Log::WARNING: `4`, Log::CRITICAL: `8`",
+                                        columns: [
+                                            "type",
+                                            "integer",
+                                            "Type of the message: Log::NORMAL: 1, Log::INFO: 2, Log::WARNING: 4, Log::CRITICAL: 8",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "Example:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "```JSON",
+                        ),
+                        Text(
+                            "[",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":0,",
+                        ),
+                        Text(
+                            "        \"message\":\"qBittorrent v3.4.0 started\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127860,",
+                        ),
+                        Text(
+                            "        \"type\":1",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":1,",
+                        ),
+                        Text(
+                            "        \"message\":\"qBittorrent is trying to listen on any interface port: 19036\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127869,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":2,",
+                        ),
+                        Text(
+                            "        \"message\":\"Peer ID: -qB3400-\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127870,",
+                        ),
+                        Text(
+                            "        \"type\":1",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":3,",
+                        ),
+                        Text(
+                            "        \"message\":\"HTTP User-Agent is 'qBittorrent/3.4.0'\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127870,",
+                        ),
+                        Text(
+                            "        \"type\":1",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":4,",
+                        ),
+                        Text(
+                            "        \"message\":\"DHT support [ON]\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127871,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":5,",
+                        ),
+                        Text(
+                            "        \"message\":\"Local Peer Discovery support [ON]\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127871,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":6,",
+                        ),
+                        Text(
+                            "        \"message\":\"PeX support [ON]\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127871,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":7,",
+                        ),
+                        Text(
+                            "        \"message\":\"Anonymous mode [OFF]\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127871,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":8,",
+                        ),
+                        Text(
+                            "        \"message\":\"Encryption support [ON]\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127871,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":9,",
+                        ),
+                        Text(
+                            "        \"message\":\"Embedded Tracker [OFF]\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127871,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":10,",
+                        ),
+                        Text(
+                            "        \"message\":\"UPnP / NAT-PMP support [ON]\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127873,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":11,",
+                        ),
+                        Text(
+                            "        \"message\":\"Web UI: Now listening on port 8080\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969127883,",
+                        ),
+                        Text(
+                            "        \"type\":1",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":12,",
+                        ),
+                        Text(
+                            "        \"message\":\"Options were saved successfully.\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969128055,",
+                        ),
+                        Text(
+                            "        \"type\":1",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":13,",
+                        ),
+                        Text(
+                            "        \"message\":\"qBittorrent is successfully listening on interface :: port: TCP/19036\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969128270,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":14,",
+                        ),
+                        Text(
+                            "        \"message\":\"qBittorrent is successfully listening on interface 0.0.0.0 port: TCP/19036\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969128271,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                        Text(
+                            "    },",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"id\":15,",
+                        ),
+                        Text(
+                            "        \"message\":\"qBittorrent is successfully listening on interface 0.0.0.0 port: UDP/19036\",",
+                        ),
+                        Text(
+                            "        \"timestamp\":1507969128272,",
+                        ),
+                        Text(
+                            "        \"type\":2",
+                        ),
+                    ],
+                    children: [],
+                },
+            ],
+        },
+    ],
+}

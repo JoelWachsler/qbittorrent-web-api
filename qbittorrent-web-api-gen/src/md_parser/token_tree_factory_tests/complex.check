@@ -1,0 +1,44 @@
+TokenTree {
+    title: None,
+    content: [],
+    children: [
+        TokenTree {
+            title: Some(
+                "A",
+            ),
+            content: [
+                Text(
+                    "Foo",
+                ),
+            ],
+            children: [
+                TokenTree {
+                    title: Some(
+                        "B",
+                    ),
+                    content: [],
+                    children: [],
+                },
+            ],
+        },
+        TokenTree {
+            title: Some(
+                "C",
+            ),
+            content: [],
+            children: [
+                TokenTree {
+                    title: Some(
+                        "D",
+                    ),
+                    content: [
+                        Text(
+                            "Bar",
+                        ),
+                    ],
+                    children: [],
+                },
+            ],
+        },
+    ],
+}
