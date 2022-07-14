@@ -147,27 +147,26 @@ impl<'a> Parameters<'a> {
 
 #[derive(Debug)]
 struct MandatoryParams<'a> {
-    params: &'a ApiParameters,
+    params: Vec<Parameter<'a>>,
 }
 
 impl<'a> MandatoryParams<'a> {
     fn new(params: &'a ApiParameters) -> Self {
-        Self { params }
+        Self {
+            params: Parameter::from(&params.mandatory),
+        }
     }
 
     fn generate_params(&self) -> Vec<TokenStream> {
         self.params
-            .mandatory
             .iter()
-            .map(|p| p.to_parameter().generate_param_with_name())
+            .map(|p| p.generate_param_with_name())
             .collect()
     }
 
     fn form_builder(&self) -> Vec<TokenStream> {
         self.params
-            .mandatory
             .iter()
-            .map(|p| p.to_parameter())
             .map(|param| {
                 let name_ident = param.name_ident();
                 let name = param.name();
@@ -178,9 +177,8 @@ impl<'a> MandatoryParams<'a> {
 
     fn names(&self) -> Vec<TokenStream> {
         self.params
-            .mandatory
             .iter()
-            .map(|p| p.to_parameter().name_ident())
+            .map(|p| p.name_ident())
             .map(|name_ident| quote! { #name_ident })
             .collect()
     }
@@ -188,37 +186,37 @@ impl<'a> MandatoryParams<'a> {
 
 #[derive(Debug)]
 struct OptionalParams<'a> {
-    params: &'a ApiParameters,
+    params: Vec<Parameter<'a>>,
 }
 
 impl<'a> OptionalParams<'a> {
     fn new(params: &'a ApiParameters) -> Self {
-        Self { params }
+        Self {
+            params: Parameter::from(&params.optional),
+        }
     }
 
     fn generate_builder_methods(&self) -> Vec<TokenStream> {
         self.params
-            .optional
             .iter()
             .map(Self::generate_builder_method)
             .collect()
     }
 
-    fn generate_builder_method(param: &types::Type) -> TokenStream {
-        let parameter = param.to_parameter();
-        let name = parameter.name();
-        let name_ident = parameter.name_ident();
+    fn generate_builder_method(param: &Parameter) -> TokenStream {
+        let name = param.name();
+        let name_ident = param.name_ident();
 
-        let param_type = util::to_ident(&param.to_borrowed_type());
+        let param_type = util::to_ident(&param.p_type.to_borrowed_type());
 
-        let builder_param = if param.should_borrow() {
+        let builder_param = if param.p_type.should_borrow() {
             quote! { &#param_type }
         } else {
             quote! { #param_type }
         };
 
         util::add_docs(
-            &param.get_type_info().description,
+            &param.p_type.get_type_info().description,
             quote! {
                 pub fn #name_ident(mut self, value: #builder_param) -> Self {
                     self.form = self.form.text(#name, value.to_string());
@@ -237,6 +235,10 @@ struct Parameter<'a> {
 impl<'a> Parameter<'a> {
     fn new(p_type: &'a types::Type) -> Self {
         Self { p_type }
+    }
+
+    fn from(parameters: &[types::Type]) -> Vec<Parameter<'_>> {
+        parameters.iter().map(Parameter::new).collect()
     }
 
     fn name(&self) -> String {
@@ -258,11 +260,5 @@ impl<'a> Parameter<'a> {
         };
 
         quote! { #name_ident: #t }
-    }
-}
-
-impl types::Type {
-    fn to_parameter(&self) -> Parameter<'_> {
-        Parameter::new(self)
     }
 }
