@@ -69,7 +69,6 @@ impl TokenTreeFactory {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
