@@ -6,7 +6,7 @@ license = "MIT"
 keywords = ["qbittorrent"]
 repository = "https://github.com/JoelWachsler/qbittorrent-web-api"
 description = "Generated web api for qBittorrent"
-exclude = ["*.txt", "tests"]
+exclude = ["*.txt", "tests", "qbittorrent-web-api-gen/src/md_parser/token_tree_factory_tests"]
 # we use trybuild instead
 autotests = false
 
