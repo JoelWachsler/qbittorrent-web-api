@@ -862,6 +862,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -895,6 +898,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Upon success, the response will contain a cookie with your SID. You must supply the cookie whenever you want to perform an operation that requires authentication.",
@@ -1000,6 +1006,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -1075,6 +1084,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is a string with the application version, e.g. `v4.1.3`",
                         ),
                         Text(
@@ -1135,6 +1147,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a string with the WebAPI version, e.g. `2.0`",
@@ -1199,6 +1214,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is a JSON object containing the following fields",
                         ),
                         Text(
@@ -1259,6 +1277,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -1315,6 +1336,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -1370,6 +1394,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a JSON object with several fields (key-value) pairs representing the application's settings. The contents may vary depending on which settings are present in qBittorrent.ini.",
@@ -2567,6 +2594,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `scan_dirs`:",
                         ),
                         Text(
@@ -2606,6 +2636,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Possible values of `scheduler_days`:",
@@ -2698,6 +2731,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `encryption`:",
                         ),
                         Text(
@@ -2737,6 +2773,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "NB: the first options allows you to use both encrypted and unencrypted connections (this is the default); other options are mutually exclusive: e.g. by forcing encryption on you won't be able to use unencrypted connections and vice versa.",
@@ -2807,6 +2846,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `dyndns_service`:",
                         ),
                         Text(
@@ -2841,6 +2883,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `max_ratio_act`:",
                         ),
                         Text(
@@ -2873,6 +2918,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Possible values of `bittorrent_protocol`:",
@@ -2916,6 +2964,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `upload_choking_algorithm`:",
                         ),
                         Text(
@@ -2957,6 +3008,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `upload_slots_behavior`:",
                         ),
                         Text(
@@ -2991,6 +3045,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `utp_tcp_mixed_mode`:",
                         ),
                         Text(
@@ -3023,6 +3080,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -3557,6 +3617,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Notes**:",
                         ),
@@ -3636,6 +3699,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a string with the default save path, e.g. `C:/Users/Dayman/Downloads`.",
@@ -3740,6 +3806,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -3783,6 +3852,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a JSON array in which each element is an entry of the log.",
@@ -3842,6 +3914,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -4198,6 +4273,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -4224,6 +4302,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response a JSON array. Each element of the array of objects (each object is the information relative to a peer) containing the following fields",
@@ -4285,6 +4366,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -4354,6 +4438,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -4397,6 +4484,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a JSON object with the following possible fields",
@@ -4490,6 +4580,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -4591,6 +4684,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -4641,6 +4737,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is TODO",
@@ -4729,6 +4828,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is a JSON object with the following fields",
                         ),
                         Text(
@@ -4814,6 +4916,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "In addition to the above in partial data requests (see [Get partial data](#get-partial-data) for more info):",
                         ),
                         Text(
@@ -4859,6 +4964,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `connection_status`:",
                         ),
                         Text(
@@ -4898,6 +5006,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -5001,6 +5112,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is `1` if alternative speed limits are enabled, `0` otherwise.",
                         ),
                         Text(
@@ -5062,6 +5176,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -5119,6 +5236,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is the value of current global download speed limit in bytes/second; this value will be zero if no limit is applied.",
                         ),
                         Text(
@@ -5170,6 +5290,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -5196,6 +5319,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -5254,6 +5380,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is the value of current global upload speed limit in bytes/second; this value will be zero if no limit is applied.",
                         ),
                         Text(
@@ -5305,6 +5434,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -5331,6 +5463,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -5379,6 +5514,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -5405,6 +5543,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -5528,6 +5669,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -5571,6 +5715,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a JSON array with the following fields",
@@ -5954,6 +6101,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `state`:",
                         ),
                         Text(
@@ -6107,6 +6257,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -6254,6 +6407,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -6287,6 +6443,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is:",
@@ -6583,6 +6742,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "NB: `-1` is returned if the type of the property is integer but its value is not known.",
                         ),
                         Text(
@@ -6760,6 +6922,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -6793,6 +6958,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a JSON array, where each element contains info about one tracker, with the following fields",
@@ -6880,6 +7048,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `status`:",
                         ),
                         Text(
@@ -6933,6 +7104,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -7034,6 +7208,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -7069,6 +7246,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is a JSON array, where each element is information about one webseed, with the following fields",
                         ),
                         Text(
@@ -7096,6 +7276,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -7197,6 +7380,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -7230,6 +7416,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is:",
@@ -7326,6 +7515,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Possible values of `priority`:",
                         ),
                         Text(
@@ -7372,6 +7564,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -7479,6 +7674,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -7512,6 +7710,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is:",
@@ -7568,6 +7769,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -7639,6 +7843,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -7672,6 +7879,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is:",
@@ -7760,6 +7970,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -7780,6 +7993,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -7807,6 +8023,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -7862,6 +8081,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -7882,6 +8104,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -7909,6 +8134,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -7971,6 +8199,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -8014,6 +8245,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -8069,6 +8303,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -8089,6 +8326,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -8116,6 +8356,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -8171,6 +8414,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -8191,6 +8437,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -8218,6 +8467,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -8603,6 +8855,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -8636,6 +8891,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -8733,6 +8991,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -8795,6 +9056,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -8849,6 +9113,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -8905,6 +9172,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -8945,6 +9215,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -9002,6 +9275,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -9035,6 +9311,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -9090,6 +9369,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -9110,6 +9392,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -9144,6 +9429,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -9199,6 +9487,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -9219,6 +9510,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -9253,6 +9547,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -9308,6 +9605,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -9328,6 +9628,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -9362,6 +9665,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -9417,6 +9723,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -9437,6 +9746,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -9471,6 +9783,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -9534,6 +9849,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "`id` values correspond to file position inside the array returned by [torrent contents API](#get-torrent-contents), e.g. `id=0` for first file, `id=1` for second file, etc.",
@@ -9609,6 +9927,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -9669,6 +9990,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -9681,6 +10005,9 @@ TokenTree {
                                 split: "",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "Server reply (example):",
                         ),
                         Text(
                             "",
@@ -9769,6 +10096,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -9781,6 +10111,9 @@ TokenTree {
                                 split: "`limit` is the download speed limit in bytes per second you want to set.",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -9808,6 +10141,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -9869,6 +10205,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -9881,6 +10220,9 @@ TokenTree {
                                 split: "`ratioLimit` is the max ratio the torrent should be seeded until. `-2` means the global limit should be used, `-1` means no limit.",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "`seedingTimeLimit` is the max amount of time the torrent should be seeded. `-2` means the global limit should be used, `-1` means no limit.",
                         ),
                         Text(
                             "",
@@ -9911,6 +10253,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -9972,6 +10317,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -9984,6 +10332,9 @@ TokenTree {
                                 split: "",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "Server reply (example):",
                         ),
                         Text(
                             "",
@@ -10078,6 +10429,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -10090,6 +10444,9 @@ TokenTree {
                                 split: "`limit` is the upload speed limit in bytes per second you want to set.",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -10117,6 +10474,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -10178,6 +10538,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -10190,6 +10553,9 @@ TokenTree {
                                 split: "`location` is the location to download the torrent to. If the location doesn't exist, the torrent's location is unchanged.",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -10238,6 +10604,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -10336,6 +10705,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -10396,6 +10768,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -10408,6 +10783,9 @@ TokenTree {
                                 split: "",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "`category` is the torrent category you want to set.",
                         ),
                         Text(
                             "",
@@ -10445,6 +10823,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -10544,6 +10925,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -10641,6 +11025,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -10732,6 +11119,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -10815,6 +11205,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -10875,6 +11268,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -10887,6 +11283,9 @@ TokenTree {
                                 split: "",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "`tags` is the list of tags you want to add to passed torrents.",
                         ),
                         Text(
                             "",
@@ -10917,6 +11316,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -10978,6 +11380,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -10990,6 +11395,9 @@ TokenTree {
                                 split: "",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "`tags` is the list of tags you want to remove from passed torrents.",
                         ),
                         Text(
                             "Empty list removes all tags from relevant torrents.",
@@ -11023,6 +11431,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11103,6 +11514,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11186,6 +11600,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11273,6 +11690,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -11333,6 +11753,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
@@ -11345,6 +11768,9 @@ TokenTree {
                                 split: "`enable` is a boolean, affects the torrents listed in `hashes`, default is `false`",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -11372,6 +11798,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11427,6 +11856,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -11447,6 +11879,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -11474,6 +11909,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11529,6 +11967,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -11549,6 +11990,9 @@ TokenTree {
                                 split: "```",
                                 rows: [],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Asterix(
                             "Returns:",
@@ -11576,6 +12020,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11646,6 +12093,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -11672,6 +12122,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11742,6 +12195,9 @@ TokenTree {
                                 rows: [],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -11768,6 +12224,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11831,6 +12290,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -11871,6 +12333,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -11934,6 +12399,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -11974,6 +12442,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -12039,6 +12510,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -12072,6 +12546,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -12127,6 +12604,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -12160,6 +12640,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -12213,6 +12696,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -12246,6 +12732,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -12307,6 +12796,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -12340,6 +12832,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -12386,6 +12881,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Returns all RSS items in JSON format, e.g.:",
@@ -12486,6 +12984,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -12512,6 +13013,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -12565,6 +13069,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -12591,6 +13098,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -12645,6 +13155,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Rule definition is JSON encoded dictionary with the following fields:",
@@ -12772,6 +13285,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "E.g.:",
                         ),
                         Text(
@@ -12894,6 +13410,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -12920,6 +13439,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -12967,6 +13489,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -12993,6 +13518,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "",
@@ -13113,6 +13641,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -13152,6 +13683,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "",
@@ -13252,6 +13786,9 @@ TokenTree {
                         Text(
                             "",
                         ),
+                        Text(
+                            "",
+                        ),
                     ],
                     children: [],
                 },
@@ -13333,6 +13870,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -13368,6 +13908,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is a JSON object with the following fields",
                         ),
                         Text(
@@ -13395,6 +13938,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -13466,6 +14012,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -13499,6 +14048,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
@@ -13546,6 +14098,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -13579,6 +14134,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a JSON array of objects containing the following fields",
@@ -13624,6 +14182,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -13723,6 +14284,9 @@ TokenTree {
                                 ],
                             },
                         ),
+                        Text(
+                            "",
+                        ),
                         Asterix(
                             "Returns:",
                         ),
@@ -13765,6 +14329,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "The response is a JSON object with the following fields",
                         ),
                         Text(
@@ -13781,13 +14348,854 @@ TokenTree {
                                     ],
                                 },
                                 split: "----------------------------------|---------|------------",
-                                rows: [],
+                                rows: [
+                                    TableRow {
+                                        raw: "`results`                         | array   | Array of `result` objects- see table below",
+                                        columns: [
+                                            "results",
+                                            "array",
+                                            "Array of result objects- see table below",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`status`                          | string  | Current status of the search job (either `Running` or `Stopped`)",
+                                        columns: [
+                                            "status",
+                                            "string",
+                                            "Current status of the search job (either Running or Stopped)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`total`                           | number  | Total number of results. If the status is `Running` this number may continue to increase",
+                                        columns: [
+                                            "total",
+                                            "number",
+                                            "Total number of results. If the status is Running this number may continue to increase",
+                                        ],
+                                    },
+                                ],
                             },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Result object:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Field                             | Type    | Description",
+                                    columns: [
+                                        "Field",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`descrLink`                       | string  | URL of the torrent's description page",
+                                        columns: [
+                                            "descrLink",
+                                            "string",
+                                            "URL of the torrent's description page",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`fileName`                        | string  | Name of the file",
+                                        columns: [
+                                            "fileName",
+                                            "string",
+                                            "Name of the file",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`fileSize`                        | number  | Size of the file in Bytes",
+                                        columns: [
+                                            "fileSize",
+                                            "number",
+                                            "Size of the file in Bytes",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`fileUrl`                         | string  | Torrent download link (usually either .torrent file or magnet link)",
+                                        columns: [
+                                            "fileUrl",
+                                            "string",
+                                            "Torrent download link (usually either .torrent file or magnet link)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`nbLeechers`                      | number  | Number of leechers",
+                                        columns: [
+                                            "nbLeechers",
+                                            "number",
+                                            "Number of leechers",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`nbSeeders`                       | number  | Number of seeders",
+                                        columns: [
+                                            "nbSeeders",
+                                            "number",
+                                            "Number of seeders",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`siteUrl`                         | string  | URL of the torrent site",
+                                        columns: [
+                                            "siteUrl",
+                                            "string",
+                                            "URL of the torrent site",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Example:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "```JSON",
+                        ),
+                        Text(
+                            "{",
+                        ),
+                        Text(
+                            "    \"results\": [",
+                        ),
+                        Text(
+                            "        {",
+                        ),
+                        Text(
+                            "            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41\",",
+                        ),
+                        Text(
+                            "            \"fileName\": \"Ubuntu-10.04-32bit-NeTV.ova\",",
+                        ),
+                        Text(
+                            "            \"fileSize\": -1,",
+                        ),
+                        Text(
+                            "            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41&f=Ubuntu-10.04-32bit-NeTV.ova.torrent\",",
+                        ),
+                        Text(
+                            "            \"nbLeechers\": 1,",
+                        ),
+                        Text(
+                            "            \"nbSeeders\": 0,",
+                        ),
+                        Text(
+                            "            \"siteUrl\": \"http://www.legittorrents.info\"",
+                        ),
+                        Text(
+                            "        },",
+                        ),
+                        Text(
+                            "        {",
+                        ),
+                        Text(
+                            "            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475\",",
+                        ),
+                        Text(
+                            "            \"fileName\": \"mangOH-Legato-17_06-Ubuntu-16_04.ova\",",
+                        ),
+                        Text(
+                            "            \"fileSize\": -1,",
+                        ),
+                        Text(
+                            "            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475&f=mangOH-Legato-17_06-Ubuntu-16_04.ova.torrent\",",
+                        ),
+                        Text(
+                            "            \"nbLeechers\": 0,",
+                        ),
+                        Text(
+                            "            \"nbSeeders\": 59,",
+                        ),
+                        Text(
+                            "            \"siteUrl\": \"http://www.legittorrents.info\"",
+                        ),
+                        Text(
+                            "        }",
+                        ),
+                        Text(
+                            "    ],",
+                        ),
+                        Text(
+                            "    \"status\": \"Running\",",
+                        ),
+                        Text(
+                            "    \"total\": 2",
+                        ),
+                        Text(
+                            "}",
+                        ),
+                        Text(
+                            "```",
+                        ),
+                        Text(
+                            "",
+                        ),
+                    ],
+                    children: [],
+                },
+                TokenTree {
+                    title: Some(
+                        "Delete search",
+                    ),
+                    content: [
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Name: `delete`",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Parameters:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Parameter                         | Type    | Description",
+                                    columns: [
+                                        "Parameter",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`id`                              | number  | ID of the search job",
+                                        columns: [
+                                            "id",
+                                            "number",
+                                            "ID of the search job",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Returns:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "HTTP Status Code                  | Scenario",
+                                    columns: [
+                                        "HTTP Status Code",
+                                        "Scenario",
+                                    ],
+                                },
+                                split: "----------------------------------|---------------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "404                               | Search job was not found",
+                                        columns: [
+                                            "404",
+                                            "Search job was not found",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "200                               | All other scenarios",
+                                        columns: [
+                                            "200",
+                                            "All other scenarios",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                    ],
+                    children: [],
+                },
+                TokenTree {
+                    title: Some(
+                        "Get search plugins",
+                    ),
+                    content: [
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Name: `plugins`",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Parameters:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "None",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Returns:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "HTTP Status Code                  | Scenario",
+                                    columns: [
+                                        "HTTP Status Code",
+                                        "Scenario",
+                                    ],
+                                },
+                                split: "----------------------------------|---------------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "200                               | All scenarios- see JSON below",
+                                        columns: [
+                                            "200",
+                                            "All scenarios- see JSON below",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "The response is a JSON array of objects containing the following fields",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Field                             | Type    | Description",
+                                    columns: [
+                                        "Field",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`enabled`                         | bool    | Whether the plugin is enabled",
+                                        columns: [
+                                            "enabled",
+                                            "bool",
+                                            "Whether the plugin is enabled",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`fullName`                        | string  | Full name of the plugin",
+                                        columns: [
+                                            "fullName",
+                                            "string",
+                                            "Full name of the plugin",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`name`                            | string  | Short name of the plugin",
+                                        columns: [
+                                            "name",
+                                            "string",
+                                            "Short name of the plugin",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`supportedCategories`             | array   | List of category objects",
+                                        columns: [
+                                            "supportedCategories",
+                                            "array",
+                                            "List of category objects",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`url`                             | string  | URL of the torrent site",
+                                        columns: [
+                                            "url",
+                                            "string",
+                                            "URL of the torrent site",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`version`                         | string  | Installed version of the plugin",
+                                        columns: [
+                                            "version",
+                                            "string",
+                                            "Installed version of the plugin",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "```JSON",
+                        ),
+                        Text(
+                            "[",
+                        ),
+                        Text(
+                            "    {",
+                        ),
+                        Text(
+                            "        \"enabled\": true,",
+                        ),
+                        Text(
+                            "        \"fullName\": \"Legit Torrents\",",
+                        ),
+                        Text(
+                            "        \"name\": \"legittorrents\",",
+                        ),
+                        Text(
+                            "        \"supportedCategories\": [{",
+                        ),
+                        Text(
+                            "            \"id\": \"all\",",
+                        ),
+                        Text(
+                            "            \"name\": \"All categories\"",
+                        ),
+                        Text(
+                            "        }, {",
+                        ),
+                        Text(
+                            "            \"id\": \"anime\",",
+                        ),
+                        Text(
+                            "            \"name\": \"Anime\"",
+                        ),
+                        Text(
+                            "        }, {",
+                        ),
+                        Text(
+                            "            \"id\": \"books\",",
+                        ),
+                        Text(
+                            "            \"name\": \"Books\"",
+                        ),
+                        Text(
+                            "        }, {",
+                        ),
+                        Text(
+                            "            \"id\": \"games\",",
+                        ),
+                        Text(
+                            "            \"name\": \"Games\"",
+                        ),
+                        Text(
+                            "        }, {",
+                        ),
+                        Text(
+                            "            \"id\": \"movies\",",
+                        ),
+                        Text(
+                            "            \"name\": \"Movies\"",
+                        ),
+                        Text(
+                            "        }, {",
+                        ),
+                        Text(
+                            "            \"id\": \"music\",",
+                        ),
+                        Text(
+                            "            \"name\": \"Music\"",
+                        ),
+                        Text(
+                            "        }, {",
+                        ),
+                        Text(
+                            "            \"id\": \"tv\",",
+                        ),
+                        Text(
+                            "            \"name\": \"TV shows\"",
+                        ),
+                        Text(
+                            "        }],",
+                        ),
+                        Text(
+                            "        \"url\": \"http://www.legittorrents.info\",",
+                        ),
+                        Text(
+                            "        \"version\": \"2.3\"",
+                        ),
+                        Text(
+                            "    }",
+                        ),
+                        Text(
+                            "]",
+                        ),
+                        Text(
+                            "```",
+                        ),
+                        Text(
+                            "",
+                        ),
+                    ],
+                    children: [],
+                },
+                TokenTree {
+                    title: Some(
+                        "Install search plugin",
+                    ),
+                    content: [
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Name: `installPlugin`",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Parameters:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Parameter                         | Type    | Description",
+                                    columns: [
+                                        "Parameter",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`sources`                         | string  | Url or file path of the plugin to install (e.g. \"[https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py](https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py)\"). Supports multiple sources separated by `\\|`",
+                                        columns: [
+                                            "sources",
+                                            "string",
+                                            "Url or file path of the plugin to install (e.g. \"[https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py](https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py)\"). Supports multiple sources separated by \\",
+                                            "",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Returns:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "HTTP Status Code                  | Scenario",
+                                    columns: [
+                                        "HTTP Status Code",
+                                        "Scenario",
+                                    ],
+                                },
+                                split: "----------------------------------|---------------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "200                               | All scenarios",
+                                        columns: [
+                                            "200",
+                                            "All scenarios",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                    ],
+                    children: [],
+                },
+                TokenTree {
+                    title: Some(
+                        "Uninstall search plugin",
+                    ),
+                    content: [
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Name: `uninstallPlugin`",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Parameters:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Parameter                         | Type    | Description",
+                                    columns: [
+                                        "Parameter",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`names`                           | string  | Name of the plugin to uninstall (e.g. \"legittorrents\"). Supports multiple names separated by `\\|`",
+                                        columns: [
+                                            "names",
+                                            "string",
+                                            "Name of the plugin to uninstall (e.g. \"legittorrents\"). Supports multiple names separated by \\",
+                                            "",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Returns:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "HTTP Status Code                  | Scenario",
+                                    columns: [
+                                        "HTTP Status Code",
+                                        "Scenario",
+                                    ],
+                                },
+                                split: "----------------------------------|---------------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "200                               | All scenarios",
+                                        columns: [
+                                            "200",
+                                            "All scenarios",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                    ],
+                    children: [],
+                },
+                TokenTree {
+                    title: Some(
+                        "Enable search plugin",
+                    ),
+                    content: [
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Name: `enablePlugin`",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Parameters:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Parameter                         | Type    | Description",
+                                    columns: [
+                                        "Parameter",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`names`                           | string  | Name of the plugin to enable/disable (e.g. \"legittorrents\"). Supports multiple names separated by `\\|`",
+                                        columns: [
+                                            "names",
+                                            "string",
+                                            "Name of the plugin to enable/disable (e.g. \"legittorrents\"). Supports multiple names separated by \\",
+                                            "",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`enable`                          | bool    | Whether the plugins should be enabled",
+                                        columns: [
+                                            "enable",
+                                            "bool",
+                                            "Whether the plugins should be enabled",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Returns:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "HTTP Status Code                  | Scenario",
+                                    columns: [
+                                        "HTTP Status Code",
+                                        "Scenario",
+                                    ],
+                                },
+                                split: "----------------------------------|---------------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "200                               | All scenarios",
+                                        columns: [
+                                            "200",
+                                            "All scenarios",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                    ],
+                    children: [],
+                },
+                TokenTree {
+                    title: Some(
+                        "Update search plugins",
+                    ),
+                    content: [
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "Name: `updatePlugins`",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Parameters:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Text(
+                            "None",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterix(
+                            "Returns:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "HTTP Status Code                  | Scenario",
+                                    columns: [
+                                        "HTTP Status Code",
+                                        "Scenario",
+                                    ],
+                                },
+                                split: "----------------------------------|---------------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "200                               | All scenarios",
+                                        columns: [
+                                            "200",
+                                            "All scenarios",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
                         ),
                     ],
                     children: [],
                 },
             ],
+        },
+        TokenTree {
+            title: Some(
+                "WebAPI versioning",
+            ),
+            content: [
+                Text(
+                    "WebAPI uses the following versioning: `1.2.3`:",
+                ),
+                Text(
+                    "1. Main version. Should be changed only on some global changes (e.g. total redesign/relayout)",
+                ),
+                Text(
+                    "2. Changed on incompatible API changes (i.e. if it breaks outdated clients). E.g. if you change/remove something",
+                ),
+                Text(
+                    "3. Changed on compatible API changes (i.e. if it doesn't break outdated clients). E.g. if you add something new outdated clients still can access old subset of API.",
+                ),
+            ],
+            children: [],
         },
     ],
 }

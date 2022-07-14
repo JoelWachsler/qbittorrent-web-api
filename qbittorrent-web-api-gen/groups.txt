@@ -5,7 +5,7 @@
             ApiMethod {
                 name: "login",
                 description: Some(
-                    "Example showing how to login and execute a command that requires authentication using `curl`:\n\n```sh\n$ curl -i --header 'Referer: http://localhost:8080' --data 'username=admin&password=adminadmin' http://localhost:8080/api/v2/auth/login\nHTTP/1.1 200 OK\nContent-Encoding:\nContent-Length: 3\nContent-Type: text/plain; charset=UTF-8\nSet-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/\n$ curl http://localhost:8080/api/v2/torrents/info --cookie \"SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ\"\n```\n\nNote: Set `Referer` or `Origin` header to the exact same domain and port as used in the HTTP query `Host` header.",
+                    "Upon success, the response will contain a cookie with your SID. You must supply the cookie whenever you want to perform an operation that requires authentication.\n\nExample showing how to login and execute a command that requires authentication using `curl`:\n\n```sh\n$ curl -i --header 'Referer: http://localhost:8080' --data 'username=admin&password=adminadmin' http://localhost:8080/api/v2/auth/login\nHTTP/1.1 200 OK\nContent-Encoding:\nContent-Length: 3\nContent-Type: text/plain; charset=UTF-8\nSet-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/\n$ curl http://localhost:8080/api/v2/torrents/info --cookie \"SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ\"\n```\n\nNote: Set `Referer` or `Origin` header to the exact same domain and port as used in the HTTP query `Host` header.",
                 ),
                 parameters: Some(
                     [
@@ -54,21 +54,27 @@
         methods: [
             ApiMethod {
                 name: "version",
-                description: None,
+                description: Some(
+                    "The response is a string with the application version, e.g. `v4.1.3`",
+                ),
                 parameters: None,
                 return_type: None,
                 url: "version",
             },
             ApiMethod {
                 name: "webapiVersion",
-                description: None,
+                description: Some(
+                    "The response is a string with the WebAPI version, e.g. `2.0`",
+                ),
                 parameters: None,
                 return_type: None,
                 url: "webapiVersion",
             },
             ApiMethod {
                 name: "buildInfo",
-                description: None,
+                description: Some(
+                    "The response is a JSON object containing the following fields",
+                ),
                 parameters: None,
                 return_type: Some(
                     ReturnType {
@@ -164,7 +170,7 @@
             ApiMethod {
                 name: "preferences",
                 description: Some(
-                    "Possible fields:\n\nPossible values of `scan_dirs`:\n\nPossible values of `scheduler_days`:\n\nPossible values of `encryption`:\n\nNB: the first options allows you to use both encrypted and unencrypted connections (this is the default); other options are mutually exclusive: e.g. by forcing encryption on you won't be able to use unencrypted connections and vice versa.\n\nPossible values of `proxy_type`:\n\nPossible values of `dyndns_service`:\n\nPossible values of `max_ratio_act`:\n\nPossible values of `bittorrent_protocol`:\n\nPossible values of `upload_choking_algorithm`:\n\nPossible values of `upload_slots_behavior`:\n\nPossible values of `utp_tcp_mixed_mode`:\n\nExample:\n\n```JSON\n{\n    \"add_trackers\": \"\",\n    \"add_trackers_enabled\": false,\n    \"alt_dl_limit\": 10240,\n    \"alt_up_limit\": 10240,\n    \"alternative_webui_enabled\": false,\n    \"alternative_webui_path\": \"/home/user/Documents/qbit-webui\",\n    \"announce_ip\": \"\",\n    \"announce_to_all_tiers\": true,\n    \"announce_to_all_trackers\": false,\n    \"anonymous_mode\": false,\n    \"async_io_threads\": 4,\n    \"auto_delete_mode\": 0,\n    \"auto_tmm_enabled\": false,\n    \"autorun_enabled\": false,\n    \"autorun_program\": \"\",\n    \"banned_IPs\": \"\",\n    \"bittorrent_protocol\": 0,\n    \"bypass_auth_subnet_whitelist\": \"\",\n    \"bypass_auth_subnet_whitelist_enabled\": false,\n    \"bypass_local_auth\": false,\n    \"category_changed_tmm_enabled\": false,\n    \"checking_memory_use\": 32,\n    \"create_subfolder_enabled\": true,\n    \"current_interface_address\": \"\",\n    \"current_network_interface\": \"\",\n    \"dht\": true,\n    \"disk_cache\": -1,\n    \"disk_cache_ttl\": 60,\n    \"dl_limit\": 0,\n    \"dont_count_slow_torrents\": false,\n    \"dyndns_domain\": \"changeme.dyndns.org\",\n    \"dyndns_enabled\": false,\n    \"dyndns_password\": \"\",\n    \"dyndns_service\": 0,\n    \"dyndns_username\": \"\",\n    \"embedded_tracker_port\": 9000,\n    \"enable_coalesce_read_write\": false,\n    \"enable_embedded_tracker\": false,\n    \"enable_multi_connections_from_same_ip\": false,\n    \"enable_os_cache\": true,\n    \"enable_piece_extent_affinity\": false,\n    \"enable_upload_suggestions\": false,\n    \"encryption\": 0,\n    \"export_dir\": \"/home/user/Downloads/all\",\n    \"export_dir_fin\": \"/home/user/Downloads/completed\",\n    \"file_pool_size\": 40,\n    \"incomplete_files_ext\": false,\n    \"ip_filter_enabled\": false,\n    \"ip_filter_path\": \"\",\n    \"ip_filter_trackers\": false,\n    \"limit_lan_peers\": true,\n    \"limit_tcp_overhead\": false,\n    \"limit_utp_rate\": true,\n    \"listen_port\": 58925,\n    \"locale\": \"en\",\n    \"lsd\": true,\n    \"mail_notification_auth_enabled\": false,\n    \"mail_notification_email\": \"\",\n    \"mail_notification_enabled\": false,\n    \"mail_notification_password\": \"\",\n    \"mail_notification_sender\": \"qBittorrent_notification@example.com\",\n    \"mail_notification_smtp\": \"smtp.changeme.com\",\n    \"mail_notification_ssl_enabled\": false,\n    \"mail_notification_username\": \"\",\n    \"max_active_downloads\": 3,\n    \"max_active_torrents\": 5,\n    \"max_active_uploads\": 3,\n    \"max_connec\": 500,\n    \"max_connec_per_torrent\": 100,\n    \"max_ratio\": -1,\n    \"max_ratio_act\": 0,\n    \"max_ratio_enabled\": false,\n    \"max_seeding_time\": -1,\n    \"max_seeding_time_enabled\": false,\n    \"max_uploads\": -1,\n    \"max_uploads_per_torrent\": -1,\n    \"outgoing_ports_max\": 0,\n    \"outgoing_ports_min\": 0,\n    \"pex\": true,\n    \"preallocate_all\": false,\n    \"proxy_auth_enabled\": false,\n    \"proxy_ip\": \"0.0.0.0\",\n    \"proxy_password\": \"\",\n    \"proxy_peer_connections\": false,\n    \"proxy_port\": 8080,\n    \"proxy_torrents_only\": false,\n    \"proxy_type\": 0,\n    \"proxy_username\": \"\",\n    \"queueing_enabled\": false,\n    \"random_port\": false,\n    \"recheck_completed_torrents\": false,\n    \"resolve_peer_countries\": true,\n    \"rss_auto_downloading_enabled\":true,\n    \"rss_download_repack_proper_episodes\":true,\n    \"rss_max_articles_per_feed\":50,\n    \"rss_processing_enabled\":true,\n    \"rss_refresh_interval\":30,\n    \"rss_smart_episode_filters\":\"s(\\\\d+)e(\\\\d+)\\n(\\\\d+)x(\\\\d+)\\n(\\\\d{4}[.\\\\-]\\\\d{1,2}[.\\\\-]\\\\d{1,2})\",\n    \"save_path\": \"/home/user/Downloads/\",\n    \"save_path_changed_tmm_enabled\": false,\n    \"save_resume_data_interval\": 60,\n    \"scan_dirs\":\n    {\n        \"/home/user/Downloads/incoming/games\": 0,\n        \"/home/user/Downloads/incoming/movies\": 1,\n    },\n    \"schedule_from_hour\": 8,\n    \"schedule_from_min\": 0,\n    \"schedule_to_hour\": 20,\n    \"schedule_to_min\": 0,\n    \"scheduler_days\": 0,\n    \"scheduler_enabled\": false,\n    \"send_buffer_low_watermark\": 10,\n    \"send_buffer_watermark\": 500,\n    \"send_buffer_watermark_factor\": 50,\n    \"slow_torrent_dl_rate_threshold\": 2,\n    \"slow_torrent_inactive_timer\": 60,\n    \"slow_torrent_ul_rate_threshold\": 2,\n    \"socket_backlog_size\": 30,\n    \"start_paused_enabled\": false,\n    \"stop_tracker_timeout\": 1,\n    \"temp_path\": \"/home/user/Downloads/temp\",\n    \"temp_path_enabled\": false,\n    \"torrent_changed_tmm_enabled\": true,\n    \"up_limit\": 0,\n    \"upload_choking_algorithm\": 1,\n    \"upload_slots_behavior\": 0,\n    \"upnp\": true,\n    \"use_https\": false,\n    \"utp_tcp_mixed_mode\": 0,\n    \"web_ui_address\": \"*\",\n    \"web_ui_ban_duration\": 3600,\n    \"web_ui_clickjacking_protection_enabled\": true,\n    \"web_ui_csrf_protection_enabled\": true,\n    \"web_ui_custom_http_headers\": \"\",\n    \"web_ui_domain_list\": \"*\",\n    \"web_ui_host_header_validation_enabled\": true,\n    \"web_ui_https_cert_path\": \"\",\n    \"web_ui_https_key_path\": \"\",\n    \"web_ui_max_auth_fail_count\": 5,\n    \"web_ui_port\": 8080,\n    \"web_ui_secure_cookie_enabled\": true,\n    \"web_ui_session_timeout\": 3600,\n    \"web_ui_upnp\": false,\n    \"web_ui_use_custom_http_headers_enabled\": false,\n    \"web_ui_username\": \"admin\"\n}\n```",
+                    "The response is a JSON object with several fields (key-value) pairs representing the application's settings. The contents may vary depending on which settings are present in qBittorrent.ini.\n\nPossible fields:\n\n\nPossible values of `scan_dirs`:\n\n\nPossible values of `scheduler_days`:\n\n\nPossible values of `encryption`:\n\n\nNB: the first options allows you to use both encrypted and unencrypted connections (this is the default); other options are mutually exclusive: e.g. by forcing encryption on you won't be able to use unencrypted connections and vice versa.\n\nPossible values of `proxy_type`:\n\n\nPossible values of `dyndns_service`:\n\n\nPossible values of `max_ratio_act`:\n\n\nPossible values of `bittorrent_protocol`:\n\n\nPossible values of `upload_choking_algorithm`:\n\n\nPossible values of `upload_slots_behavior`:\n\n\nPossible values of `utp_tcp_mixed_mode`:\n\n\nExample:\n\n```JSON\n{\n    \"add_trackers\": \"\",\n    \"add_trackers_enabled\": false,\n    \"alt_dl_limit\": 10240,\n    \"alt_up_limit\": 10240,\n    \"alternative_webui_enabled\": false,\n    \"alternative_webui_path\": \"/home/user/Documents/qbit-webui\",\n    \"announce_ip\": \"\",\n    \"announce_to_all_tiers\": true,\n    \"announce_to_all_trackers\": false,\n    \"anonymous_mode\": false,\n    \"async_io_threads\": 4,\n    \"auto_delete_mode\": 0,\n    \"auto_tmm_enabled\": false,\n    \"autorun_enabled\": false,\n    \"autorun_program\": \"\",\n    \"banned_IPs\": \"\",\n    \"bittorrent_protocol\": 0,\n    \"bypass_auth_subnet_whitelist\": \"\",\n    \"bypass_auth_subnet_whitelist_enabled\": false,\n    \"bypass_local_auth\": false,\n    \"category_changed_tmm_enabled\": false,\n    \"checking_memory_use\": 32,\n    \"create_subfolder_enabled\": true,\n    \"current_interface_address\": \"\",\n    \"current_network_interface\": \"\",\n    \"dht\": true,\n    \"disk_cache\": -1,\n    \"disk_cache_ttl\": 60,\n    \"dl_limit\": 0,\n    \"dont_count_slow_torrents\": false,\n    \"dyndns_domain\": \"changeme.dyndns.org\",\n    \"dyndns_enabled\": false,\n    \"dyndns_password\": \"\",\n    \"dyndns_service\": 0,\n    \"dyndns_username\": \"\",\n    \"embedded_tracker_port\": 9000,\n    \"enable_coalesce_read_write\": false,\n    \"enable_embedded_tracker\": false,\n    \"enable_multi_connections_from_same_ip\": false,\n    \"enable_os_cache\": true,\n    \"enable_piece_extent_affinity\": false,\n    \"enable_upload_suggestions\": false,\n    \"encryption\": 0,\n    \"export_dir\": \"/home/user/Downloads/all\",\n    \"export_dir_fin\": \"/home/user/Downloads/completed\",\n    \"file_pool_size\": 40,\n    \"incomplete_files_ext\": false,\n    \"ip_filter_enabled\": false,\n    \"ip_filter_path\": \"\",\n    \"ip_filter_trackers\": false,\n    \"limit_lan_peers\": true,\n    \"limit_tcp_overhead\": false,\n    \"limit_utp_rate\": true,\n    \"listen_port\": 58925,\n    \"locale\": \"en\",\n    \"lsd\": true,\n    \"mail_notification_auth_enabled\": false,\n    \"mail_notification_email\": \"\",\n    \"mail_notification_enabled\": false,\n    \"mail_notification_password\": \"\",\n    \"mail_notification_sender\": \"qBittorrent_notification@example.com\",\n    \"mail_notification_smtp\": \"smtp.changeme.com\",\n    \"mail_notification_ssl_enabled\": false,\n    \"mail_notification_username\": \"\",\n    \"max_active_downloads\": 3,\n    \"max_active_torrents\": 5,\n    \"max_active_uploads\": 3,\n    \"max_connec\": 500,\n    \"max_connec_per_torrent\": 100,\n    \"max_ratio\": -1,\n    \"max_ratio_act\": 0,\n    \"max_ratio_enabled\": false,\n    \"max_seeding_time\": -1,\n    \"max_seeding_time_enabled\": false,\n    \"max_uploads\": -1,\n    \"max_uploads_per_torrent\": -1,\n    \"outgoing_ports_max\": 0,\n    \"outgoing_ports_min\": 0,\n    \"pex\": true,\n    \"preallocate_all\": false,\n    \"proxy_auth_enabled\": false,\n    \"proxy_ip\": \"0.0.0.0\",\n    \"proxy_password\": \"\",\n    \"proxy_peer_connections\": false,\n    \"proxy_port\": 8080,\n    \"proxy_torrents_only\": false,\n    \"proxy_type\": 0,\n    \"proxy_username\": \"\",\n    \"queueing_enabled\": false,\n    \"random_port\": false,\n    \"recheck_completed_torrents\": false,\n    \"resolve_peer_countries\": true,\n    \"rss_auto_downloading_enabled\":true,\n    \"rss_download_repack_proper_episodes\":true,\n    \"rss_max_articles_per_feed\":50,\n    \"rss_processing_enabled\":true,\n    \"rss_refresh_interval\":30,\n    \"rss_smart_episode_filters\":\"s(\\\\d+)e(\\\\d+)\\n(\\\\d+)x(\\\\d+)\\n(\\\\d{4}[.\\\\-]\\\\d{1,2}[.\\\\-]\\\\d{1,2})\",\n    \"save_path\": \"/home/user/Downloads/\",\n    \"save_path_changed_tmm_enabled\": false,\n    \"save_resume_data_interval\": 60,\n    \"scan_dirs\":\n    {\n        \"/home/user/Downloads/incoming/games\": 0,\n        \"/home/user/Downloads/incoming/movies\": 1,\n    },\n    \"schedule_from_hour\": 8,\n    \"schedule_from_min\": 0,\n    \"schedule_to_hour\": 20,\n    \"schedule_to_min\": 0,\n    \"scheduler_days\": 0,\n    \"scheduler_enabled\": false,\n    \"send_buffer_low_watermark\": 10,\n    \"send_buffer_watermark\": 500,\n    \"send_buffer_watermark_factor\": 50,\n    \"slow_torrent_dl_rate_threshold\": 2,\n    \"slow_torrent_inactive_timer\": 60,\n    \"slow_torrent_ul_rate_threshold\": 2,\n    \"socket_backlog_size\": 30,\n    \"start_paused_enabled\": false,\n    \"stop_tracker_timeout\": 1,\n    \"temp_path\": \"/home/user/Downloads/temp\",\n    \"temp_path_enabled\": false,\n    \"torrent_changed_tmm_enabled\": true,\n    \"up_limit\": 0,\n    \"upload_choking_algorithm\": 1,\n    \"upload_slots_behavior\": 0,\n    \"upnp\": true,\n    \"use_https\": false,\n    \"utp_tcp_mixed_mode\": 0,\n    \"web_ui_address\": \"*\",\n    \"web_ui_ban_duration\": 3600,\n    \"web_ui_clickjacking_protection_enabled\": true,\n    \"web_ui_csrf_protection_enabled\": true,\n    \"web_ui_custom_http_headers\": \"\",\n    \"web_ui_domain_list\": \"*\",\n    \"web_ui_host_header_validation_enabled\": true,\n    \"web_ui_https_cert_path\": \"\",\n    \"web_ui_https_key_path\": \"\",\n    \"web_ui_max_auth_fail_count\": 5,\n    \"web_ui_port\": 8080,\n    \"web_ui_secure_cookie_enabled\": true,\n    \"web_ui_session_timeout\": 3600,\n    \"web_ui_upnp\": false,\n    \"web_ui_use_custom_http_headers_enabled\": false,\n    \"web_ui_username\": \"admin\"\n}\n```",
                 ),
                 parameters: None,
                 return_type: Some(
@@ -2571,7 +2577,9 @@
             },
             ApiMethod {
                 name: "defaultSavePath",
-                description: None,
+                description: Some(
+                    "The response is a string with the default save path, e.g. `C:/Users/Dayman/Downloads`.",
+                ),
                 parameters: None,
                 return_type: None,
                 url: "defaultSavePath",
@@ -2588,7 +2596,7 @@
             ApiMethod {
                 name: "main",
                 description: Some(
-                    "Each element of the array has the following properties:\n\nExample:\n\n```JSON\n[\n    {\n        \"id\":0,\n        \"message\":\"qBittorrent v3.4.0 started\",\n        \"timestamp\":1507969127860,\n        \"type\":1\n    },\n    {\n        \"id\":1,\n        \"message\":\"qBittorrent is trying to listen on any interface port: 19036\",\n        \"timestamp\":1507969127869,\n        \"type\":2\n    },\n    {\n        \"id\":2,\n        \"message\":\"Peer ID: -qB3400-\",\n        \"timestamp\":1507969127870,\n        \"type\":1\n    },\n    {\n        \"id\":3,\n        \"message\":\"HTTP User-Agent is 'qBittorrent/3.4.0'\",\n        \"timestamp\":1507969127870,\n        \"type\":1\n    },\n    {\n        \"id\":4,\n        \"message\":\"DHT support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":5,\n        \"message\":\"Local Peer Discovery support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":6,\n        \"message\":\"PeX support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":7,\n        \"message\":\"Anonymous mode [OFF]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":8,\n        \"message\":\"Encryption support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":9,\n        \"message\":\"Embedded Tracker [OFF]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":10,\n        \"message\":\"UPnP / NAT-PMP support [ON]\",\n        \"timestamp\":1507969127873,\n        \"type\":2\n    },\n    {\n        \"id\":11,\n        \"message\":\"Web UI: Now listening on port 8080\",\n        \"timestamp\":1507969127883,\n        \"type\":1\n    },\n    {\n        \"id\":12,\n        \"message\":\"Options were saved successfully.\",\n        \"timestamp\":1507969128055,\n        \"type\":1\n    },\n    {\n        \"id\":13,\n        \"message\":\"qBittorrent is successfully listening on interface :: port: TCP/19036\",\n        \"timestamp\":1507969128270,\n        \"type\":2\n    },\n    {\n        \"id\":14,\n        \"message\":\"qBittorrent is successfully listening on interface 0.0.0.0 port: TCP/19036\",\n        \"timestamp\":1507969128271,\n        \"type\":2\n    },\n    {\n        \"id\":15,\n        \"message\":\"qBittorrent is successfully listening on interface 0.0.0.0 port: UDP/19036\",\n        \"timestamp\":1507969128272,\n        \"type\":2\n    }\n]\n```",
+                    "The response is a JSON array in which each element is an entry of the log.\n\nEach element of the array has the following properties:\n\n\nExample:\n\n```JSON\n[\n    {\n        \"id\":0,\n        \"message\":\"qBittorrent v3.4.0 started\",\n        \"timestamp\":1507969127860,\n        \"type\":1\n    },\n    {\n        \"id\":1,\n        \"message\":\"qBittorrent is trying to listen on any interface port: 19036\",\n        \"timestamp\":1507969127869,\n        \"type\":2\n    },\n    {\n        \"id\":2,\n        \"message\":\"Peer ID: -qB3400-\",\n        \"timestamp\":1507969127870,\n        \"type\":1\n    },\n    {\n        \"id\":3,\n        \"message\":\"HTTP User-Agent is 'qBittorrent/3.4.0'\",\n        \"timestamp\":1507969127870,\n        \"type\":1\n    },\n    {\n        \"id\":4,\n        \"message\":\"DHT support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":5,\n        \"message\":\"Local Peer Discovery support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":6,\n        \"message\":\"PeX support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":7,\n        \"message\":\"Anonymous mode [OFF]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":8,\n        \"message\":\"Encryption support [ON]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":9,\n        \"message\":\"Embedded Tracker [OFF]\",\n        \"timestamp\":1507969127871,\n        \"type\":2\n    },\n    {\n        \"id\":10,\n        \"message\":\"UPnP / NAT-PMP support [ON]\",\n        \"timestamp\":1507969127873,\n        \"type\":2\n    },\n    {\n        \"id\":11,\n        \"message\":\"Web UI: Now listening on port 8080\",\n        \"timestamp\":1507969127883,\n        \"type\":1\n    },\n    {\n        \"id\":12,\n        \"message\":\"Options were saved successfully.\",\n        \"timestamp\":1507969128055,\n        \"type\":1\n    },\n    {\n        \"id\":13,\n        \"message\":\"qBittorrent is successfully listening on interface :: port: TCP/19036\",\n        \"timestamp\":1507969128270,\n        \"type\":2\n    },\n    {\n        \"id\":14,\n        \"message\":\"qBittorrent is successfully listening on interface 0.0.0.0 port: TCP/19036\",\n        \"timestamp\":1507969128271,\n        \"type\":2\n    },\n    {\n        \"id\":15,\n        \"message\":\"qBittorrent is successfully listening on interface 0.0.0.0 port: UDP/19036\",\n        \"timestamp\":1507969128272,\n        \"type\":2\n    }\n]\n```",
                 ),
                 parameters: Some(
                     [
@@ -2720,7 +2728,9 @@
             },
             ApiMethod {
                 name: "peers",
-                description: None,
+                description: Some(
+                    "The response a JSON array. Each element of the array of objects (each object is the information relative to a peer) containing the following fields",
+                ),
                 parameters: Some(
                     [
                         Number(
@@ -2751,7 +2761,7 @@
             ApiMethod {
                 name: "maindata",
                 description: Some(
-                    "Example:\n\n```JSON\n{\n    \"rid\":15,\n    \"torrents\":\n    {\n        \"8c212779b4abde7c6bc608063a0d008b7e40ce32\":\n        {\n            \"state\":\"pausedUP\"\n        }\n    }\n}\n```",
+                    "The response is a JSON object with the following possible fields\n\n\nExample:\n\n```JSON\n{\n    \"rid\":15,\n    \"torrents\":\n    {\n        \"8c212779b4abde7c6bc608063a0d008b7e40ce32\":\n        {\n            \"state\":\"pausedUP\"\n        }\n    }\n}\n```",
                 ),
                 parameters: Some(
                     [
@@ -2914,7 +2924,9 @@
             },
             ApiMethod {
                 name: "torrentPeers",
-                description: None,
+                description: Some(
+                    "The response is TODO",
+                ),
                 parameters: Some(
                     [
                         String(
@@ -2956,7 +2968,7 @@
             ApiMethod {
                 name: "info",
                 description: Some(
-                    "In addition to the above in partial data requests (see [Get partial data](#get-partial-data) for more info):\n\nPossible values of `connection_status`:\n\nExample:\n\n```JSON\n{\n    \"connection_status\":\"connected\",\n    \"dht_nodes\":386,\n    \"dl_info_data\":681521119,\n    \"dl_info_speed\":0,\n    \"dl_rate_limit\":0,\n    \"up_info_data\":10747904,\n    \"up_info_speed\":0,\n    \"up_rate_limit\":1048576\n}\n```",
+                    "The response is a JSON object with the following fields\n\n\nIn addition to the above in partial data requests (see [Get partial data](#get-partial-data) for more info):\n\n\nPossible values of `connection_status`:\n\n\nExample:\n\n```JSON\n{\n    \"connection_status\":\"connected\",\n    \"dht_nodes\":386,\n    \"dl_info_data\":681521119,\n    \"dl_info_speed\":0,\n    \"dl_rate_limit\":0,\n    \"up_info_data\":10747904,\n    \"up_info_speed\":0,\n    \"up_rate_limit\":1048576\n}\n```",
                 ),
                 parameters: None,
                 return_type: Some(
@@ -3107,7 +3119,9 @@
             },
             ApiMethod {
                 name: "speedLimitsMode",
-                description: None,
+                description: Some(
+                    "The response is `1` if alternative speed limits are enabled, `0` otherwise.",
+                ),
                 parameters: None,
                 return_type: None,
                 url: "speedLimitsMode",
@@ -3121,7 +3135,9 @@
             },
             ApiMethod {
                 name: "downloadLimit",
-                description: None,
+                description: Some(
+                    "The response is the value of current global download speed limit in bytes/second; this value will be zero if no limit is applied.",
+                ),
                 parameters: None,
                 return_type: None,
                 url: "downloadLimit",
@@ -3149,7 +3165,9 @@
             },
             ApiMethod {
                 name: "uploadLimit",
-                description: None,
+                description: Some(
+                    "The response is the value of current global upload speed limit in bytes/second; this value will be zero if no limit is applied.",
+                ),
                 parameters: None,
                 return_type: None,
                 url: "uploadLimit",
@@ -3208,7 +3226,7 @@
             ApiMethod {
                 name: "info",
                 description: Some(
-                    "Possible values of `state`:\n\nExample:\n\n```JSON\n[\n    {\n        \"dlspeed\":9681262,\n        \"eta\":87,\n        \"f_l_piece_prio\":false,\n        \"force_start\":false,\n        \"hash\":\"8c212779b4abde7c6bc608063a0d008b7e40ce32\",\n        \"category\":\"\",\n        \"tags\": \"\",\n        \"name\":\"debian-8.1.0-amd64-CD-1.iso\",\n        \"num_complete\":-1,\n        \"num_incomplete\":-1,\n        \"num_leechs\":2,\n        \"num_seeds\":54,\n        \"priority\":1,\n        \"progress\":0.16108787059783936,\n        \"ratio\":0,\n        \"seq_dl\":false,\n        \"size\":657457152,\n        \"state\":\"downloading\",\n        \"super_seeding\":false,\n        \"upspeed\":0\n    },\n    {\n        another_torrent_info\n    }\n]\n```",
+                    "The response is a JSON array with the following fields\n\n\nPossible values of `state`:\n\n\nExample:\n\n```JSON\n[\n    {\n        \"dlspeed\":9681262,\n        \"eta\":87,\n        \"f_l_piece_prio\":false,\n        \"force_start\":false,\n        \"hash\":\"8c212779b4abde7c6bc608063a0d008b7e40ce32\",\n        \"category\":\"\",\n        \"tags\": \"\",\n        \"name\":\"debian-8.1.0-amd64-CD-1.iso\",\n        \"num_complete\":-1,\n        \"num_incomplete\":-1,\n        \"num_leechs\":2,\n        \"num_seeds\":54,\n        \"priority\":1,\n        \"progress\":0.16108787059783936,\n        \"ratio\":0,\n        \"seq_dl\":false,\n        \"size\":657457152,\n        \"state\":\"downloading\",\n        \"super_seeding\":false,\n        \"upspeed\":0\n    },\n    {\n        another_torrent_info\n    }\n]\n```",
                 ),
                 parameters: Some(
                     [
@@ -4070,7 +4088,7 @@
             ApiMethod {
                 name: "properties",
                 description: Some(
-                    "- empty, if the torrent hash is invalid\n- otherwise, a JSON object with the following fields\n\nNB: `-1` is returned if the type of the property is integer but its value is not known.\n\nExample:\n\n```JSON\n{\n    \"addition_date\":1438429165,\n    \"comment\":\"\\\"Debian CD from cdimage.debian.org\\\"\",\n    \"completion_date\":1438429234,\n    \"created_by\":\"\",\n    \"creation_date\":1433605214,\n    \"dl_limit\":-1,\n    \"dl_speed\":0,\n    \"dl_speed_avg\":9736015,\n    \"eta\":8640000,\n    \"last_seen\":1438430354,\n    \"nb_connections\":3,\n    \"nb_connections_limit\":250,\n    \"peers\":1,\n    \"peers_total\":89,\n    \"piece_size\":524288,\n    \"pieces_have\":1254,\n    \"pieces_num\":1254,\n    \"reannounce\":672,\n    \"save_path\":\"/Downloads/debian-8.1.0-amd64-CD-1.iso\",\n    \"seeding_time\":1128,\n    \"seeds\":1,\n    \"seeds_total\":254,\n    \"share_ratio\":0.00072121022562178299,\n    \"time_elapsed\":1197,\n    \"total_downloaded\":681521119,\n    \"total_downloaded_session\":681521119,\n    \"total_size\":657457152,\n    \"total_uploaded\":491520,\n    \"total_uploaded_session\":491520,\n    \"total_wasted\":23481724,\n    \"up_limit\":-1,\n    \"up_speed\":0,\n    \"up_speed_avg\":410\n}\n```",
+                    "The response is:\n\n- empty, if the torrent hash is invalid\n- otherwise, a JSON object with the following fields\n\n\nNB: `-1` is returned if the type of the property is integer but its value is not known.\n\nExample:\n\n```JSON\n{\n    \"addition_date\":1438429165,\n    \"comment\":\"\\\"Debian CD from cdimage.debian.org\\\"\",\n    \"completion_date\":1438429234,\n    \"created_by\":\"\",\n    \"creation_date\":1433605214,\n    \"dl_limit\":-1,\n    \"dl_speed\":0,\n    \"dl_speed_avg\":9736015,\n    \"eta\":8640000,\n    \"last_seen\":1438430354,\n    \"nb_connections\":3,\n    \"nb_connections_limit\":250,\n    \"peers\":1,\n    \"peers_total\":89,\n    \"piece_size\":524288,\n    \"pieces_have\":1254,\n    \"pieces_num\":1254,\n    \"reannounce\":672,\n    \"save_path\":\"/Downloads/debian-8.1.0-amd64-CD-1.iso\",\n    \"seeding_time\":1128,\n    \"seeds\":1,\n    \"seeds_total\":254,\n    \"share_ratio\":0.00072121022562178299,\n    \"time_elapsed\":1197,\n    \"total_downloaded\":681521119,\n    \"total_downloaded_session\":681521119,\n    \"total_size\":657457152,\n    \"total_uploaded\":491520,\n    \"total_uploaded_session\":491520,\n    \"total_wasted\":23481724,\n    \"up_limit\":-1,\n    \"up_speed\":0,\n    \"up_speed_avg\":410\n}\n```",
                 ),
                 parameters: Some(
                     [
@@ -4093,7 +4111,7 @@
             ApiMethod {
                 name: "trackers",
                 description: Some(
-                    "Possible values of `status`:\n\nExample:\n\n```JSON\n[\n    {\n        \"msg\":\"\",\n        \"num_peers\":100,\n        \"status\":2,\n        \"url\":\"http://bttracker.debian.org:6969/announce\"\n    },\n    {\n        another_tracker_info\n    }\n]\n```",
+                    "The response is a JSON array, where each element contains info about one tracker, with the following fields\n\n\nPossible values of `status`:\n\n\nExample:\n\n```JSON\n[\n    {\n        \"msg\":\"\",\n        \"num_peers\":100,\n        \"status\":2,\n        \"url\":\"http://bttracker.debian.org:6969/announce\"\n    },\n    {\n        another_tracker_info\n    }\n]\n```",
                 ),
                 parameters: Some(
                     [
@@ -4267,7 +4285,7 @@
             ApiMethod {
                 name: "webseeds",
                 description: Some(
-                    "Example:\n\n```JSON\n[\n    {\n        \"url\":\"http://some_url/\"\n    },\n    {\n        \"url\":\"http://some_other_url/\"\n    }\n]\n```",
+                    "The response is a JSON array, where each element is information about one webseed, with the following fields\n\n\nExample:\n\n```JSON\n[\n    {\n        \"url\":\"http://some_url/\"\n    },\n    {\n        \"url\":\"http://some_other_url/\"\n    }\n]\n```",
                 ),
                 parameters: Some(
                     [
@@ -4311,7 +4329,7 @@
             ApiMethod {
                 name: "files",
                 description: Some(
-                    "- empty, if the torrent hash is invalid\n- otherwise, a JSON array, where each element contains info about one file, with the following fields\n\nPossible values of `priority`:\n\nExample:\n\n```JSON\n\n[\n    {\n        \"index\":0,\n        \"is_seed\":false,\n        \"name\":\"debian-8.1.0-amd64-CD-1.iso\",\n        \"piece_range\":[0,1253],\n        \"priority\":1,\n        \"progress\":0,\n        \"size\":657457152,\n        \"availability\":0.5,\n    }\n]\n```",
+                    "The response is:\n\n- empty, if the torrent hash is invalid\n- otherwise, a JSON array, where each element contains info about one file, with the following fields\n\n\nPossible values of `priority`:\n\n\nExample:\n\n```JSON\n\n[\n    {\n        \"index\":0,\n        \"is_seed\":false,\n        \"name\":\"debian-8.1.0-amd64-CD-1.iso\",\n        \"piece_range\":[0,1253],\n        \"priority\":1,\n        \"progress\":0,\n        \"size\":657457152,\n        \"availability\":0.5,\n    }\n]\n```",
                 ),
                 parameters: Some(
                     [
@@ -4345,7 +4363,7 @@
             ApiMethod {
                 name: "pieceStates",
                 description: Some(
-                    "- empty, if the torrent hash is invalid\n- otherwise, an array of states (integers) of all pieces (in order) of a specific torrent.\n\nValue meanings are defined as below:\n\nExample:\n\n```JSON\n[0,0,2,1,0,0,2,1]\n```",
+                    "The response is:\n\n- empty, if the torrent hash is invalid\n- otherwise, an array of states (integers) of all pieces (in order) of a specific torrent.\n\nValue meanings are defined as below:\n\n\nExample:\n\n```JSON\n[0,0,2,1,0,0,2,1]\n```",
                 ),
                 parameters: Some(
                     [
@@ -4368,7 +4386,7 @@
             ApiMethod {
                 name: "pieceHashes",
                 description: Some(
-                    "- empty, if the torrent hash is invalid\n- otherwise, an array of hashes (strings) of all pieces (in order) of a specific torrent.\n\nExample:\n\n```JSON\n[\"54eddd830a5b58480a6143d616a97e3a6c23c439\",\"f8a99d225aa4241db100f88407fc3bdaead583ab\",\"928fb615b9bd4dd8f9e9022552c8f8f37ef76f58\"]\n```",
+                    "The response is:\n\n- empty, if the torrent hash is invalid\n- otherwise, an array of hashes (strings) of all pieces (in order) of a specific torrent.\n\nExample:\n\n```JSON\n[\"54eddd830a5b58480a6143d616a97e3a6c23c439\",\"f8a99d225aa4241db100f88407fc3bdaead583ab\",\"928fb615b9bd4dd8f9e9022552c8f8f37ef76f58\"]\n```",
                 ),
                 parameters: Some(
                     [
@@ -5481,7 +5499,7 @@
             ApiMethod {
                 name: "start",
                 description: Some(
-                    "Example:\n\n```JSON\n{\n    \"id\": 12345\n}\n```",
+                    "The response is a JSON object with the following fields\n\n\nExample:\n\n```JSON\n{\n    \"id\": 12345\n}\n```",
                 ),
                 parameters: Some(
                     [
@@ -5568,7 +5586,7 @@
             ApiMethod {
                 name: "status",
                 description: Some(
-                    "Example:\n\n```JSON\n[\n    {\n        \"id\": 12345,\n        \"status\": \"Running\",\n        \"total\": 170\n    }\n]\n```",
+                    "The response is a JSON array of objects containing the following fields\n\n\nExample:\n\n```JSON\n[\n    {\n        \"id\": 12345,\n        \"status\": \"Running\",\n        \"total\": 170\n    }\n]\n```",
                 ),
                 parameters: Some(
                     [
@@ -5641,7 +5659,9 @@
             },
             ApiMethod {
                 name: "results",
-                description: None,
+                description: Some(
+                    "The response is a JSON object with the following fields\n\n\n\n\nExample:\n\n```JSON\n{\n    \"results\": [\n        {\n            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41\",\n            \"fileName\": \"Ubuntu-10.04-32bit-NeTV.ova\",\n            \"fileSize\": -1,\n            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41&f=Ubuntu-10.04-32bit-NeTV.ova.torrent\",\n            \"nbLeechers\": 1,\n            \"nbSeeders\": 0,\n            \"siteUrl\": \"http://www.legittorrents.info\"\n        },\n        {\n            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475\",\n            \"fileName\": \"mangOH-Legato-17_06-Ubuntu-16_04.ova\",\n            \"fileSize\": -1,\n            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475&f=mangOH-Legato-17_06-Ubuntu-16_04.ova.torrent\",\n            \"nbLeechers\": 0,\n            \"nbSeeders\": 59,\n            \"siteUrl\": \"http://www.legittorrents.info\"\n        }\n    ],\n    \"status\": \"Running\",\n    \"total\": 2\n}\n```",
+                ),
                 parameters: Some(
                     [
                         Number(
@@ -5682,10 +5702,263 @@
                 return_type: Some(
                     ReturnType {
                         is_list: false,
-                        parameters: [],
+                        parameters: [
+                            ReturnTypeParameter {
+                                name: "results",
+                                description: "Array of result objects- see table below",
+                                return_type: StringArray(
+                                    TypeInfo {
+                                        name: "results",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "Array of result objects- see table below",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                            ReturnTypeParameter {
+                                name: "status",
+                                description: "Current status of the search job (either Running or Stopped)",
+                                return_type: String(
+                                    TypeInfo {
+                                        name: "status",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "Current status of the search job (either Running or Stopped)",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                            ReturnTypeParameter {
+                                name: "total",
+                                description: "Total number of results. If the status is Running this number may continue to increase",
+                                return_type: Number(
+                                    TypeInfo {
+                                        name: "total",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "Total number of results. If the status is Running this number may continue to increase",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                        ],
                     },
                 ),
                 url: "results",
+            },
+            ApiMethod {
+                name: "delete",
+                description: None,
+                parameters: Some(
+                    [
+                        Number(
+                            TypeInfo {
+                                name: "id",
+                                is_optional: false,
+                                is_list: false,
+                                description: Some(
+                                    "ID of the search job",
+                                ),
+                                type_description: None,
+                            },
+                        ),
+                    ],
+                ),
+                return_type: None,
+                url: "delete",
+            },
+            ApiMethod {
+                name: "plugins",
+                description: Some(
+                    "The response is a JSON array of objects containing the following fields\n\n\n```JSON\n[\n    {\n        \"enabled\": true,\n        \"fullName\": \"Legit Torrents\",\n        \"name\": \"legittorrents\",\n        \"supportedCategories\": [{\n            \"id\": \"all\",\n            \"name\": \"All categories\"\n        }, {\n            \"id\": \"anime\",\n            \"name\": \"Anime\"\n        }, {\n            \"id\": \"books\",\n            \"name\": \"Books\"\n        }, {\n            \"id\": \"games\",\n            \"name\": \"Games\"\n        }, {\n            \"id\": \"movies\",\n            \"name\": \"Movies\"\n        }, {\n            \"id\": \"music\",\n            \"name\": \"Music\"\n        }, {\n            \"id\": \"tv\",\n            \"name\": \"TV shows\"\n        }],\n        \"url\": \"http://www.legittorrents.info\",\n        \"version\": \"2.3\"\n    }\n]\n```",
+                ),
+                parameters: None,
+                return_type: Some(
+                    ReturnType {
+                        is_list: true,
+                        parameters: [
+                            ReturnTypeParameter {
+                                name: "enabled",
+                                description: "Whether the plugin is enabled",
+                                return_type: Bool(
+                                    TypeInfo {
+                                        name: "enabled",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "Whether the plugin is enabled",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                            ReturnTypeParameter {
+                                name: "fullName",
+                                description: "Full name of the plugin",
+                                return_type: String(
+                                    TypeInfo {
+                                        name: "fullName",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "Full name of the plugin",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                            ReturnTypeParameter {
+                                name: "name",
+                                description: "Short name of the plugin",
+                                return_type: String(
+                                    TypeInfo {
+                                        name: "name",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "Short name of the plugin",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                            ReturnTypeParameter {
+                                name: "supportedCategories",
+                                description: "List of category objects",
+                                return_type: StringArray(
+                                    TypeInfo {
+                                        name: "supportedCategories",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "List of category objects",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                            ReturnTypeParameter {
+                                name: "url",
+                                description: "URL of the torrent site",
+                                return_type: String(
+                                    TypeInfo {
+                                        name: "url",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "URL of the torrent site",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                            ReturnTypeParameter {
+                                name: "version",
+                                description: "Installed version of the plugin",
+                                return_type: String(
+                                    TypeInfo {
+                                        name: "version",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "Installed version of the plugin",
+                                        ),
+                                        type_description: None,
+                                    },
+                                ),
+                            },
+                        ],
+                    },
+                ),
+                url: "plugins",
+            },
+            ApiMethod {
+                name: "installPlugin",
+                description: None,
+                parameters: Some(
+                    [
+                        String(
+                            TypeInfo {
+                                name: "sources",
+                                is_optional: false,
+                                is_list: false,
+                                description: Some(
+                                    "Url or file path of the plugin to install (e.g. \"[https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py](https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py)\"). Supports multiple sources separated by \\",
+                                ),
+                                type_description: None,
+                            },
+                        ),
+                    ],
+                ),
+                return_type: None,
+                url: "installPlugin",
+            },
+            ApiMethod {
+                name: "uninstallPlugin",
+                description: None,
+                parameters: Some(
+                    [
+                        String(
+                            TypeInfo {
+                                name: "names",
+                                is_optional: false,
+                                is_list: false,
+                                description: Some(
+                                    "Name of the plugin to uninstall (e.g. \"legittorrents\"). Supports multiple names separated by \\",
+                                ),
+                                type_description: None,
+                            },
+                        ),
+                    ],
+                ),
+                return_type: None,
+                url: "uninstallPlugin",
+            },
+            ApiMethod {
+                name: "enablePlugin",
+                description: None,
+                parameters: Some(
+                    [
+                        String(
+                            TypeInfo {
+                                name: "names",
+                                is_optional: false,
+                                is_list: false,
+                                description: Some(
+                                    "Name of the plugin to enable/disable (e.g. \"legittorrents\"). Supports multiple names separated by \\",
+                                ),
+                                type_description: None,
+                            },
+                        ),
+                        Bool(
+                            TypeInfo {
+                                name: "enable",
+                                is_optional: false,
+                                is_list: false,
+                                description: Some(
+                                    "Whether the plugins should be enabled",
+                                ),
+                                type_description: None,
+                            },
+                        ),
+                    ],
+                ),
+                return_type: None,
+                url: "enablePlugin",
+            },
+            ApiMethod {
+                name: "updatePlugins",
+                description: None,
+                parameters: None,
+                return_type: None,
+                url: "updatePlugins",
             },
         ],
         description: Some(
