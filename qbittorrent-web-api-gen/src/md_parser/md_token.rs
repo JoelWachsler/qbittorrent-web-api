@@ -77,10 +77,21 @@ impl MdToken {
     }
 
     pub fn from(content: &str) -> Vec<MdToken> {
+        // to prevent infinite loops
+        let mut max_iterations = 10000;
+        let mut decreate_max_iterations = || {
+            max_iterations -= 1;
+            if max_iterations <= 0 {
+                panic!("Max iterations reached, missing termination?");
+            };
+        };
+
         let mut output = Vec::new();
 
-        let mut iter = content.lines();
+        let mut iter = content.lines().peekable();
         while let Some(line) = iter.next() {
+            decreate_max_iterations();
+
             // assume this is a table
             if line.contains('|') {
                 let to_columns = |column_line: &str| {
@@ -97,16 +108,18 @@ impl MdToken {
                 };
                 let table_split = iter.next().unwrap();
                 let mut table_rows = Vec::new();
-                while let Some(row_line) = iter.next() {
-                    if !row_line.contains('|') {
+                while let Some(peeked_row_line) = iter.peek() {
+                    decreate_max_iterations();
+
+                    if !peeked_row_line.contains('|') {
                         // we've reached the end of the table, let's go back one step
-                        iter.next_back();
                         break;
                     }
 
+                    let next_row_line = iter.next().unwrap();
                     let table_row = TableRow {
-                        raw: row_line.into(),
-                        columns: to_columns(row_line),
+                        raw: next_row_line.to_string(),
+                        columns: to_columns(next_row_line),
                     };
 
                     table_rows.push(table_row);

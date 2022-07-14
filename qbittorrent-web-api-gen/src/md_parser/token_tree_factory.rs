@@ -96,11 +96,19 @@ mod tests {
     macro_rules! update_test {
         ($test_file:expr) => {
             use std::fs;
+            use std::path::Path;
 
             let input = include_str!(concat!("token_tree_factory_tests/", $test_file, ".md"));
             let tree = TokenTreeFactory::create(input);
             let tree_as_str = format!("{tree:#?}");
-            fs::write(concat!($test_file, ".check"), tree_as_str).unwrap();
+            let file = concat!("src/md_parser/token_tree_factory_tests/", $test_file, ".check");
+
+            // prevent user from accidentially leaving the current macro in a test
+            if Path::new(file).exists() {
+                panic!("Test case already exists: {file}");
+            }
+
+            fs::write(file, tree_as_str).unwrap();
         };
     }
 
@@ -127,5 +135,10 @@ mod tests {
     #[test]
     fn log() {
         run_test!("log");
+    }
+
+    #[test]
+    fn multi_table() {
+        run_test!("multi_table");
     }
 }

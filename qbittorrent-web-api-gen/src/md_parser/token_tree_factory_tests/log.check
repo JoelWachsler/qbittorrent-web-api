@@ -94,6 +94,9 @@ TokenTree {
                             },
                         ),
                         Text(
+                            "",
+                        ),
+                        Text(
                             "Example:",
                         ),
                         Text(
@@ -137,6 +140,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "The response is a JSON array in which each element is an entry of the log.",
@@ -196,6 +202,9 @@ TokenTree {
                                     },
                                 ],
                             },
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Example:",
@@ -493,6 +502,15 @@ TokenTree {
                         ),
                         Text(
                             "        \"type\":2",
+                        ),
+                        Text(
+                            "    }",
+                        ),
+                        Text(
+                            "]",
+                        ),
+                        Text(
+                            "```",
                         ),
                     ],
                     children: [],

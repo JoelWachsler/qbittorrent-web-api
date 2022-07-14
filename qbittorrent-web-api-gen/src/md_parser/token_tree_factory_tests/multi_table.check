@@ -1,0 +1,86 @@
+TokenTree {
+    title: None,
+    content: [],
+    children: [
+        TokenTree {
+            title: Some(
+                "Foo",
+            ),
+            content: [
+                Text(
+                    "",
+                ),
+            ],
+            children: [
+                TokenTree {
+                    title: Some(
+                        "Bar",
+                    ),
+                    content: [
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Parameter       | Type    | Description",
+                                    columns: [
+                                        "Parameter",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`normal`        | bool    | Include normal messages (default: `true`)",
+                                        columns: [
+                                            "normal",
+                                            "bool",
+                                            "Include normal messages (default: true)",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                    ],
+                    children: [],
+                },
+                TokenTree {
+                    title: Some(
+                        "Baz",
+                    ),
+                    content: [
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Parameter       | Type    | Description",
+                                    columns: [
+                                        "Parameter",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "----------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`last_known_id` | integer | Exclude messages with \"message id\" <= `last_known_id` (default: `-1`)",
+                                        columns: [
+                                            "last_known_id",
+                                            "integer",
+                                            "Exclude messages with \"message id\" <= last_known_id (default: -1)",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                    ],
+                    children: [],
+                },
+            ],
+        },
+    ],
+}
