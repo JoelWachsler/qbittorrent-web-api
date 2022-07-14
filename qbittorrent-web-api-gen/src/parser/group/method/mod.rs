@@ -62,7 +62,7 @@ pub fn parse_api_method(child: &md_parser::TokenTree) -> Option<ApiMethod> {
 fn to_api_method(child: &md_parser::TokenTree, name: &str) -> ApiMethod {
     let method_description = parse_method_description(&child.content);
     let return_type = parse_return_type(&child.content);
-    let parameters = parse_parameters(&child.content).map(|params| ApiParameters::new(params));
+    let parameters = parse_parameters(&child.content).map(ApiParameters::new);
     let method_url = get_method_url(&child.content);
 
     ApiMethod {
