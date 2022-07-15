@@ -15,7 +15,7 @@ pub struct TypeDescription {
 pub struct TypeInfo {
     pub name: String,
     pub is_optional: bool,
-    pub is_list: bool,
+    is_list: bool,
     pub description: Option<String>,
     pub type_description: Option<TypeDescription>,
 }
@@ -61,6 +61,10 @@ impl Type {
             Type::StringArray(_) => "String".into(),
             Type::Object(_) => "String".into(),
         }
+    }
+
+    pub fn is_list(&self) -> bool {
+        self.get_type_info().is_list || matches!(self, Type::StringArray(_))
     }
 
     pub fn to_borrowed_type(&self) -> String {

@@ -118,7 +118,7 @@ fn generate_builder_field(
         None => parameter.return_type.to_owned_type(),
     };
     let rtype = util::to_ident(&enum_name);
-    let rtype_as_quote = if parameter.return_type.get_type_info().is_list {
+    let rtype_as_quote = if parameter.return_type.is_list() {
         quote! { std::vec::Vec<#rtype> }
     } else {
         quote! { #rtype }
