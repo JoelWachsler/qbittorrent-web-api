@@ -57,9 +57,14 @@ struct MethodGenerator<'a> {
 
 impl<'a> MethodGenerator<'a> {
     fn generate_method_without_builder(&self) -> MethodsAndExtra {
+        let form_builder = self.parameters.mandatory.form_builder();
+        let form_attributes =
+            quote! { .multipart(reqwest::multipart::Form::new()#(#form_builder)*) };
+
         let builder = SendMethodBuilder::new(self.method_name, self.url, quote! { self.auth })
             .description(&self.method.description)
-            .with_args(&self.parameters.mandatory.generate_params());
+            .with_args(&self.parameters.mandatory.generate_params())
+            .with_extra_form_args(&[form_attributes]);
 
         match create_return_type(self.group, self.method) {
             Some((return_type_name, return_type)) => {
@@ -169,8 +174,7 @@ impl<'a> SendImplGenerator<'a> {
         quote! {
             impl<'a> #param_type<'a> {
                 fn new(group: &'a #group_name, #(#mandatory_param_args),*) -> Self {
-                    let form = reqwest::multipart::Form::new();
-                    #(#mandatory_param_form_build)*
+                    let form = reqwest::multipart::Form::new()#(#mandatory_param_form_build)*;
                     Self { group, form }
                 }
 
@@ -226,7 +230,7 @@ impl<'a> MandatoryParams<'a> {
             .map(|param| {
                 let name_ident = param.name_ident();
                 let name = param.name();
-                quote! { let form = form.text(#name, #name_ident.to_string()); }
+                quote! { .text(#name, #name_ident.to_string()) }
             })
             .collect()
     }

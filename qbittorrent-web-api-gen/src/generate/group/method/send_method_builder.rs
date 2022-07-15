@@ -9,6 +9,7 @@ pub struct SendMethodBuilder {
     return_type: Option<proc_macro2::TokenStream>,
     description: Option<String>,
     args: Vec<proc_macro2::TokenStream>,
+    extra_form_args: Vec<proc_macro2::TokenStream>,
     form: bool,
 }
 
@@ -26,6 +27,7 @@ impl SendMethodBuilder {
             description: None,
             form: false,
             args: vec![],
+            extra_form_args: vec![],
         }
     }
 
@@ -45,10 +47,12 @@ impl SendMethodBuilder {
     }
 
     pub fn with_args(mut self, value: &[proc_macro2::TokenStream]) -> Self {
-        for v in value {
-            self.args.push(v.clone());
-        }
+        self.args = value.to_vec();
+        self
+    }
 
+    pub fn with_extra_form_args(mut self, value: &[proc_macro2::TokenStream]) -> Self {
+        self.extra_form_args = value.to_vec();
         self
     }
 
@@ -71,6 +75,7 @@ impl SendMethodBuilder {
         } else {
             quote! {}
         };
+        let extra_form_args = &self.extra_form_args;
 
         util::add_docs(
             &self.description,
@@ -79,6 +84,7 @@ impl SendMethodBuilder {
                     let res = #auth_module_path
                         .authenticated_client(#url)
                         #form
+                        #(#extra_form_args)*
                         .send()
                         .await?
                         #parse_type
