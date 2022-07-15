@@ -28,19 +28,55 @@ pub fn create_method_with_params(
     ));
 
     let parameters = Parameters::new(params);
+    let has_optional_parameters = !parameters.optional.is_empty();
+    let generator = MethodGenerator {
+        group,
+        url,
+        parameters,
+        param_type,
+        method,
+        method_name,
+    };
 
-    if parameters.optional.is_empty() {
-        let fooz = quote! {};
-        MethodsAndExtra::new(fooz)
+    if has_optional_parameters {
+        generator.generate_method_with_builder()
     } else {
-        let group_name = util::to_ident(&group.name.to_camel());
-        let send_builder =
-            SendMethodBuilder::new(&util::to_ident("send"), url, quote! { self.group.auth })
-                .with_form();
+        generator.generate_method_without_builder()
+    }
+}
 
-        let send_impl_generator = SendImplGenerator::new(&group_name, &parameters, &param_type);
+#[derive(Debug)]
+struct MethodGenerator<'a> {
+    group: &'a parser::ApiGroup,
+    url: &'a str,
+    parameters: Parameters<'a>,
+    param_type: proc_macro2::Ident,
+    method: &'a ApiMethod,
+    method_name: &'a proc_macro2::Ident,
+}
 
-        let send = match create_return_type(group, method) {
+impl<'a> MethodGenerator<'a> {
+    fn generate_method_without_builder(&self) -> MethodsAndExtra {
+        let builder = SendMethodBuilder::new(self.method_name, self.url, quote! { self.auth })
+            .description(&self.method.description)
+            .with_args(&self.parameters.mandatory.generate_params());
+
+        match create_return_type(self.group, self.method) {
+            Some((return_type_name, return_type)) => {
+                MethodsAndExtra::new(builder.return_type(&return_type_name).build())
+                    .with_structs(return_type)
+            }
+            None => MethodsAndExtra::new(builder.build()),
+        }
+    }
+
+    fn generate_method_with_builder(&self) -> MethodsAndExtra {
+        let group_name = self.group_name();
+        let send_builder = self.send_builder(&util::to_ident("send"));
+        let send_impl_generator =
+            SendImplGenerator::new(&group_name, &self.parameters, &self.param_type);
+
+        let send = match create_return_type(self.group, self.method) {
             Some((return_type_name, return_type)) => {
                 let send_impl =
                     send_impl_generator.generate(send_builder.return_type(&return_type_name));
@@ -52,8 +88,13 @@ pub fn create_method_with_params(
             }
             None => send_impl_generator.generate(send_builder),
         };
-
-        let builder = generate_builder(&parameters, method, method_name, &param_type);
+        let builder = generate_builder(
+            &self.parameters,
+            self.method,
+            self.method_name,
+            &self.param_type,
+        );
+        let param_type = &self.param_type;
 
         let group_impl = quote! {
             pub struct #param_type<'a> {
@@ -65,6 +106,14 @@ pub fn create_method_with_params(
         };
 
         MethodsAndExtra::new(builder).with_structs(group_impl)
+    }
+
+    fn group_name(&self) -> proc_macro2::Ident {
+        util::to_ident(&self.group.name.to_camel())
+    }
+
+    fn send_builder(&self, name: &proc_macro2::Ident) -> SendMethodBuilder {
+        SendMethodBuilder::new(name, self.url, quote! { self.group.auth }).with_form()
     }
 }
 
