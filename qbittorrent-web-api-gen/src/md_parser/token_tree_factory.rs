@@ -73,20 +73,25 @@ impl TokenTreeFactory {
 mod tests {
     use super::*;
 
+    macro_rules! TEST_DIR {
+        () => {
+            "token_tree_factory_tests"
+        };
+    }
+
     macro_rules! run_test {
         ($test_file:expr) => {
             use pretty_assertions::assert_eq;
 
             // given
-            let input = include_str!(concat!("token_tree_factory_tests/", $test_file, ".md"));
+            let input = include_str!(concat!(TEST_DIR!(), "/", $test_file, ".md"));
 
             // when
             let tree = TokenTreeFactory::create(input);
 
             // then
             let tree_as_str = format!("{tree:#?}");
-            let should_be =
-                include_str!(concat!("token_tree_factory_tests/", $test_file, ".check"));
+            let should_be = include_str!(concat!(TEST_DIR!(), "/", $test_file, ".check"));
             assert_eq!(tree_as_str, should_be);
         };
     }
@@ -98,12 +103,12 @@ mod tests {
             use std::fs;
             use std::path::Path;
 
-            let input = include_str!(concat!("token_tree_factory_tests/", $test_file, ".md"));
+            let input = include_str!(concat!(TEST_DIR!(), "/", $test_file, ".md"));
             let tree = TokenTreeFactory::create(input);
             let tree_as_str = format!("{tree:#?}");
-            let file = concat!("src/md_parser/token_tree_factory_tests/", $test_file, ".check");
+            let file = concat!("src/md_parser/", TEST_DIR!(), "/", $test_file, ".check");
 
-            // prevent user from accidentially leaving the current macro in a test
+            // prevent user from accidentally leaving the current macro in a test
             if Path::new(file).exists() {
                 panic!("Test case already exists: {file}");
             }
