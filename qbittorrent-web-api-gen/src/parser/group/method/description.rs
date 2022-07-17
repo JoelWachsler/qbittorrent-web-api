@@ -5,7 +5,7 @@ pub fn parse_method_description(content: &[MdContent]) -> Option<String> {
         .iter()
         // skip until we get to the "Returns:" text
         .skip_while(|row| match row {
-            MdContent::Asterix(text) => !text.starts_with("Returns:"),
+            MdContent::Asterisk(text) => !text.starts_with("Returns:"),
             _ => true,
         })
         // there is one space before the table

@@ -26,7 +26,8 @@
 				"tamasfe.even-better-toml",
 				"serayuzgur.crates",
 				"redhat.vscode-yaml",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"streetsidesoftware.code-spell-checker"
 			]
 		}
 	},

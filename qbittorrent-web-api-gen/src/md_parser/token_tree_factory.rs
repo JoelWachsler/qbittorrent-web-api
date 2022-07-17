@@ -113,8 +113,8 @@ mod tests {
     }
 
     #[test]
-    fn should_remove_surrounding_asterix() {
-        run_test!("should_remove_surrounding_asterix");
+    fn should_remove_surrounding_asterisk() {
+        run_test!("should_remove_surrounding_asterisk");
     }
 
     #[test]

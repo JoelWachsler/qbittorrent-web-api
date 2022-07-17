@@ -111,27 +111,27 @@ fn generate_builder_field(
     parameter: &parser::ReturnTypeParameter,
     enum_names: &HashMap<String, String>,
 ) -> proc_macro2::TokenStream {
-    let namestr = &parameter.name;
-    let name = util::to_ident(&namestr.to_snake().replace("__", "_"));
-    let enum_name = match enum_names.get(namestr) {
+    let name_string = &parameter.name;
+    let name = util::to_ident(&name_string.to_snake().replace("__", "_"));
+    let enum_name = match enum_names.get(name_string) {
         Some(enum_type) => enum_type.to_owned(),
         None => parameter.return_type.to_owned_type(),
     };
-    let rtype = util::to_ident(&enum_name);
-    let rtype_as_quote = if parameter.return_type.is_list() {
-        quote! { std::vec::Vec<#rtype> }
+    let return_type = util::to_ident(&enum_name);
+    let return_type_as_quote = if parameter.return_type.is_list() {
+        quote! { std::vec::Vec<#return_type> }
     } else {
-        quote! { #rtype }
+        quote! { #return_type }
     };
     let generate_field = |field_name| {
         quote! {
-            #[serde(rename = #namestr)]
-            pub #field_name: #rtype_as_quote
+            #[serde(rename = #name_string)]
+            pub #field_name: #return_type_as_quote
         }
     };
 
     // "type" is a reserved keyword in Rust, so we just add "t_" to it.
-    if namestr == "type" {
+    if name_string == "type" {
         generate_field(format_ident!("t_{}", name))
     } else {
         generate_field(name)

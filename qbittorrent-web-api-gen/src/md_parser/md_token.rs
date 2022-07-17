@@ -1,7 +1,7 @@
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum MdContent {
     Text(String),
-    Asterix(String),
+    Asterisk(String),
     Table(Table),
 }
 
@@ -39,7 +39,7 @@ impl MdContent {
     pub fn inner_value_as_string(&self) -> String {
         match self {
             MdContent::Text(text) => text.into(),
-            MdContent::Asterix(text) => text.into(),
+            MdContent::Asterisk(text) => text.into(),
             MdContent::Table(table) => table.raw(),
         }
     }
@@ -68,7 +68,7 @@ impl MdToken {
                 content: line.trim_matches('#').trim().to_string(),
             })
         } else if line.starts_with('*') {
-            MdToken::Content(MdContent::Asterix(
+            MdToken::Content(MdContent::Asterisk(
                 line.trim_matches('*').trim().to_string(),
             ))
         } else {

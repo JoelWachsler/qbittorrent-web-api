@@ -7,7 +7,7 @@ TokenTree {
                 "A",
             ),
             content: [
-                Asterix(
+                Asterisk(
                     "B",
                 ),
             ],

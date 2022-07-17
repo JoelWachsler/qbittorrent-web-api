@@ -6,7 +6,7 @@ pub fn parse_parameters(content: &[md_parser::MdContent]) -> Option<Vec<types::T
     let mut it = content
         .iter()
         .skip_while(|row| match row {
-            md_parser::MdContent::Asterix(content) | md_parser::MdContent::Text(content) => {
+            md_parser::MdContent::Asterisk(content) | md_parser::MdContent::Text(content) => {
                 !content.starts_with("Parameters:")
             }
             _ => true,

@@ -32,7 +32,7 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Asterix(
+                        Asterisk(
                             "Parameters:",
                         ),
                         Text(
@@ -114,7 +114,7 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Asterix(
+                        Asterisk(
                             "Returns:",
                         ),
                         Text(
