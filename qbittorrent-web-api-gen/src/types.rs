@@ -1,3 +1,4 @@
+use regex::RegexBuilder;
 use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
@@ -38,6 +39,12 @@ impl TypeInfo {
     }
 }
 
+#[derive(Debug, Clone)]
+pub struct TypeWithRef {
+    pub type_info: TypeInfo,
+    pub ref_type: String,
+}
+
 pub const OPTIONAL: &str = "_optional_";
 
 #[derive(Debug, Clone)]
@@ -47,6 +54,7 @@ pub enum Type {
     Bool(TypeInfo),
     String(TypeInfo),
     StringArray(TypeInfo),
+    ObjectArray(TypeWithRef),
     Object(TypeInfo),
 }
 
@@ -57,9 +65,9 @@ impl Type {
             Type::Float(_) => "f32".into(),
             Type::Bool(_) => "bool".into(),
             Type::String(_) => "String".into(),
-            // TODO: fixme
             Type::StringArray(_) => "String".into(),
             Type::Object(_) => "String".into(),
+            Type::ObjectArray(_) => panic!("Not implemented for ObjectArray"),
         }
     }
 
@@ -75,6 +83,7 @@ impl Type {
             Type::String(_) => "str".into(),
             Type::StringArray(_) => "&[str]".into(),
             Type::Object(_) => "str".into(),
+            Type::ObjectArray(_) => panic!("Not implemented for ObjectArray"),
         }
     }
 
@@ -90,6 +99,7 @@ impl Type {
             Type::String(t) => t,
             Type::StringArray(t) => t,
             Type::Object(t) => t,
+            Type::ObjectArray(TypeWithRef { type_info, .. }) => type_info,
         }
     }
 
@@ -107,17 +117,55 @@ impl Type {
         .trim();
 
         let is_optional = name.contains(OPTIONAL);
-        let type_info = TypeInfo::new(type_name, is_optional, false, description, available_types);
+        let create_type_info = || {
+            TypeInfo::new(
+                type_name,
+                is_optional,
+                false,
+                description.clone(),
+                available_types.clone(),
+            )
+        };
 
         match type_as_str {
-            "bool" => Some(Type::Bool(type_info)),
-            "integer" | "number" | "int" => Some(Type::Number(type_info)),
-            "string" => Some(Type::String(type_info)),
-            // This is probably not right but we don't have any information about the actual type.
-            "array" => Some(Type::StringArray(type_info)),
-            "object" => Some(Type::Object(type_info)),
-            "float" => Some(Type::Float(type_info)),
+            "bool" => Some(Type::Bool(create_type_info())),
+            "integer" | "number" | "int" => Some(Type::Number(create_type_info())),
+            "string" => Some(Type::String(create_type_info())),
+            "array" => description
+                .clone()
+                .and_then(|ref desc| get_ref_type(desc))
+                .map(|ref_type| {
+                    Type::ObjectArray(TypeWithRef {
+                        type_info: create_type_info(),
+                        ref_type,
+                    })
+                })
+                .or_else(|| Some(Type::StringArray(create_type_info()))),
+            "object" => Some(Type::Object(create_type_info())),
+            "float" => Some(Type::Float(create_type_info())),
             _ => None,
         }
+    }
+}
+
+fn get_ref_type(desc: &str) -> Option<String> {
+    let re = RegexBuilder::new(r".*array of (\w+)\s?.*")
+        .case_insensitive(true)
+        .build()
+        .unwrap();
+
+    re.captures(desc)
+        .and_then(|captures| captures.get(1))
+        .map(|m| m.as_str().to_owned())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn should_parse_object_array() {
+        let ref_type = get_ref_type("Array of result objects- see table below");
+        assert_eq!("result", ref_type.unwrap());
     }
 }
