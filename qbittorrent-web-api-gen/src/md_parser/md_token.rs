@@ -78,63 +78,100 @@ impl MdToken {
 
     pub fn from(content: &str) -> Vec<MdToken> {
         // to prevent infinite loops
-        let mut max_iterations = 10000;
-        let mut decrease_max_iterations = || {
-            max_iterations -= 1;
-            if max_iterations <= 0 {
-                panic!("Max iterations reached, missing termination?");
-            };
-        };
+        let mut max_iterator_checker = MaxIteratorChecker::default();
 
         let mut output = Vec::new();
-
         let mut iter = content.lines().peekable();
+
         while let Some(line) = iter.next() {
-            decrease_max_iterations();
+            max_iterator_checker.decrease();
 
-            // assume this is a table
+            // assume that lines starting with "|" are tables
             if line.contains('|') {
-                let to_columns = |column_line: &str| {
-                    column_line
-                        .replace('`', "")
-                        .split('|')
-                        .map(|s| s.trim().to_string())
-                        .collect()
-                };
-
-                let table_header = TableRow {
-                    raw: line.into(),
-                    columns: to_columns(line),
-                };
-                let table_split = iter.next().unwrap();
-                let mut table_rows = Vec::new();
-                while let Some(peeked_row_line) = iter.peek() {
-                    decrease_max_iterations();
-
-                    if !peeked_row_line.contains('|') {
-                        // we've reached the end of the table, let's go back one step
-                        break;
-                    }
-
-                    let next_row_line = iter.next().unwrap();
-                    let table_row = TableRow {
-                        raw: next_row_line.to_string(),
-                        columns: to_columns(next_row_line),
-                    };
-
-                    table_rows.push(table_row);
-                }
-
-                output.push(MdToken::Content(MdContent::Table(Table {
-                    header: table_header,
-                    split: table_split.to_string(),
-                    rows: table_rows,
-                })));
+                let table = TableParser::new(&mut max_iterator_checker, &mut iter).parse(line);
+                output.push(MdToken::Content(table));
             } else {
                 output.push(MdToken::parse_token(line));
             }
         }
 
         output
+    }
+}
+
+struct TableParser<'a, 'b> {
+    max_iterator_checker: &'a mut MaxIteratorChecker,
+    iter: &'a mut std::iter::Peekable<std::str::Lines<'b>>,
+}
+
+impl<'a, 'b> TableParser<'a, 'b> {
+    fn new(
+        max_iterator_checker: &'a mut MaxIteratorChecker,
+        iter: &'a mut std::iter::Peekable<std::str::Lines<'b>>,
+    ) -> Self {
+        Self {
+            max_iterator_checker,
+            iter,
+        }
+    }
+
+    fn parse(&mut self, line: &str) -> MdContent {
+        let to_columns = |column_line: &str| {
+            column_line
+                .replace('`', "")
+                .split('|')
+                .map(|s| s.trim().to_string())
+                .collect()
+        };
+
+        let table_header = TableRow {
+            raw: line.into(),
+            columns: to_columns(line),
+        };
+
+        let table_split = self.iter.next().unwrap();
+        let mut table_rows = Vec::new();
+        while let Some(peeked_row_line) = self.iter.peek() {
+            self.max_iterator_checker.decrease();
+
+            if !peeked_row_line.contains('|') {
+                // we've reached the end of the table, let's go back one step
+                break;
+            }
+
+            let next_row_line = self.iter.next().unwrap();
+            table_rows.push(TableRow {
+                raw: next_row_line.to_string(),
+                columns: to_columns(next_row_line),
+            });
+        }
+
+        MdContent::Table(Table {
+            header: table_header,
+            split: table_split.to_string(),
+            rows: table_rows,
+        })
+    }
+}
+
+#[derive(Debug)]
+struct MaxIteratorChecker {
+    max_iterations: i32,
+}
+
+impl MaxIteratorChecker {
+    fn decrease(&mut self) {
+        self.max_iterations -= 1;
+        if self.max_iterations <= 0 {
+            panic!("Max iterations reached, missing termination?");
+        }
+    }
+}
+
+impl Default for MaxIteratorChecker {
+    fn default() -> Self {
+        MaxIteratorChecker {
+            max_iterations: 10000,
+        }
     }
 }
