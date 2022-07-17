@@ -116,21 +116,24 @@ impl<'a, 'b> TableParser<'a, 'b> {
     }
 
     fn parse(&mut self, line: &str) -> MdContent {
-        let to_columns = |column_line: &str| {
-            column_line
-                .replace('`', "")
-                .split('|')
-                .map(|s| s.trim().to_string())
-                .collect()
-        };
-
         let table_header = TableRow {
             raw: line.into(),
-            columns: to_columns(line),
+            columns: Self::to_columns(line),
         };
 
         let table_split = self.iter.next().unwrap();
+        let table_rows = self.table_rows();
+
+        MdContent::Table(Table {
+            header: table_header,
+            split: table_split.to_string(),
+            rows: table_rows,
+        })
+    }
+
+    fn table_rows(&mut self) -> Vec<TableRow> {
         let mut table_rows = Vec::new();
+
         while let Some(peeked_row_line) = self.iter.peek() {
             self.max_iterator_checker.decrease();
 
@@ -142,15 +145,19 @@ impl<'a, 'b> TableParser<'a, 'b> {
             let next_row_line = self.iter.next().unwrap();
             table_rows.push(TableRow {
                 raw: next_row_line.to_string(),
-                columns: to_columns(next_row_line),
+                columns: Self::to_columns(next_row_line),
             });
         }
 
-        MdContent::Table(Table {
-            header: table_header,
-            split: table_split.to_string(),
-            rows: table_rows,
-        })
+        table_rows
+    }
+
+    fn to_columns(column_line: &str) -> Vec<String> {
+        column_line
+            .replace('`', "")
+            .split('|')
+            .map(|s| s.trim().to_string())
+            .collect()
     }
 }
 
