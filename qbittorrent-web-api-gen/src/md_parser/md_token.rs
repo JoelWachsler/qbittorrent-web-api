@@ -79,7 +79,7 @@ impl MdToken {
     pub fn from(content: &str) -> Vec<MdToken> {
         // to prevent infinite loops
         let mut max_iterations = 10000;
-        let mut decreate_max_iterations = || {
+        let mut decrease_max_iterations = || {
             max_iterations -= 1;
             if max_iterations <= 0 {
                 panic!("Max iterations reached, missing termination?");
@@ -90,7 +90,7 @@ impl MdToken {
 
         let mut iter = content.lines().peekable();
         while let Some(line) = iter.next() {
-            decreate_max_iterations();
+            decrease_max_iterations();
 
             // assume this is a table
             if line.contains('|') {
@@ -109,7 +109,7 @@ impl MdToken {
                 let table_split = iter.next().unwrap();
                 let mut table_rows = Vec::new();
                 while let Some(peeked_row_line) = iter.peek() {
-                    decreate_max_iterations();
+                    decrease_max_iterations();
 
                     if !peeked_row_line.contains('|') {
                         // we've reached the end of the table, let's go back one step
