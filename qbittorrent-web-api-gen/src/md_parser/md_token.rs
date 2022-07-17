@@ -52,30 +52,6 @@ pub enum MdToken {
 }
 
 impl MdToken {
-    fn parse_token(line: &str) -> MdToken {
-        if line.starts_with('#') {
-            let mut level = 0;
-            for char in line.chars() {
-                if char != '#' {
-                    break;
-                }
-
-                level += 1;
-            }
-
-            MdToken::Header(Header {
-                level,
-                content: line.trim_matches('#').trim().to_string(),
-            })
-        } else if line.starts_with('*') {
-            MdToken::Content(MdContent::Asterisk(
-                line.trim_matches('*').trim().to_string(),
-            ))
-        } else {
-            MdToken::Content(MdContent::Text(line.to_string()))
-        }
-    }
-
     pub fn from(content: &str) -> Vec<MdToken> {
         // to prevent infinite loops
         let mut max_iterator_checker = MaxIteratorChecker::default();
@@ -90,13 +66,33 @@ impl MdToken {
             if line.contains('|') {
                 let table = TableParser::new(&mut max_iterator_checker, &mut iter).parse(line);
                 output.push(MdToken::Content(table));
+            } else if line.starts_with('#') {
+                output.push(parse_header(line));
+            } else if line.starts_with('*') {
+                let asterisk = MdContent::Asterisk(line.trim_matches('*').trim().to_string());
+                output.push(MdToken::Content(asterisk));
             } else {
-                output.push(MdToken::parse_token(line));
+                output.push(MdToken::Content(MdContent::Text(line.to_string())));
             }
         }
 
         output
     }
+}
+
+fn parse_header(line: &str) -> MdToken {
+    let mut level = 0;
+    for char in line.chars() {
+        if char != '#' {
+            break;
+        }
+
+        level += 1;
+    }
+    MdToken::Header(Header {
+        level,
+        content: line.trim_matches('#').trim().to_string(),
+    })
 }
 
 struct TableParser<'a, 'b> {
