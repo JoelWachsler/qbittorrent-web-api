@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::{
-    md_parser::{self, MdContent},
+    md_parser,
     parser::{types, ReturnTypeParameter},
 };
 
@@ -47,12 +47,7 @@ impl md_parser::TokenTree {
     }
 
     fn is_list(&self) -> bool {
-        self.content
-            .iter()
-            .find_map(|row| match row {
-                MdContent::Text(text) if text.starts_with("The response is a") => Some(text),
-                _ => None,
-            })
+        self.find_content_starts_with("The response is a")
             .map(|found| found.contains("array"))
             .unwrap_or_else(|| false)
     }

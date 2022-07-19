@@ -2,7 +2,7 @@ mod description;
 mod return_type;
 mod url;
 
-use crate::{md_parser, parser::util, types};
+use crate::{md_parser, types};
 pub use return_type::ReturnType;
 use std::collections::HashMap;
 
@@ -74,8 +74,13 @@ impl ApiMethod {
 }
 
 impl md_parser::TokenTree {
-    fn find_content_starts_with(&self, content: &str) -> Option<String> {
-        util::find_content_starts_with(&self.content, content)
+    fn find_content_starts_with(&self, starts_with: &str) -> Option<String> {
+        self.content.iter().find_map(|row| match row {
+            md_parser::MdContent::Text(content) if content.starts_with(starts_with) => {
+                Some(content.into())
+            }
+            _ => None,
+        })
     }
 }
 

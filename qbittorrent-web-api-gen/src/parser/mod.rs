@@ -1,7 +1,6 @@
 use crate::{md_parser, types};
 
 mod group;
-mod util;
 
 #[derive(Debug)]
 pub struct ReturnTypeParameter {
