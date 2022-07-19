@@ -92,20 +92,16 @@ impl md_parser::Table {
 impl md_parser::TableRow {
     fn to_return_type_parameter(
         &self,
-        types: &HashMap<String, types::TypeDescription>,
+        type_map: &HashMap<String, types::TypeDescription>,
     ) -> ReturnTypeParameter {
         let columns = &self.columns;
 
         ReturnTypeParameter {
             name: columns[0].clone(),
             description: columns[2].clone(),
-            return_type: types::Type::from(
-                &columns[1],
-                &columns[0],
-                Some(columns[2].clone()),
-                types,
-            )
-            .unwrap_or_else(|| panic!("Failed to parse type {}", &columns[1])),
+            return_type: self
+                .to_types_with_types(type_map)
+                .unwrap_or_else(|| panic!("Failed to parse type {}", &columns[1])),
         }
     }
 }
