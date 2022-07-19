@@ -62,8 +62,7 @@ impl MdToken {
         while let Some(line) = iter.next() {
             max_iterator_checker.decrease();
 
-            // assume that lines starting with "|" are tables
-            if line.contains('|') {
+            if line.contains(" | ") || line.contains("-|") || line.contains("|-") {
                 let table = TableParser::new(&mut max_iterator_checker, &mut iter).parse(line);
                 output.push(MdToken::Content(table));
             } else if line.starts_with('#') {

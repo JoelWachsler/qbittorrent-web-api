@@ -2983,7 +2983,7 @@
             ApiMethod {
                 name: "info",
                 description: Some(
-                    "The response is a JSON object with the following fields\n\n\nIn addition to the above in partial data requests (see [Get partial data](#get-partial-data) for more info):\n\n\nPossible values of `connection_status`:\n\n\nExample:\n\n```JSON\n{\n    \"connection_status\":\"connected\",\n    \"dht_nodes\":386,\n    \"dl_info_data\":681521119,\n    \"dl_info_speed\":0,\n    \"dl_rate_limit\":0,\n    \"up_info_data\":10747904,\n    \"up_info_speed\":0,\n    \"up_rate_limit\":1048576\n}\n```",
+                    "The response is a JSON object with the following fields\n\n\nIn addition to the above in partial data requests (see [Get partial data](#get-partial-data) for more info):\n\n\nPossible values of `connection_status`:\n\nValue               |\n\nExample:\n\n```JSON\n{\n    \"connection_status\":\"connected\",\n    \"dht_nodes\":386,\n    \"dl_info_data\":681521119,\n    \"dl_info_speed\":0,\n    \"dl_rate_limit\":0,\n    \"up_info_data\":10747904,\n    \"up_info_speed\":0,\n    \"up_rate_limit\":1048576\n}\n```",
                 ),
                 parameters: None,
                 return_type: Some(
@@ -3106,24 +3106,7 @@
                                         description: Some(
                                             "Connection status. See possible values here below",
                                         ),
-                                        type_description: Some(
-                                            TypeDescription {
-                                                values: [
-                                                    TypeDescriptions {
-                                                        value: "connected",
-                                                        description: "",
-                                                    },
-                                                    TypeDescriptions {
-                                                        value: "firewalled",
-                                                        description: "",
-                                                    },
-                                                    TypeDescriptions {
-                                                        value: "disconnected",
-                                                        description: "",
-                                                    },
-                                                ],
-                                            },
-                                        ),
+                                        type_description: None,
                                     },
                                 ),
                             },

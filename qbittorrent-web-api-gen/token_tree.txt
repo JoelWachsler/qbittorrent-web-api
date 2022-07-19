@@ -4972,24 +4972,20 @@ TokenTree {
                         Text(
                             "",
                         ),
+                        Text(
+                            "Value               |",
+                        ),
                         Table(
                             Table {
                                 header: TableRow {
-                                    raw: "Value               |",
+                                    raw: "--------------------|",
                                     columns: [
-                                        "Value",
+                                        "--------------------",
                                         "",
                                     ],
                                 },
-                                split: "--------------------|",
+                                split: "`connected`         |",
                                 rows: [
-                                    TableRow {
-                                        raw: "`connected`         |",
-                                        columns: [
-                                            "connected",
-                                            "",
-                                        ],
-                                    },
                                     TableRow {
                                         raw: "`firewalled`        |",
                                         columns: [
@@ -7981,18 +7977,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/pause?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/pause?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/pause?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -8092,18 +8081,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/resume?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/resume?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/resume?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -8314,18 +8296,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/recheck?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/recheck?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/recheck?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -8425,18 +8400,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/reannounce?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/reannounce?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/reannounce?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -9380,18 +9348,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/increasePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/increasePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/increasePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -9498,18 +9459,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/decreasePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/decreasePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/decreasePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -9616,18 +9570,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/topPrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/topPrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/topPrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -9734,18 +9681,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/bottomPrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/bottomPrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/bottomPrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -9977,34 +9917,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Server reply (example):",
@@ -10083,34 +10009,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&limit=131072",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0&limit=131072",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&limit=131072",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "`limit` is the download speed limit in bytes per second you want to set.",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "`limit` is the download speed limit in bytes per second you want to set.",
                         ),
                         Text(
                             "",
@@ -10192,34 +10104,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&ratioLimit=1.0&seedingTimeLimit=60",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0&ratioLimit=1.0&seedingTimeLimit=60",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&ratioLimit=1.0&seedingTimeLimit=60",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "`ratioLimit` is the max ratio the torrent should be seeded until. `-2` means the global limit should be used, `-1` means no limit.",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "`ratioLimit` is the max ratio the torrent should be seeded until. `-2` means the global limit should be used, `-1` means no limit.",
                         ),
                         Text(
                             "`seedingTimeLimit` is the max amount of time the torrent should be seeded. `-2` means the global limit should be used, `-1` means no limit.",
@@ -10304,34 +10202,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "Server reply (example):",
@@ -10416,34 +10300,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&limit=131072",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0&limit=131072",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&limit=131072",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "`limit` is the upload speed limit in bytes per second you want to set.",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "`limit` is the upload speed limit in bytes per second you want to set.",
                         ),
                         Text(
                             "",
@@ -10525,34 +10395,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&location=/mnt/nfs/media",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0&location=/mnt/nfs/media",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&location=/mnt/nfs/media",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "`location` is the location to download the torrent to. If the location doesn't exist, the torrent's location is unchanged.",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "`location` is the location to download the torrent to. If the location doesn't exist, the torrent's location is unchanged.",
                         ),
                         Text(
                             "",
@@ -10755,34 +10611,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&category=CategoryName",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0&category=CategoryName",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&category=CategoryName",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "`category` is the torrent category you want to set.",
@@ -11255,34 +11097,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&tags=TagName1,TagName2",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0&tags=TagName1,TagName2",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&tags=TagName1,TagName2",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "`tags` is the list of tags you want to add to passed torrents.",
@@ -11367,34 +11195,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&tags=TagName1,TagName2",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0&tags=TagName1,TagName2",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&tags=TagName1,TagName2",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "",
                         ),
                         Text(
                             "`tags` is the list of tags you want to remove from passed torrents.",
@@ -11740,34 +11554,20 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&enable=true",
-                                    columns: [
-                                        "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "284b83c9c7935002391129fd97f43db5d7cc2ba0&enable=true",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|284b83c9c7935002391129fd97f43db5d7cc2ba0&enable=true",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "`enable` is a boolean, affects the torrents listed in `hashes`, default is `false`",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "`enable` is a boolean, affects the torrents listed in `hashes`, default is `false`",
                         ),
                         Text(
                             "",
@@ -11867,18 +11667,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/toggleSequentialDownload?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/toggleSequentialDownload?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/toggleSequentialDownload?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -11978,18 +11771,11 @@ TokenTree {
                         Text(
                             "```http",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "/api/v2/torrents/toggleFirstLastPiecePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    columns: [
-                                        "/api/v2/torrents/toggleFirstLastPiecePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32",
-                                        "54eddd830a5b58480a6143d616a97e3a6c23c439",
-                                    ],
-                                },
-                                split: "```",
-                                rows: [],
-                            },
+                        Text(
+                            "/api/v2/torrents/toggleFirstLastPiecePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439",
+                        ),
+                        Text(
+                            "```",
                         ),
                         Text(
                             "",
@@ -12080,18 +11866,11 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "`value` is a boolean, affects the torrents listed in `hashes`, default is `false`",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "`value` is a boolean, affects the torrents listed in `hashes`, default is `false`",
                         ),
                         Text(
                             "",
@@ -12182,18 +11961,11 @@ TokenTree {
                         Text(
                             "",
                         ),
-                        Table(
-                            Table {
-                                header: TableRow {
-                                    raw: "`hashes` can contain multiple hashes separated by `|` or set to `all`",
-                                    columns: [
-                                        "hashes can contain multiple hashes separated by",
-                                        "or set to all",
-                                    ],
-                                },
-                                split: "`value` is a boolean, affects the torrents listed in `hashes`, default is `false`",
-                                rows: [],
-                            },
+                        Text(
+                            "`hashes` can contain multiple hashes separated by `|` or set to `all`",
+                        ),
+                        Text(
+                            "`value` is a boolean, affects the torrents listed in `hashes`, default is `false`",
                         ),
                         Text(
                             "",

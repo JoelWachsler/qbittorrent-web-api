@@ -146,4 +146,9 @@ mod tests {
     fn multi_table() {
         run_test!("multi_table");
     }
+
+    #[test]
+    fn non_table_with_pipe() {
+        run_test!("non_table_with_pipe");
+    }
 }
