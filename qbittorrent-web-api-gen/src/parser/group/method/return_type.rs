@@ -33,17 +33,7 @@ impl md_parser::TokenTree {
         let parameters = table
             .rows
             .iter()
-            .map(|parameter| ReturnTypeParameter {
-                name: parameter.columns[0].clone(),
-                description: parameter.columns[2].clone(),
-                return_type: types::Type::from(
-                    &parameter.columns[1],
-                    &parameter.columns[0],
-                    Some(parameter.columns[2].clone()),
-                    &types,
-                )
-                .unwrap_or_else(|| panic!("Failed to parse type {}", &parameter.columns[1])),
-            })
+            .map(|parameter| parameter.to_return_type_parameter(&types))
             .collect();
 
         Some(ReturnType {
@@ -74,14 +64,12 @@ impl md_parser::TokenTree {
                     // is empty
                     content_it.next();
                     if let Some(md_parser::MdContent::Table(table)) = content_it.next() {
-                        let enum_types = to_type_descriptions(table);
-
                         let name = content
                             .trim_start_matches(POSSIBLE_VALUES_OF)
                             .replace('`', "")
                             .replace(':', "");
 
-                        output.insert(name, types::TypeDescription { values: enum_types });
+                        output.insert(name, table.to_type_description());
                     }
                 }
             }
@@ -91,13 +79,41 @@ impl md_parser::TokenTree {
     }
 }
 
-fn to_type_descriptions(table: &md_parser::Table) -> Vec<types::TypeDescriptions> {
-    table
-        .rows
-        .iter()
-        .map(|row| types::TypeDescriptions {
-            value: row.columns[0].to_string(),
-            description: row.columns[1].to_string(),
-        })
-        .collect()
+impl md_parser::Table {
+    pub fn to_type_description(&self) -> types::TypeDescription {
+        types::TypeDescription {
+            values: self.to_type_descriptions(),
+        }
+    }
+
+    pub fn to_type_descriptions(&self) -> Vec<types::TypeDescriptions> {
+        self.rows
+            .iter()
+            .map(|row| types::TypeDescriptions {
+                value: row.columns[0].to_string(),
+                description: row.columns[1].to_string(),
+            })
+            .collect()
+    }
+}
+
+impl md_parser::TableRow {
+    fn to_return_type_parameter(
+        &self,
+        types: &HashMap<String, types::TypeDescription>,
+    ) -> ReturnTypeParameter {
+        let columns = &self.columns;
+
+        ReturnTypeParameter {
+            name: columns[0].clone(),
+            description: columns[2].clone(),
+            return_type: types::Type::from(
+                &columns[1],
+                &columns[0],
+                Some(columns[2].clone()),
+                types,
+            )
+            .unwrap_or_else(|| panic!("Failed to parse type {}", &columns[1])),
+        }
+    }
 }
