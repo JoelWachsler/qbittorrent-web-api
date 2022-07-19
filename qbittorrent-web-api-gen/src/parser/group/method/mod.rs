@@ -2,15 +2,9 @@ mod description;
 mod return_type;
 mod url;
 
-use std::collections::HashMap;
-
 use crate::{md_parser, parser::util, types};
-
 pub use return_type::ReturnType;
-
-use self::{
-    description::parse_method_description, return_type::parse_return_type, url::get_method_url,
-};
+use std::collections::HashMap;
 
 #[derive(Debug)]
 pub struct ApiMethod {
@@ -61,11 +55,11 @@ impl ApiMethod {
 
     fn new(child: &md_parser::TokenTree, name: &str) -> Self {
         let tables = Tables::from(child);
-        let method_description = parse_method_description(&child.content);
-        let return_type = parse_return_type(&child.content);
+        let method_description = child.parse_method_description();
+        let return_type = child.parse_return_type();
         // let return_type = tables.return_type().map(|r| ReturnType::new(r));
         let parameters = tables.parameters().map(ApiParameters::new);
-        let method_url = get_method_url(&child.content);
+        let method_url = child.get_method_url();
 
         ApiMethod {
             name: name.to_string(),

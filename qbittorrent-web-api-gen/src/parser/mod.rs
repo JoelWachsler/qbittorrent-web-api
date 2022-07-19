@@ -1,7 +1,5 @@
 use crate::{md_parser, types};
 
-use self::group::parse_api_group;
-
 mod group;
 mod util;
 
@@ -19,10 +17,7 @@ pub fn parse_api_groups(token_tree: md_parser::TokenTree) -> Vec<ApiGroup> {
 }
 
 pub fn parse_groups(trees: Vec<md_parser::TokenTree>) -> Vec<ApiGroup> {
-    trees
-        .into_iter()
-        .map(|tree| parse_api_group(&tree))
-        .collect()
+    trees.iter().map(ApiGroup::new).collect()
 }
 
 fn extract_relevant_parts(tree: md_parser::TokenTree) -> Vec<md_parser::TokenTree> {
