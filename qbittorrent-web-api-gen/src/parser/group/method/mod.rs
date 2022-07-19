@@ -1,15 +1,15 @@
 mod description;
-mod parameters;
 mod return_type;
 mod url;
+
+use std::collections::HashMap;
 
 use crate::{md_parser, parser::util, types};
 
 pub use return_type::ReturnType;
 
 use self::{
-    description::parse_method_description, parameters::parse_parameters,
-    return_type::parse_return_type, url::get_method_url,
+    description::parse_method_description, return_type::parse_return_type, url::get_method_url,
 };
 
 #[derive(Debug)]
@@ -60,9 +60,10 @@ pub fn parse_api_method(child: &md_parser::TokenTree) -> Option<ApiMethod> {
 }
 
 fn to_api_method(child: &md_parser::TokenTree, name: &str) -> ApiMethod {
+    let tables = child.to_tables();
     let method_description = parse_method_description(&child.content);
     let return_type = parse_return_type(&child.content);
-    let parameters = parse_parameters(&child.content).map(ApiParameters::new);
+    let parameters = tables.parameters().map(ApiParameters::new);
     let method_url = get_method_url(&child.content);
 
     ApiMethod {
@@ -71,5 +72,154 @@ fn to_api_method(child: &md_parser::TokenTree, name: &str) -> ApiMethod {
         parameters,
         return_type,
         url: method_url,
+    }
+}
+
+impl md_parser::TokenTree {
+    fn to_tables(&self) -> Tables<'_> {
+        let mut tables = HashMap::new();
+        let mut prev_prev: Option<&md_parser::MdContent> = None;
+        let mut prev: Option<&md_parser::MdContent> = None;
+
+        for content in &self.content {
+            if let md_parser::MdContent::Table(table) = content {
+                let title = match prev_prev {
+                    Some(md_parser::MdContent::Text(text)) => text.clone(),
+                    Some(md_parser::MdContent::Asterisk(text)) => text.clone(),
+                    _ => panic!("Expected table title, found: {:?}", prev_prev),
+                };
+
+                tables.insert(title.replace(':', ""), table);
+            }
+
+            prev_prev = prev;
+            prev = Some(content);
+        }
+
+        Tables { tables }
+    }
+}
+
+#[derive(Debug)]
+struct Tables<'a> {
+    tables: HashMap<String, &'a md_parser::Table>,
+}
+
+impl<'a> Tables<'a> {
+    fn parameters(&self) -> Option<Vec<types::Type>> {
+        self.get_type_containing("Parameters")
+    }
+
+    // fn return_type(&self) -> Option<Vec<types::Type>> {
+    //     self.get_type_containing("Returns")
+    // }
+
+    fn get_type_containing(&self, name: &str) -> Option<Vec<types::Type>> {
+        self.tables
+            .iter()
+            .find(|(key, _)| key.contains(name))
+            .map(|(_, table)| table.to_types())
+    }
+}
+
+impl md_parser::Table {
+    fn to_types(&self) -> Vec<types::Type> {
+        self.rows
+            .iter()
+            .flat_map(|table_row| table_row.to_type())
+            .collect()
+    }
+}
+
+impl md_parser::TableRow {
+    fn to_type(&self) -> Option<types::Type> {
+        let columns = &self.columns;
+        let type_map = HashMap::new();
+        let description = columns.get(2).cloned();
+
+        match &columns.get(2) {
+            // If the description contains a default value it means that the parameter is optional.
+            Some(desc) if desc.contains("default: ") => {
+                // type defines a variable as default if it contains: _optional_
+                let name_with_optional = format!("{} {}", columns[0], types::OPTIONAL);
+                types::Type::from(&columns[1], &name_with_optional, description, &type_map)
+            }
+            _ => types::Type::from(&columns[1], &columns[0], description, &type_map),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use md_parser::TokenTreeFactory;
+
+    macro_rules! TEST_DIR {
+        () => {
+            "method_tests"
+        };
+    }
+
+    #[allow(unused_macros)]
+    macro_rules! run_test {
+        ($test_file:expr) => {
+            use pretty_assertions::assert_eq;
+
+            // given
+            let input = include_str!(concat!(TEST_DIR!(), "/", $test_file, ".md"));
+
+            // when
+            let tree = TokenTreeFactory::create(input);
+            let api_method = parse_api_method(&tree.children[0]).unwrap();
+
+            // then
+            let api_method_as_str = format!("{api_method:#?}");
+            let should_be = include_str!(concat!(TEST_DIR!(), "/", $test_file, ".check"));
+            assert_eq!(api_method_as_str, should_be);
+        };
+    }
+
+    // use this macro when creating/updating as test
+    #[allow(unused_macros)]
+    macro_rules! update_test {
+        ($test_file:expr) => {
+            use std::fs;
+            use std::path::Path;
+
+            let input = include_str!(concat!(TEST_DIR!(), "/", $test_file, ".md"));
+            let tree = TokenTreeFactory::create(input);
+            let api_method = parse_api_method(&tree.children[0]).unwrap();
+
+            let tree_as_str = format!("{tree:#?}");
+            let api_method_as_str = format!("{api_method:#?}");
+
+            let tree_file = concat!(
+                "src/parser/group/method/",
+                TEST_DIR!(),
+                "/",
+                $test_file,
+                ".tree"
+            );
+            let file = concat!(
+                "src/parser/group/method/",
+                TEST_DIR!(),
+                "/",
+                $test_file,
+                ".check"
+            );
+
+            // prevent user from accidentally leaving the current macro in a test
+            if Path::new(file).exists() {
+                panic!("Test case already exists: {file}");
+            }
+
+            fs::write(file, api_method_as_str).unwrap();
+            fs::write(tree_file, tree_as_str).unwrap();
+        };
+    }
+
+    #[test]
+    fn search_result() {
+        run_test!("search_result");
     }
 }

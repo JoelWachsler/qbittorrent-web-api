@@ -5835,18 +5835,15 @@
                             ReturnTypeParameter {
                                 name: "results",
                                 description: "Array of result objects- see table below",
-                                return_type: ObjectArray(
-                                    TypeWithRef {
-                                        type_info: TypeInfo {
-                                            name: "results",
-                                            is_optional: false,
-                                            is_list: false,
-                                            description: Some(
-                                                "Array of result objects- see table below",
-                                            ),
-                                            type_description: None,
-                                        },
-                                        ref_type: "result",
+                                return_type: StringArray(
+                                    TypeInfo {
+                                        name: "results",
+                                        is_optional: false,
+                                        is_list: false,
+                                        description: Some(
+                                            "Array of result objects- see table below",
+                                        ),
+                                        type_description: None,
                                     },
                                 ),
                             },

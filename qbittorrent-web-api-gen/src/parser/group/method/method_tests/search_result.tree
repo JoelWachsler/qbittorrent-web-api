@@ -1,0 +1,327 @@
+TokenTree {
+    title: None,
+    content: [],
+    children: [
+        TokenTree {
+            title: Some(
+                "Get search results",
+            ),
+            content: [
+                Text(
+                    "",
+                ),
+                Text(
+                    "Name: `results`",
+                ),
+                Text(
+                    "",
+                ),
+                Asterisk(
+                    "Parameters:",
+                ),
+                Text(
+                    "",
+                ),
+                Table(
+                    Table {
+                        header: TableRow {
+                            raw: "Parameter                         | Type    | Description",
+                            columns: [
+                                "Parameter",
+                                "Type",
+                                "Description",
+                            ],
+                        },
+                        split: "----------------------------------|---------|------------",
+                        rows: [
+                            TableRow {
+                                raw: "`id`                              | number  | ID of the search job",
+                                columns: [
+                                    "id",
+                                    "number",
+                                    "ID of the search job",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`limit` _optional_                | number  | max number of results to return. 0 or negative means no limit",
+                                columns: [
+                                    "limit _optional_",
+                                    "number",
+                                    "max number of results to return. 0 or negative means no limit",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`offset` _optional_               | number  | result to start at. A negative number means count backwards (e.g. `-2` returns the 2 most recent results)",
+                                columns: [
+                                    "offset _optional_",
+                                    "number",
+                                    "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
+                                ],
+                            },
+                        ],
+                    },
+                ),
+                Text(
+                    "",
+                ),
+                Asterisk(
+                    "Returns:",
+                ),
+                Text(
+                    "",
+                ),
+                Table(
+                    Table {
+                        header: TableRow {
+                            raw: "HTTP Status Code                  | Scenario",
+                            columns: [
+                                "HTTP Status Code",
+                                "Scenario",
+                            ],
+                        },
+                        split: "----------------------------------|---------------------",
+                        rows: [
+                            TableRow {
+                                raw: "404                               | Search job was not found",
+                                columns: [
+                                    "404",
+                                    "Search job was not found",
+                                ],
+                            },
+                            TableRow {
+                                raw: "409                               | Offset is too large, or too small (e.g. absolute value of negative number is greater than # results)",
+                                columns: [
+                                    "409",
+                                    "Offset is too large, or too small (e.g. absolute value of negative number is greater than # results)",
+                                ],
+                            },
+                            TableRow {
+                                raw: "200                               | All other scenarios- see JSON below",
+                                columns: [
+                                    "200",
+                                    "All other scenarios- see JSON below",
+                                ],
+                            },
+                        ],
+                    },
+                ),
+                Text(
+                    "",
+                ),
+                Text(
+                    "The response is a JSON object with the following fields",
+                ),
+                Text(
+                    "",
+                ),
+                Table(
+                    Table {
+                        header: TableRow {
+                            raw: "Field                             | Type    | Description",
+                            columns: [
+                                "Field",
+                                "Type",
+                                "Description",
+                            ],
+                        },
+                        split: "----------------------------------|---------|------------",
+                        rows: [
+                            TableRow {
+                                raw: "`results`                         | array   | Array of `result` objects- see table below",
+                                columns: [
+                                    "results",
+                                    "array",
+                                    "Array of result objects- see table below",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`status`                          | string  | Current status of the search job (either `Running` or `Stopped`)",
+                                columns: [
+                                    "status",
+                                    "string",
+                                    "Current status of the search job (either Running or Stopped)",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`total`                           | number  | Total number of results. If the status is `Running` this number may continue to increase",
+                                columns: [
+                                    "total",
+                                    "number",
+                                    "Total number of results. If the status is Running this number may continue to increase",
+                                ],
+                            },
+                        ],
+                    },
+                ),
+                Text(
+                    "",
+                ),
+                Asterisk(
+                    "Result object:",
+                ),
+                Text(
+                    "",
+                ),
+                Table(
+                    Table {
+                        header: TableRow {
+                            raw: "Field                             | Type    | Description",
+                            columns: [
+                                "Field",
+                                "Type",
+                                "Description",
+                            ],
+                        },
+                        split: "----------------------------------|---------|------------",
+                        rows: [
+                            TableRow {
+                                raw: "`descrLink`                       | string  | URL of the torrent's description page",
+                                columns: [
+                                    "descrLink",
+                                    "string",
+                                    "URL of the torrent's description page",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`fileName`                        | string  | Name of the file",
+                                columns: [
+                                    "fileName",
+                                    "string",
+                                    "Name of the file",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`fileSize`                        | number  | Size of the file in Bytes",
+                                columns: [
+                                    "fileSize",
+                                    "number",
+                                    "Size of the file in Bytes",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`fileUrl`                         | string  | Torrent download link (usually either .torrent file or magnet link)",
+                                columns: [
+                                    "fileUrl",
+                                    "string",
+                                    "Torrent download link (usually either .torrent file or magnet link)",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`nbLeechers`                      | number  | Number of leechers",
+                                columns: [
+                                    "nbLeechers",
+                                    "number",
+                                    "Number of leechers",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`nbSeeders`                       | number  | Number of seeders",
+                                columns: [
+                                    "nbSeeders",
+                                    "number",
+                                    "Number of seeders",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`siteUrl`                         | string  | URL of the torrent site",
+                                columns: [
+                                    "siteUrl",
+                                    "string",
+                                    "URL of the torrent site",
+                                ],
+                            },
+                        ],
+                    },
+                ),
+                Text(
+                    "",
+                ),
+                Text(
+                    "Example:",
+                ),
+                Text(
+                    "",
+                ),
+                Text(
+                    "```JSON",
+                ),
+                Text(
+                    "{",
+                ),
+                Text(
+                    "    \"results\": [",
+                ),
+                Text(
+                    "        {",
+                ),
+                Text(
+                    "            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41\",",
+                ),
+                Text(
+                    "            \"fileName\": \"Ubuntu-10.04-32bit-NeTV.ova\",",
+                ),
+                Text(
+                    "            \"fileSize\": -1,",
+                ),
+                Text(
+                    "            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41&f=Ubuntu-10.04-32bit-NeTV.ova.torrent\",",
+                ),
+                Text(
+                    "            \"nbLeechers\": 1,",
+                ),
+                Text(
+                    "            \"nbSeeders\": 0,",
+                ),
+                Text(
+                    "            \"siteUrl\": \"http://www.legittorrents.info\"",
+                ),
+                Text(
+                    "        },",
+                ),
+                Text(
+                    "        {",
+                ),
+                Text(
+                    "            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475\",",
+                ),
+                Text(
+                    "            \"fileName\": \"mangOH-Legato-17_06-Ubuntu-16_04.ova\",",
+                ),
+                Text(
+                    "            \"fileSize\": -1,",
+                ),
+                Text(
+                    "            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475&f=mangOH-Legato-17_06-Ubuntu-16_04.ova.torrent\",",
+                ),
+                Text(
+                    "            \"nbLeechers\": 0,",
+                ),
+                Text(
+                    "            \"nbSeeders\": 59,",
+                ),
+                Text(
+                    "            \"siteUrl\": \"http://www.legittorrents.info\"",
+                ),
+                Text(
+                    "        }",
+                ),
+                Text(
+                    "    ],",
+                ),
+                Text(
+                    "    \"status\": \"Running\",",
+                ),
+                Text(
+                    "    \"total\": 2",
+                ),
+                Text(
+                    "}",
+                ),
+                Text(
+                    "```",
+                ),
+            ],
+            children: [],
+        },
+    ],
+}
