@@ -58,7 +58,9 @@ impl ApiMethod {
         let method_description = child.parse_method_description();
         let return_type = child.parse_return_type();
         // let return_type = tables.return_type().map(|r| ReturnType::new(r));
-        let parameters = tables.parameters().map(ApiParameters::new);
+        let parameters = tables
+            .get_type_containing("Parameters")
+            .map(ApiParameters::new);
         let method_url = child.get_method_url();
 
         ApiMethod {
@@ -108,19 +110,24 @@ struct Tables<'a> {
 }
 
 impl<'a> Tables<'a> {
-    fn parameters(&self) -> Option<Vec<types::Type>> {
-        self.get_type_containing("Parameters")
+    fn get_type_containing(&self, name: &str) -> Option<Vec<types::Type>> {
+        self.get_type_containing_as_table(name)
+            .map(|table| table.to_types())
     }
 
-    // fn return_type(&self) -> Option<Vec<types::Type>> {
-    //     self.get_type_containing("The response is a")
-    // }
+    fn get_type_containing_as_table(&self, name: &str) -> Option<&md_parser::Table> {
+        self.get_all_type_containing_as_table(name)
+            .iter()
+            .map(|(_, table)| *table)
+            .find(|_| true)
+    }
 
-    fn get_type_containing(&self, name: &str) -> Option<Vec<types::Type>> {
+    fn get_all_type_containing_as_table(&self, name: &str) -> HashMap<String, &md_parser::Table> {
         self.tables
             .iter()
-            .find(|(key, _)| key.contains(name))
-            .map(|(_, table)| table.to_types())
+            .filter(|(key, _)| key.contains(name))
+            .map(|(k, table)| (k.clone(), *table))
+            .collect()
     }
 }
 
@@ -135,8 +142,14 @@ impl md_parser::Table {
 
 impl md_parser::TableRow {
     fn to_type(&self) -> Option<types::Type> {
+        self.to_types_with_types(&HashMap::new())
+    }
+
+    fn to_types_with_types(
+        &self,
+        type_map: &HashMap<String, types::TypeDescription>,
+    ) -> Option<types::Type> {
         let columns = &self.columns;
-        let type_map = HashMap::new();
         let description = columns.get(2).cloned();
 
         match &columns.get(2) {
@@ -144,9 +157,9 @@ impl md_parser::TableRow {
             Some(desc) if desc.contains("default: ") => {
                 // type defines a variable as default if it contains: _optional_
                 let name_with_optional = format!("{} {}", columns[0], types::OPTIONAL);
-                types::Type::from(&columns[1], &name_with_optional, description, &type_map)
+                types::Type::from(&columns[1], &name_with_optional, description, type_map)
             }
-            _ => types::Type::from(&columns[1], &columns[0], description, &type_map),
+            _ => types::Type::from(&columns[1], &columns[0], description, type_map),
         }
     }
 }
