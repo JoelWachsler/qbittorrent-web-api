@@ -49,39 +49,47 @@ impl ApiParameters {
     }
 }
 
-pub fn parse_api_method(child: &md_parser::TokenTree) -> Option<ApiMethod> {
-    util::find_content_starts_with(&child.content, "Name: ")
-        .map(|name| {
-            name.trim_start_matches("Name: ")
-                .trim_matches('`')
-                .to_string()
-        })
-        .map(|name| to_api_method(child, &name))
-}
+impl ApiMethod {
+    pub fn try_new(child: &md_parser::TokenTree) -> Option<Self> {
+        const NAME: &str = "Name: ";
 
-fn to_api_method(child: &md_parser::TokenTree, name: &str) -> ApiMethod {
-    let tables = child.to_tables();
-    let method_description = parse_method_description(&child.content);
-    let return_type = parse_return_type(&child.content);
-    let parameters = tables.parameters().map(ApiParameters::new);
-    let method_url = get_method_url(&child.content);
+        child
+            .find_content_starts_with(NAME)
+            .map(|name| name.trim_start_matches(NAME).trim_matches('`').to_string())
+            .map(|name| ApiMethod::new(child, &name))
+    }
 
-    ApiMethod {
-        name: name.to_string(),
-        description: method_description,
-        parameters,
-        return_type,
-        url: method_url,
+    fn new(child: &md_parser::TokenTree, name: &str) -> Self {
+        let tables = Tables::from(child);
+        let method_description = parse_method_description(&child.content);
+        let return_type = parse_return_type(&child.content);
+        // let return_type = tables.return_type().map(|r| ReturnType::new(r));
+        let parameters = tables.parameters().map(ApiParameters::new);
+        let method_url = get_method_url(&child.content);
+
+        ApiMethod {
+            name: name.to_string(),
+            description: method_description,
+            parameters,
+            return_type,
+            url: method_url,
+        }
     }
 }
 
 impl md_parser::TokenTree {
-    fn to_tables(&self) -> Tables<'_> {
+    fn find_content_starts_with(&self, content: &str) -> Option<String> {
+        util::find_content_starts_with(&self.content, content)
+    }
+}
+
+impl<'a> From<&'a md_parser::TokenTree> for Tables<'a> {
+    fn from(token_tree: &'a md_parser::TokenTree) -> Self {
         let mut tables = HashMap::new();
         let mut prev_prev: Option<&md_parser::MdContent> = None;
         let mut prev: Option<&md_parser::MdContent> = None;
 
-        for content in &self.content {
+        for content in &token_tree.content {
             if let md_parser::MdContent::Table(table) = content {
                 let title = match prev_prev {
                     Some(md_parser::MdContent::Text(text)) => text.clone(),
@@ -111,7 +119,7 @@ impl<'a> Tables<'a> {
     }
 
     // fn return_type(&self) -> Option<Vec<types::Type>> {
-    //     self.get_type_containing("Returns")
+    //     self.get_type_containing("The response is a")
     // }
 
     fn get_type_containing(&self, name: &str) -> Option<Vec<types::Type>> {
@@ -170,7 +178,7 @@ mod tests {
 
             // when
             let tree = TokenTreeFactory::create(input);
-            let api_method = parse_api_method(&tree.children[0]).unwrap();
+            let api_method = ApiMethod::try_new(&tree.children[0]).unwrap();
 
             // then
             let api_method_as_str = format!("{api_method:#?}");
@@ -187,7 +195,7 @@ mod tests {
             use std::path::Path;
 
             let input = include_str!(concat!(TEST_DIR!(), "/", $test_file, ".md"));
-            let tree = TokenTreeFactory::create(input);
+            let tree = ApiMethod::try_new(input);
             let api_method = parse_api_method(&tree.children[0]).unwrap();
 
             let tree_as_str = format!("{tree:#?}");
