@@ -127,10 +127,6 @@ impl parser::ApiMethod {
         }
     }
 
-    fn name_camel(&self) -> Ident {
-        util::to_ident(&self.name.to_camel())
-    }
-
     fn name_snake(&self) -> Ident {
         util::to_ident(&self.name.to_snake())
     }
@@ -167,10 +163,6 @@ impl types::Type {
 
     fn name(&self) -> String {
         self.get_type_info().name.clone()
-    }
-
-    fn name_camel(&self) -> Ident {
-        util::to_ident(&self.name().to_camel())
     }
 
     fn name_snake(&self) -> Ident {
@@ -217,10 +209,6 @@ impl parser::EnumValue {
 
     fn name_camel(&self) -> Ident {
         util::to_ident(&self.value.to_camel())
-    }
-
-    fn name_snake(&self) -> Ident {
-        util::to_ident(&self.value.to_snake())
     }
 }
 

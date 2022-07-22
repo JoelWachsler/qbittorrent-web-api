@@ -13,33 +13,27 @@ ApiMethod {
                             TypeInfo {
                                 name: "id",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "ID of the search job",
                                 ),
-                                type_description: None,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "limit",
                                 is_optional: true,
-                                is_list: false,
                                 description: Some(
                                     "max number of results to return. 0 or negative means no limit",
                                 ),
-                                type_description: None,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "offset",
                                 is_optional: true,
-                                is_list: false,
                                 description: Some(
                                     "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
                                 ),
-                                type_description: None,
                             },
                         ),
                     ],
@@ -53,77 +47,63 @@ ApiMethod {
                             TypeInfo {
                                 name: "descrLink",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "URL of the torrent's description page",
                                 ),
-                                type_description: None,
                             },
                         ),
                         String(
                             TypeInfo {
                                 name: "fileName",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Name of the file",
                                 ),
-                                type_description: None,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "fileSize",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Size of the file in Bytes",
                                 ),
-                                type_description: None,
                             },
                         ),
                         String(
                             TypeInfo {
                                 name: "fileUrl",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Torrent download link (usually either .torrent file or magnet link)",
                                 ),
-                                type_description: None,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "nbLeechers",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Number of leechers",
                                 ),
-                                type_description: None,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "nbSeeders",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Number of seeders",
                                 ),
-                                type_description: None,
                             },
                         ),
                         String(
                             TypeInfo {
                                 name: "siteUrl",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "URL of the torrent site",
                                 ),
-                                type_description: None,
                             },
                         ),
                     ],
@@ -137,11 +117,9 @@ ApiMethod {
                                 type_info: TypeInfo {
                                     name: "results",
                                     is_optional: false,
-                                    is_list: false,
                                     description: Some(
                                         "Array of result objects- see table below",
                                     ),
-                                    type_description: None,
                                 },
                                 ref_type: "Result",
                             },
@@ -150,22 +128,18 @@ ApiMethod {
                             TypeInfo {
                                 name: "status",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Current status of the search job (either Running or Stopped)",
                                 ),
-                                type_description: None,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "total",
                                 is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Total number of results. If the status is Running this number may continue to increase",
                                 ),
-                                type_description: None,
                             },
                         ),
                     ],

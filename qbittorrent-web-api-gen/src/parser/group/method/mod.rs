@@ -5,7 +5,7 @@ mod url;
 use crate::{md_parser, types};
 use case::CaseExt;
 use regex::Regex;
-use std::collections::{BTreeMap, HashMap};
+use std::collections::BTreeMap;
 
 #[derive(Debug)]
 pub struct ApiMethod {
@@ -312,13 +312,6 @@ impl md_parser::Table {
 
 impl md_parser::TableRow {
     fn to_type(&self) -> Option<types::Type> {
-        self.to_types_with_types(&HashMap::new())
-    }
-
-    fn to_types_with_types(
-        &self,
-        type_map: &HashMap<String, types::TypeDescription>,
-    ) -> Option<types::Type> {
         let columns = &self.columns;
         let description = columns.get(2).cloned();
 
@@ -327,9 +320,9 @@ impl md_parser::TableRow {
             Some(desc) if desc.contains("default: ") => {
                 // type defines a variable as default if it contains: _optional_
                 let name_with_optional = format!("{} {}", columns[0], types::OPTIONAL);
-                types::Type::from(&columns[1], &name_with_optional, description, type_map)
+                types::Type::from(&columns[1], &name_with_optional, description)
             }
-            _ => types::Type::from(&columns[1], &columns[0], description, type_map),
+            _ => types::Type::from(&columns[1], &columns[0], description),
         }
     }
 }

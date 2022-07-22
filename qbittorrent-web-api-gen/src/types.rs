@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use case::CaseExt;
 use regex::RegexBuilder;
 
@@ -18,25 +16,17 @@ pub struct TypeDescription {
 pub struct TypeInfo {
     pub name: String,
     pub is_optional: bool,
-    is_list: bool,
+    // is_list: bool,
     pub description: Option<String>,
-    pub type_description: Option<TypeDescription>,
 }
 
 impl TypeInfo {
-    pub fn new(
-        name: &str,
-        is_optional: bool,
-        is_list: bool,
-        description: Option<String>,
-        type_description: Option<TypeDescription>,
-    ) -> Self {
+    pub fn new(name: &str, is_optional: bool, description: Option<String>) -> Self {
         Self {
             name: name.into(),
             is_optional,
-            is_list,
+            // is_list,
             description,
-            type_description,
         }
     }
 }
@@ -84,9 +74,9 @@ impl Type {
         }
     }
 
-    pub fn is_list(&self) -> bool {
-        self.get_type_info().is_list || matches!(self, Type::StringArray(_))
-    }
+    // pub fn is_list(&self) -> bool {
+    //     self.get_type_info().is_list || matches!(self, Type::StringArray(_))
+    // }
 
     pub fn to_borrowed_type(&self) -> String {
         match self {
@@ -118,13 +108,7 @@ impl Type {
         }
     }
 
-    pub fn from(
-        type_as_str: &str,
-        name: &str,
-        description: Option<String>,
-        types: &HashMap<String, TypeDescription>,
-    ) -> Option<Type> {
-        let available_types = types.get(name).cloned();
+    pub fn from(type_as_str: &str, name: &str, description: Option<String>) -> Option<Type> {
         let type_name = match name.split_once(OPTIONAL) {
             Some((split, _)) => split,
             None => name,
@@ -132,15 +116,7 @@ impl Type {
         .trim();
 
         let is_optional = name.contains(OPTIONAL);
-        let create_type_info = || {
-            TypeInfo::new(
-                type_name,
-                is_optional,
-                false,
-                description.clone(),
-                available_types.clone(),
-            )
-        };
+        let create_type_info = || TypeInfo::new(type_name, is_optional, description.clone());
 
         let create_object_type = |name: &str| {
             Some(Type::Object(Object {
