@@ -12,34 +12,35 @@ ApiMethod {
                         Number(
                             TypeInfo {
                                 name: "id",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "ID of the search job",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "limit",
-                                is_optional: true,
-                                is_list: false,
                                 description: Some(
                                     "max number of results to return. 0 or negative means no limit",
                                 ),
+                                is_optional: true,
+                                is_list: false,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "offset",
-                                is_optional: true,
-                                is_list: false,
                                 description: Some(
                                     "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
                                 ),
+                                is_optional: true,
+                                is_list: false,
                             },
                         ),
                     ],
+                    is_list: false,
                 },
             ),
             Object(
@@ -49,71 +50,71 @@ ApiMethod {
                         String(
                             TypeInfo {
                                 name: "descrLink",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "URL of the torrent's description page",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                         String(
                             TypeInfo {
                                 name: "fileName",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Name of the file",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "fileSize",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Size of the file in Bytes",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                         String(
                             TypeInfo {
                                 name: "fileUrl",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Torrent download link (usually either .torrent file or magnet link)",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "nbLeechers",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Number of leechers",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "nbSeeders",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Number of seeders",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                         String(
                             TypeInfo {
                                 name: "siteUrl",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "URL of the torrent site",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                     ],
@@ -126,36 +127,37 @@ ApiMethod {
                             Object {
                                 type_info: TypeInfo {
                                     name: "results",
-                                    is_optional: false,
-                                    is_list: false,
                                     description: Some(
                                         "Array of result objects- see table below",
                                     ),
+                                    is_optional: false,
+                                    is_list: true,
                                 },
-                                ref_type: "Result",
+                                ref_type: "",
                             },
                         ),
                         String(
                             TypeInfo {
                                 name: "status",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Current status of the search job (either Running or Stopped)",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                         Number(
                             TypeInfo {
                                 name: "total",
-                                is_optional: false,
-                                is_list: false,
                                 description: Some(
                                     "Total number of results. If the status is Running this number may continue to increase",
                                 ),
+                                is_optional: false,
+                                is_list: false,
                             },
                         ),
                     ],
+                    is_list: false,
                 },
             ),
         ],

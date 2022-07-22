@@ -15,18 +15,18 @@ pub struct TypeDescription {
 #[derive(Debug, Clone)]
 pub struct TypeInfo {
     pub name: String,
-    pub is_optional: bool,
-    pub is_list: bool,
     pub description: Option<String>,
+    is_optional: bool,
+    is_list: bool,
 }
 
 impl TypeInfo {
     pub fn new(name: &str, is_optional: bool, is_list: bool, description: Option<String>) -> Self {
         Self {
             name: name.into(),
+            description,
             is_optional,
             is_list,
-            description,
         }
     }
 }
@@ -93,6 +93,10 @@ impl Type {
         self.get_type_info().is_optional
     }
 
+    pub fn is_list(&self) -> bool {
+        self.get_type_info().is_list
+    }
+
     pub fn get_type_info(&self) -> &TypeInfo {
         match self {
             Type::Number(t) => t,
@@ -116,8 +120,21 @@ impl Type {
             .clone()
             .map(|desc| desc.contains("array"))
             .unwrap_or(false);
-        let create_type_info =
-            || TypeInfo::new(type_name, is_optional, is_list, description.clone());
+
+        let (type_without_array, type_contains_array) = if type_as_str.contains("array") {
+            (type_as_str.replace("array", ""), true)
+        } else {
+            (type_as_str.to_owned(), false)
+        };
+
+        let create_type_info = || {
+            TypeInfo::new(
+                type_name,
+                is_optional,
+                is_list || type_contains_array,
+                description.clone(),
+            )
+        };
 
         let create_object_type = |name: &str| {
             Some(Type::Object(Object {
@@ -126,7 +143,7 @@ impl Type {
             }))
         };
 
-        match type_as_str {
+        match type_without_array.trim() {
             "raw" => None,
             "bool" => Some(Type::Bool(create_type_info())),
             "integer" | "number" | "int" => Some(Type::Number(create_type_info())),

@@ -53,9 +53,9 @@ impl CompositeTypes {
             .collect()
     }
 
-    pub fn response(&self) -> Option<&Vec<types::Type>> {
+    pub fn response(&self) -> Option<&TypeWithoutName> {
         self.composite_types.iter().find_map(|type_| match type_ {
-            CompositeType::Response(p) => Some(&p.types),
+            CompositeType::Response(p) => Some(p),
             _ => None,
         })
     }
@@ -104,11 +104,12 @@ pub struct TypeWithName {
 #[derive(Debug)]
 pub struct TypeWithoutName {
     pub types: Vec<types::Type>,
+    pub is_list: bool,
 }
 
 impl TypeWithoutName {
-    pub fn new(types: Vec<types::Type>) -> Self {
-        Self { types }
+    pub fn new(types: Vec<types::Type>, is_list: bool) -> Self {
+        Self { types, is_list }
     }
 }
 
@@ -270,6 +271,7 @@ impl md_parser::Table {
 
         Some(CompositeType::Response(TypeWithoutName::new(
             self.to_types(),
+            input_name.to_lowercase().contains("array"),
         )))
     }
 
@@ -280,6 +282,7 @@ impl md_parser::Table {
 
         Some(CompositeType::Parameters(TypeWithoutName::new(
             self.to_types(),
+            input_name.to_lowercase().contains("array"),
         )))
     }
 
@@ -408,5 +411,15 @@ mod tests {
     #[test]
     fn enum_test() {
         run_test!("enum");
+    }
+
+    #[test]
+    fn array_result() {
+        run_test!("array_result");
+    }
+
+    #[test]
+    fn array_field() {
+        run_test!("array_field");
     }
 }

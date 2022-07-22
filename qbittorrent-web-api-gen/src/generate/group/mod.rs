@@ -150,13 +150,18 @@ impl types::Type {
     fn generate_struct_field(&self) -> TokenStream {
         let name_snake = self.name_snake();
         let type_name = util::to_ident(&self.to_owned_type());
+        let type_ = if self.is_list() {
+            quote! { std::vec::Vec<#type_name> }
+        } else {
+            quote! { #type_name }
+        };
         let orig_name = self.name();
 
         util::add_docs(
             &self.get_type_info().description,
             quote! {
                 #[serde(rename = #orig_name)]
-                pub #name_snake: #type_name
+                pub #name_snake: #type_
             },
         )
     }
@@ -292,7 +297,10 @@ impl<'a> GroupMethod<'a> {
             None => return quote! {},
         };
 
-        let struct_fields = response.iter().map(|field| field.generate_struct_field());
+        let struct_fields = response
+            .types
+            .iter()
+            .map(|field| field.generate_struct_field());
 
         quote! {
             #[derive(Debug, serde::Deserialize)]
@@ -347,7 +355,16 @@ impl<'a> GroupMethod<'a> {
         let method_url = format!("/api/v2/{}/{}", self.group.url, self.method.url);
 
         let (response_type, response_parse) = match self.method.types.response() {
-            Some(_) => (quote! { Response }, quote! { .json::<Response>() }),
+            Some(resp) => {
+                if resp.is_list {
+                    (
+                        quote! { std::vec::Vec<Response> },
+                        quote! { .json::<std::vec::Vec<Response>>() },
+                    )
+                } else {
+                    (quote! { Response }, quote! { .json::<Response>() })
+                }
+            }
             None => (quote! { String }, quote! { .text() }),
         };
 

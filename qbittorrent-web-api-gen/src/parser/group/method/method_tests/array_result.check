@@ -1,0 +1,26 @@
+ApiMethod {
+    name: "foo",
+    description: None,
+    url: "foo",
+    types: CompositeTypes {
+        composite_types: [
+            Response(
+                TypeWithoutName {
+                    types: [
+                        Number(
+                            TypeInfo {
+                                name: "added_on",
+                                description: Some(
+                                    "Time (Unix Epoch) when the torrent was added to the client",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                    ],
+                    is_list: true,
+                },
+            ),
+        ],
+    },
+}

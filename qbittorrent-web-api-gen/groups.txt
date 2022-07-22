@@ -16,24 +16,25 @@
                                     String(
                                         TypeInfo {
                                             name: "username",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Username used to access the WebUI",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "password",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Password used to access the WebUI",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -90,54 +91,55 @@
                                     String(
                                         TypeInfo {
                                             name: "qt",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "QT version",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "libtorrent",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "libtorrent version",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "boost",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Boost version",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "openssl",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "OpenSSL version",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "bitness",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Application bitness (e.g. 64-bit)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -527,54 +529,55 @@
                                     Bool(
                                         TypeInfo {
                                             name: "normal",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Include normal messages (default: true)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "info",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Include info messages (default: true)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "warning",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Include warning messages (default: true)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "critical",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Include critical messages (default: true)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "last_known_id",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Exclude messages with \"message id\" <= last_known_id (default: -1)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -594,14 +597,15 @@
                                     Number(
                                         TypeInfo {
                                             name: "last_known_id",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Exclude messages with \"message id\" <= last_known_id (default: -1)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -630,14 +634,15 @@
                                     Number(
                                         TypeInfo {
                                             name: "rid",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                         Response(
@@ -646,103 +651,116 @@
                                     Number(
                                         TypeInfo {
                                             name: "rid",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Response ID",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "full_update",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Whether the response contains all the data or partial data",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Object(
                                         Object {
                                             type_info: TypeInfo {
                                                 name: "torrents",
-                                                is_optional: false,
-                                                is_list: false,
                                                 description: Some(
                                                     "Property: torrent hash, value: same as [torrent list](#get-torrent-list)",
                                                 ),
+                                                is_optional: false,
+                                                is_list: false,
                                             },
                                             ref_type: "Object",
                                         },
                                     ),
-                                    StringArray(
-                                        TypeInfo {
-                                            name: "torrents_removed",
-                                            is_optional: false,
-                                            is_list: false,
-                                            description: Some(
-                                                "List of hashes of torrents removed since last request",
-                                            ),
+                                    Object(
+                                        Object {
+                                            type_info: TypeInfo {
+                                                name: "torrents_removed",
+                                                description: Some(
+                                                    "List of hashes of torrents removed since last request",
+                                                ),
+                                                is_optional: false,
+                                                is_list: true,
+                                            },
+                                            ref_type: "",
                                         },
                                     ),
                                     Object(
                                         Object {
                                             type_info: TypeInfo {
                                                 name: "categories",
-                                                is_optional: false,
-                                                is_list: false,
                                                 description: Some(
                                                     "Info for categories added since last request",
                                                 ),
+                                                is_optional: false,
+                                                is_list: false,
                                             },
                                             ref_type: "Object",
                                         },
                                     ),
-                                    StringArray(
-                                        TypeInfo {
-                                            name: "categories_removed",
-                                            is_optional: false,
-                                            is_list: false,
-                                            description: Some(
-                                                "List of categories removed since last request",
-                                            ),
+                                    Object(
+                                        Object {
+                                            type_info: TypeInfo {
+                                                name: "categories_removed",
+                                                description: Some(
+                                                    "List of categories removed since last request",
+                                                ),
+                                                is_optional: false,
+                                                is_list: true,
+                                            },
+                                            ref_type: "",
                                         },
                                     ),
-                                    StringArray(
-                                        TypeInfo {
-                                            name: "tags",
-                                            is_optional: false,
-                                            is_list: false,
-                                            description: Some(
-                                                "List of tags added since last request",
-                                            ),
+                                    Object(
+                                        Object {
+                                            type_info: TypeInfo {
+                                                name: "tags",
+                                                description: Some(
+                                                    "List of tags added since last request",
+                                                ),
+                                                is_optional: false,
+                                                is_list: true,
+                                            },
+                                            ref_type: "",
                                         },
                                     ),
-                                    StringArray(
-                                        TypeInfo {
-                                            name: "tags_removed",
-                                            is_optional: false,
-                                            is_list: false,
-                                            description: Some(
-                                                "List of tags removed since last request",
-                                            ),
+                                    Object(
+                                        Object {
+                                            type_info: TypeInfo {
+                                                name: "tags_removed",
+                                                description: Some(
+                                                    "List of tags removed since last request",
+                                                ),
+                                                is_optional: false,
+                                                is_list: true,
+                                            },
+                                            ref_type: "",
                                         },
                                     ),
                                     Object(
                                         Object {
                                             type_info: TypeInfo {
                                                 name: "server_state",
-                                                is_optional: false,
-                                                is_list: false,
                                                 description: Some(
                                                     "Global transfer info",
                                                 ),
+                                                is_optional: false,
+                                                is_list: false,
                                             },
                                             ref_type: "Object",
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -762,24 +780,25 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent hash",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "rid",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -808,84 +827,85 @@
                                     Number(
                                         TypeInfo {
                                             name: "dl_info_speed",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Global download rate (bytes/s)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "dl_info_data",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Data downloaded this session (bytes)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "up_info_speed",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Global upload rate (bytes/s)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "up_info_data",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Data uploaded this session (bytes)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "dl_rate_limit",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Download rate limit (bytes/s)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "up_rate_limit",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Upload rate limit (bytes/s)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "dht_nodes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "DHT nodes connected to",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "connection_status",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Connection status. See possible values here below",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -931,14 +951,15 @@
                                     Number(
                                         TypeInfo {
                                             name: "limit",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The global download speed limit to set in bytes/second",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -966,14 +987,15 @@
                                     Number(
                                         TypeInfo {
                                             name: "limit",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The global upload speed limit to set in bytes/second",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -991,14 +1013,15 @@
                                     String(
                                         TypeInfo {
                                             name: "peers",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The peer to ban, or multiple peers separated by a pipe \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -1027,84 +1050,85 @@
                                     String(
                                         TypeInfo {
                                             name: "filter",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Filter torrent list by state. Allowed state filters: all, downloading, seeding, completed, paused, active, inactive, resumed, stalled, stalled_uploading, stalled_downloading, errored",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "category",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Get torrents with the given category (empty string means \"without category\"; no \"category\" parameter means \"any category\" <- broken until [#11748](https://github.com/qbittorrent/qBittorrent/issues/11748) is resolved). Remember to URL-encode the category name. For example, My category becomes My%20category",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "tag",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Get torrents with the given tag (empty string means \"without tag\"; no \"tag\" parameter means \"any tag\". Remember to URL-encode the category name. For example, My tag becomes My%20tag",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "sort",
-                                            is_optional: true,
-                                            is_list: true,
                                             description: Some(
                                                 "Sort torrents by given key. They can be sorted using any field of the response's JSON array (which are documented below) as the sort key.",
                                             ),
+                                            is_optional: true,
+                                            is_list: true,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "reverse",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Enable reverse sorting. Defaults to false",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "limit",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Limit the number of torrents returned",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "offset",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Set offset (if less than 0, offset from end)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Filter by hashes. Can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                         Enum(
@@ -1253,454 +1277,455 @@
                                     Number(
                                         TypeInfo {
                                             name: "added_on",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Time (Unix Epoch) when the torrent was added to the client",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "amount_left",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Amount of data left to download (bytes)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "auto_tmm",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Whether this torrent is managed by Automatic Torrent Management",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Float(
                                         TypeInfo {
                                             name: "availability",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Percentage of file pieces currently available",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "category",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Category of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "completed",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Amount of transfer data completed (bytes)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "completion_on",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Time (Unix Epoch) when the torrent completed",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "content_path",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Absolute path of torrent content (root path for multifile torrents, absolute file path for singlefile torrents)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "dl_limit",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent download speed limit (bytes/s). -1 if ulimited.",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "dlspeed",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent download speed (bytes/s)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "downloaded",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Amount of data downloaded",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "downloaded_session",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Amount of data downloaded this session",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "eta",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent ETA (seconds)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "f_l_piece_prio",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "True if first last piece are prioritized",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "force_start",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "True if force start is enabled for this torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent hash",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "last_activity",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Last time (Unix Epoch) when a chunk was downloaded/uploaded",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "magnet_uri",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Magnet URI corresponding to this torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Float(
                                         TypeInfo {
                                             name: "max_ratio",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Maximum share ratio until torrent is stopped from seeding/uploading",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "max_seeding_time",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Maximum seeding time (seconds) until torrent is stopped from seeding",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "name",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent name",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "num_complete",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of seeds in the swarm",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "num_incomplete",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of leechers in the swarm",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "num_leechs",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of leechers connected to",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "num_seeds",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of seeds connected to",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "priority",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent priority. Returns -1 if queuing is disabled or torrent is in seed mode",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Float(
                                         TypeInfo {
                                             name: "progress",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent progress (percentage/100)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Float(
                                         TypeInfo {
                                             name: "ratio",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent share ratio. Max ratio value: 9999.",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Float(
                                         TypeInfo {
                                             name: "ratio_limit",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "TODO (what is different from max_ratio?)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "save_path",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Path where this torrent's data is stored",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "seeding_time",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent elapsed time while complete (seconds)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "seeding_time_limit",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "TODO (what is different from max_seeding_time?) seeding_time_limit is a per torrent setting, when Automatic Torrent Management is disabled, furthermore then max_seeding_time is set to seeding_time_limit for this torrent. If Automatic Torrent Management is enabled, the value is -2. And if max_seeding_time is unset it have a default value -1.",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "seen_complete",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Time (Unix Epoch) when this torrent was last seen complete",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "seq_dl",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "True if sequential download is enabled",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "size",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Total size (bytes) of files selected for download",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "state",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent state. See table here below for the possible values",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "super_seeding",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "True if super seeding is enabled",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "tags",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Comma-concatenated tag list of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "time_active",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Total active time (seconds)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "total_size",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Total size (bytes) of all file in this torrent (including unselected ones)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "tracker",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The first tracker with working status. Returns empty string if no tracker is working.",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "up_limit",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent upload speed limit (bytes/s). -1 if ulimited.",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "uploaded",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Amount of data uploaded",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "uploaded_session",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Amount of data uploaded this session",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "upspeed",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent upload speed (bytes/s)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: true,
                             },
                         ),
                     ],
@@ -1720,14 +1745,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the generic properties of",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -1747,14 +1773,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the trackers of",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                         Enum(
@@ -1805,84 +1832,85 @@
                                     String(
                                         TypeInfo {
                                             name: "url",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Tracker url",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "status",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Tracker status. See the table below for possible values",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "tier",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Tracker priority tier. Lower tier trackers are tried before higher tiers. Tier numbers are valid when >= 0, < 0 is used as placeholder when tier does not exist for special entries (such as DHT).",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "num_peers",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of peers for current torrent, as reported by the tracker",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "num_seeds",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of seeds for current torrent, asreported by the tracker",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "num_leeches",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of leeches for current torrent, as reported by the tracker",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "num_downloaded",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of completed downlods for current torrent, as reported by the tracker",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "msg",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Tracker message (there is no way of knowing what this message is - it's up to tracker admins)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: true,
                             },
                         ),
                     ],
@@ -1902,14 +1930,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the webseeds of",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                         Response(
@@ -1918,14 +1947,15 @@
                                     String(
                                         TypeInfo {
                                             name: "url",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "URL of the web seed",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: true,
                             },
                         ),
                     ],
@@ -1945,24 +1975,25 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the contents of",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "indexes",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "The indexes of the files you want to retrieve. indexes can contain multiple values separated by \\",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                         Enum(
@@ -2017,14 +2048,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the pieces' states of",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2044,14 +2076,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the pieces' hashes of",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2069,14 +2102,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to pause. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2094,14 +2128,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to resume. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2119,25 +2154,26 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to delete. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Object(
                                         Object {
                                             type_info: TypeInfo {
                                                 name: "deleteFiles",
+                                                description: None,
                                                 is_optional: false,
                                                 is_list: false,
-                                                description: None,
                                             },
                                             ref_type: "If set to true, the downloaded data will also be deleted, otherwise has no effect.",
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2155,14 +2191,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to recheck. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2180,14 +2217,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to reannounce. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2205,164 +2243,165 @@
                                     String(
                                         TypeInfo {
                                             name: "urls",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "URLs separated with newlines",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "savepath",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Download folder",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "cookie",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Cookie sent to download the .torrent file",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "category",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Category for the torrent",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "tags",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Tags for the torrent, split by ','",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "skip_checking",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Skip hash checking. Possible values are true, false (default)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "paused",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Add torrents in the paused state. Possible values are true, false (default)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "root_folder",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Create the root folder. Possible values are true, false, unset (default)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "rename",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Rename torrent",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "upLimit",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Set torrent upload speed limit. Unit in bytes/second",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "dlLimit",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Set torrent download speed limit. Unit in bytes/second",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Float(
                                         TypeInfo {
                                             name: "ratioLimit",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Set torrent share ratio limit",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "seedingTimeLimit",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Set torrent seeding time limit. Unit in seconds",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "autoTMM",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Whether Automatic Torrent Management should be used",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "sequentialDownload",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Enable sequential download. Possible values are true, false (default)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "firstLastPiecePrio",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Prioritize download first last piece. Possible values are true, false (default)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2388,34 +2427,35 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "origUrl",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The tracker URL you want to edit",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "newUrl",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The new URL to replace the origUrl",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2433,24 +2473,25 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "urls",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "URLs to remove, separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2468,24 +2509,25 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent, or multiple hashes separated by a pipe \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "peers",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The peer to add, or multiple peers separated by a pipe \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2503,14 +2545,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to increase the priority of. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2528,14 +2571,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to decrease the priority of. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2553,14 +2597,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to set to the maximum priority. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2578,14 +2623,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to set to the minimum priority. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2603,34 +2649,35 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "id",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "File ids, separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "priority",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "File priority to set (consult [torrent contents API](#get-torrent-contents) for possible values)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2784,14 +2831,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to toggle sequential download for. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2809,14 +2857,15 @@
                                     String(
                                         TypeInfo {
                                             name: "hashes",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to toggle the first/last piece priority for. hashes can contain multiple hashes separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2850,34 +2899,35 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "oldPath",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The old path of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "newPath",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The new path to use for the file",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2895,34 +2945,35 @@
                                     String(
                                         TypeInfo {
                                             name: "hash",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "oldPath",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The old path of the torrent",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "newPath",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "The new path to use for the file",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2949,14 +3000,15 @@
                                     String(
                                         TypeInfo {
                                             name: "path",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Full path of added folder (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -2974,24 +3026,25 @@
                                     String(
                                         TypeInfo {
                                             name: "url",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "URL of RSS feed (e.g. \"[http://thepiratebay.org/rss//top100/200](http://thepiratebay.org/rss//top100/200)\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "path",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "Full path of added folder (e.g. \"The Pirate Bay\\Top100\\Video\")",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3009,14 +3062,15 @@
                                     String(
                                         TypeInfo {
                                             name: "path",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Full path of removed item (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3034,24 +3088,25 @@
                                     String(
                                         TypeInfo {
                                             name: "itemPath",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "destPath",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "New full path of item (e.g. \"The Pirate Bay\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3069,14 +3124,15 @@
                                     Bool(
                                         TypeInfo {
                                             name: "withData",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "True if you need current feed articles",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3094,24 +3150,25 @@
                                     String(
                                         TypeInfo {
                                             name: "itemPath",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "articleId",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "ID of article",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3129,14 +3186,15 @@
                                     String(
                                         TypeInfo {
                                             name: "itemPath",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3154,24 +3212,25 @@
                                     String(
                                         TypeInfo {
                                             name: "ruleName",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Rule name (e.g. \"Punisher\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "ruleDef",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "JSON encoded rule definition",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3189,24 +3248,25 @@
                                     String(
                                         TypeInfo {
                                             name: "ruleName",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Rule name (e.g. \"Punisher\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "newRuleName",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "New rule name (e.g. \"The Punisher\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3224,14 +3284,15 @@
                                     String(
                                         TypeInfo {
                                             name: "ruleName",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Rule name (e.g. \"Punisher\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3276,34 +3337,35 @@
                                     String(
                                         TypeInfo {
                                             name: "pattern",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Pattern to search for (e.g. \"Ubuntu 18.04\")",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "plugins",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Plugins to use for searching (e.g. \"legittorrents\"). Supports multiple plugins separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "category",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Categories to limit your search to (e.g. \"legittorrents\"). Available categories depend on the specified plugins. Also supports all",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                         Response(
@@ -3312,14 +3374,15 @@
                                     Number(
                                         TypeInfo {
                                             name: "id",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3337,14 +3400,15 @@
                                     Number(
                                         TypeInfo {
                                             name: "id",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3364,14 +3428,15 @@
                                     Number(
                                         TypeInfo {
                                             name: "id",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job. If not specified, all search jobs are returned",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                         Response(
@@ -3380,34 +3445,35 @@
                                     Number(
                                         TypeInfo {
                                             name: "id",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "status",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Current status of the search job (either Running or Stopped)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "total",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Total number of results. If the status is Running this number may contineu to increase",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: true,
                             },
                         ),
                     ],
@@ -3427,34 +3493,35 @@
                                     Number(
                                         TypeInfo {
                                             name: "id",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "limit",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "max number of results to return. 0 or negative means no limit",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "offset",
-                                            is_optional: true,
-                                            is_list: false,
                                             description: Some(
                                                 "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
                                             ),
+                                            is_optional: true,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                         Object(
@@ -3464,71 +3531,71 @@
                                     String(
                                         TypeInfo {
                                             name: "descrLink",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "URL of the torrent's description page",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "fileName",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Name of the file",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "fileSize",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Size of the file in Bytes",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "fileUrl",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Torrent download link (usually either .torrent file or magnet link)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "nbLeechers",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of leechers",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "nbSeeders",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Number of seeders",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "siteUrl",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "URL of the torrent site",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
@@ -3541,36 +3608,37 @@
                                         Object {
                                             type_info: TypeInfo {
                                                 name: "results",
-                                                is_optional: false,
-                                                is_list: false,
                                                 description: Some(
                                                     "Array of result objects- see table below",
                                                 ),
+                                                is_optional: false,
+                                                is_list: true,
                                             },
-                                            ref_type: "Result",
+                                            ref_type: "",
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "status",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Current status of the search job (either Running or Stopped)",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Number(
                                         TypeInfo {
                                             name: "total",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Total number of results. If the status is Running this number may continue to increase",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3588,14 +3656,15 @@
                                     Number(
                                         TypeInfo {
                                             name: "id",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3615,64 +3684,68 @@
                                     Bool(
                                         TypeInfo {
                                             name: "enabled",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Whether the plugin is enabled",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "fullName",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Full name of the plugin",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "name",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Short name of the plugin",
                                             ),
-                                        },
-                                    ),
-                                    StringArray(
-                                        TypeInfo {
-                                            name: "supportedCategories",
                                             is_optional: false,
                                             is_list: false,
-                                            description: Some(
-                                                "List of category objects",
-                                            ),
+                                        },
+                                    ),
+                                    Object(
+                                        Object {
+                                            type_info: TypeInfo {
+                                                name: "supportedCategories",
+                                                description: Some(
+                                                    "List of category objects",
+                                                ),
+                                                is_optional: false,
+                                                is_list: true,
+                                            },
+                                            ref_type: "",
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "url",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "URL of the torrent site",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "version",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Installed version of the plugin",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: true,
                             },
                         ),
                     ],
@@ -3690,14 +3763,15 @@
                                     String(
                                         TypeInfo {
                                             name: "sources",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Url or file path of the plugin to install (e.g. \"[https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py](https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py)\"). Supports multiple sources separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3715,14 +3789,15 @@
                                     String(
                                         TypeInfo {
                                             name: "names",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Name of the plugin to uninstall (e.g. \"legittorrents\"). Supports multiple names separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
@@ -3740,24 +3815,25 @@
                                     String(
                                         TypeInfo {
                                             name: "names",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Name of the plugin to enable/disable (e.g. \"legittorrents\"). Supports multiple names separated by \\",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                     Bool(
                                         TypeInfo {
                                             name: "enable",
-                                            is_optional: false,
-                                            is_list: false,
                                             description: Some(
                                                 "Whether the plugins should be enabled",
                                             ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
+                                is_list: false,
                             },
                         ),
                     ],
