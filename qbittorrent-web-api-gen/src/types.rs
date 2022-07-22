@@ -1,5 +1,8 @@
 use std::collections::HashMap;
 
+use case::CaseExt;
+use regex::RegexBuilder;
+
 #[derive(Debug, Clone)]
 pub struct TypeDescriptions {
     pub value: String,
@@ -39,15 +42,22 @@ impl TypeInfo {
 }
 
 #[derive(Debug, Clone)]
-pub struct TypeWithRef {
+pub struct Object {
     pub type_info: TypeInfo,
     pub ref_type: String,
 }
 
 #[derive(Debug, Clone)]
-pub struct ComplexObject {
+pub struct Enum {
     pub type_info: TypeInfo,
-    pub fields: Vec<Type>,
+    pub values: Vec<EnumValue>,
+}
+
+#[derive(Debug, Clone)]
+pub struct EnumValue {
+    pub description: Option<String>,
+    pub key: String,
+    pub value: String,
 }
 
 pub const OPTIONAL: &str = "_optional_";
@@ -59,8 +69,7 @@ pub enum Type {
     Bool(TypeInfo),
     String(TypeInfo),
     StringArray(TypeInfo),
-    Object(TypeInfo),
-    // ComplexObject(ComplexObject),
+    Object(Object),
 }
 
 impl Type {
@@ -72,7 +81,6 @@ impl Type {
             Type::String(_) => "String".into(),
             Type::StringArray(_) => "String".into(),
             Type::Object(_) => "String".into(),
-            // Type::ComplexObject(_) => panic!("Not implemented for ComplexObject"),
         }
     }
 
@@ -88,12 +96,15 @@ impl Type {
             Type::String(_) => "str".into(),
             Type::StringArray(_) => "&[str]".into(),
             Type::Object(_) => "str".into(),
-            // Type::ComplexObject(_) => panic!("Not implemented for ComplexObject"),
         }
     }
 
     pub fn should_borrow(&self) -> bool {
         matches!(self, Type::String(_) | Type::Object(_))
+    }
+
+    pub fn is_optional(&self) -> bool {
+        self.get_type_info().is_optional
     }
 
     pub fn get_type_info(&self) -> &TypeInfo {
@@ -103,8 +114,7 @@ impl Type {
             Type::Bool(t) => t,
             Type::String(t) => t,
             Type::StringArray(t) => t,
-            Type::Object(t) => t,
-            // Type::ComplexObject(ComplexObject { type_info, .. }) => type_info,
+            Type::Object(t) => &t.type_info,
         }
     }
 
@@ -132,46 +142,54 @@ impl Type {
             )
         };
 
+        let create_object_type = |name: &str| {
+            Some(Type::Object(Object {
+                type_info: create_type_info(),
+                ref_type: name.to_camel(),
+            }))
+        };
+
         match type_as_str {
             "bool" => Some(Type::Bool(create_type_info())),
             "integer" | "number" | "int" => Some(Type::Number(create_type_info())),
             "string" => Some(Type::String(create_type_info())),
-            "array" => Some(Type::StringArray(create_type_info())),
-            // "array" => description
-            //     .clone()
-            //     .and_then(|ref desc| get_ref_type(desc))
-            //     .map(|ref_type| {
-            //         Type::ObjectArray(TypeWithRef {
-            //             type_info: create_type_info(),
-            //             ref_type,
-            //         })
-            //     })
-            //     .or_else(|| Some(Type::StringArray(create_type_info()))),
-            "object" => Some(Type::Object(create_type_info())),
+            "array" => description
+                .extract_type()
+                .and_then(|t| create_object_type(&t))
+                .or_else(|| Some(Type::StringArray(create_type_info()))),
             "float" => Some(Type::Float(create_type_info())),
-            _ => None,
+            name => create_object_type(name),
         }
     }
 }
 
-// fn get_ref_type(desc: &str) -> Option<String> {
-//     let re = RegexBuilder::new(r".*array of (\w+)\s?.*")
-//         .case_insensitive(true)
-//         .build()
-//         .unwrap();
+trait ExtractType {
+    fn extract_type(&self) -> Option<String>;
+}
 
-//     re.captures(desc)
-//         .and_then(|captures| captures.get(1))
-//         .map(|m| m.as_str().to_owned())
-// }
+impl ExtractType for Option<String> {
+    fn extract_type(&self) -> Option<String> {
+        self.as_ref().and_then(|t| {
+            let re = RegexBuilder::new(r".*Array of (\w+) objects.*")
+                .case_insensitive(true)
+                .build()
+                .unwrap();
+
+            let cap = re.captures(t)?;
+
+            cap.get(1).map(|m| m.as_str().to_camel())
+        })
+    }
+}
 
 #[cfg(test)]
 mod tests {
-    // use super::*;
+    use super::*;
 
-    // #[test]
-    // fn should_parse_object_array() {
-    //     let ref_type = get_ref_type("Array of result objects- see table below");
-    //     assert_eq!("result", ref_type.unwrap());
-    // }
+    #[test]
+    fn test_regex() {
+        let input = Some("Array of result objects- see table below".to_string());
+        let res = input.extract_type();
+        assert_eq!(res.unwrap(), "Result");
+    }
 }

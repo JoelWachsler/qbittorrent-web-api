@@ -1,18 +1,75 @@
 mod description;
-mod return_type;
+// mod return_type;
 mod url;
 
 use crate::{md_parser, types};
-pub use return_type::ReturnType;
-use std::collections::HashMap;
+use case::CaseExt;
+use regex::Regex;
+use std::collections::{BTreeMap, HashMap};
 
 #[derive(Debug)]
 pub struct ApiMethod {
     pub name: String,
     pub description: Option<String>,
-    pub parameters: Option<ApiParameters>,
-    pub return_type: Option<ReturnType>,
     pub url: String,
+    pub types: CompositeTypes,
+}
+
+#[derive(Debug)]
+pub struct CompositeTypes {
+    pub composite_types: Vec<CompositeType>,
+}
+
+impl CompositeTypes {
+    pub fn new(tables: &Tables) -> Self {
+        Self {
+            composite_types: tables.get_all_tables_as_types(),
+        }
+    }
+
+    pub fn parameters(&self) -> Option<&Vec<types::Type>> {
+        self.composite_types.iter().find_map(|type_| match type_ {
+            CompositeType::Parameters(p) => Some(&p.types),
+            _ => None,
+        })
+    }
+
+    pub fn optional_parameters(&self) -> Option<Vec<&types::Type>> {
+        self.parameters()
+            .map(|params| params.iter().filter(|param| param.is_optional()).collect())
+    }
+
+    pub fn mandatory_params(&self) -> Option<Vec<&types::Type>> {
+        self.parameters()
+            .map(|params| params.iter().filter(|param| !param.is_optional()).collect())
+    }
+
+    pub fn response(&self) -> Option<&Vec<types::Type>> {
+        self.composite_types.iter().find_map(|type_| match type_ {
+            CompositeType::Response(p) => Some(&p.types),
+            _ => None,
+        })
+    }
+
+    pub fn objects(&self) -> Vec<&TypeWithName> {
+        self.composite_types
+            .iter()
+            .filter_map(|type_| match type_ {
+                CompositeType::Object(p) => Some(p),
+                _ => None,
+            })
+            .collect()
+    }
+
+    pub fn enums(&self) -> Vec<&Enum> {
+        self.composite_types
+            .iter()
+            .filter_map(|type_| match type_ {
+                CompositeType::Enum(p) => Some(p),
+                _ => None,
+            })
+            .collect()
+    }
 }
 
 #[derive(Debug)]
@@ -21,24 +78,86 @@ pub struct ApiParameters {
     pub optional: Vec<types::Type>,
 }
 
-impl ApiParameters {
-    fn new(params: Vec<types::Type>) -> Self {
-        let (mandatory, optional) = params.into_iter().fold(
-            (vec![], vec![]),
-            |(mut mandatory, mut optional), parameter| {
-                if parameter.get_type_info().is_optional {
-                    optional.push(parameter);
-                } else {
-                    mandatory.push(parameter);
-                }
+#[derive(Debug)]
+pub enum CompositeType {
+    Enum(Enum),
+    Object(TypeWithName),
+    Response(TypeWithoutName),
+    Parameters(TypeWithoutName),
+}
 
-                (mandatory, optional)
-            },
-        );
+#[derive(Debug)]
+pub struct TypeWithName {
+    pub name: String,
+    pub types: Vec<types::Type>,
+}
 
+#[derive(Debug)]
+pub struct TypeWithoutName {
+    pub types: Vec<types::Type>,
+}
+
+impl TypeWithoutName {
+    pub fn new(types: Vec<types::Type>) -> Self {
+        Self { types }
+    }
+}
+
+impl TypeWithName {
+    pub fn new(name: &str, types: Vec<types::Type>) -> Self {
         Self {
-            mandatory,
-            optional,
+            name: name.to_string(),
+            types,
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct Enum {
+    pub name: String,
+    pub values: Vec<EnumValue>,
+}
+
+#[derive(Debug)]
+pub struct EnumValue {
+    pub description: Option<String>,
+    pub value: String,
+    pub original_value: String,
+}
+
+impl Enum {
+    fn new(name: &str, table: &md_parser::Table) -> Self {
+        let values = table.rows.iter().map(EnumValue::from).collect();
+
+        Enum {
+            name: name.to_string(),
+            values,
+        }
+    }
+}
+
+impl From<&md_parser::TableRow> for EnumValue {
+    fn from(row: &md_parser::TableRow) -> Self {
+        let description = row.columns.get(1).cloned();
+        let original_value = row.columns[0].clone();
+        let value = if original_value.parse::<i32>().is_ok() {
+            let name = description
+                .clone()
+                .unwrap()
+                .replace(' ', "_")
+                .replace('-', "_")
+                .replace(',', "_");
+
+            let re = Regex::new(r#"\(.*\)"#).unwrap();
+            re.replace_all(&name, "").to_camel()
+        } else {
+            original_value.to_camel()
+        };
+
+        EnumValue {
+            description,
+            value,
+            original_value,
         }
     }
 }
@@ -56,19 +175,13 @@ impl ApiMethod {
     fn new(child: &md_parser::TokenTree, name: &str) -> Self {
         let tables = Tables::from(child);
         let method_description = child.parse_method_description();
-        let return_type = child.parse_return_type();
-        // let return_type = tables.return_type().map(|r| ReturnType::new(r));
-        let parameters = tables
-            .get_type_containing("Parameters")
-            .map(ApiParameters::new);
         let method_url = child.get_method_url();
 
         ApiMethod {
             name: name.to_string(),
             description: method_description,
-            parameters,
-            return_type,
             url: method_url,
+            types: CompositeTypes::new(&tables),
         }
     }
 }
@@ -86,7 +199,7 @@ impl md_parser::TokenTree {
 
 impl<'a> From<&'a md_parser::TokenTree> for Tables<'a> {
     fn from(token_tree: &'a md_parser::TokenTree) -> Self {
-        let mut tables = HashMap::new();
+        let mut tables = BTreeMap::new();
         let mut prev_prev: Option<&md_parser::MdContent> = None;
         let mut prev: Option<&md_parser::MdContent> = None;
 
@@ -110,28 +223,80 @@ impl<'a> From<&'a md_parser::TokenTree> for Tables<'a> {
 }
 
 #[derive(Debug)]
-struct Tables<'a> {
-    tables: HashMap<String, &'a md_parser::Table>,
+pub struct Tables<'a> {
+    tables: BTreeMap<String, &'a md_parser::Table>,
+}
+
+impl md_parser::Table {
+    fn to_enum(&self, input_name: &str) -> Option<CompositeType> {
+        let re = Regex::new(r"^Possible values of `(\w+)`$").unwrap();
+
+        if !re.is_match(input_name) {
+            return None;
+        }
+
+        Some(CompositeType::Enum(Enum::new(
+            &Self::regex_to_name(&re, input_name),
+            self,
+        )))
+    }
+
+    fn to_object(&self, input_name: &str) -> Option<CompositeType> {
+        let re = Regex::new(r"^(\w+) object$").unwrap();
+
+        if !re.is_match(input_name) {
+            return None;
+        }
+
+        Some(CompositeType::Object(TypeWithName::new(
+            &Self::regex_to_name(&re, input_name),
+            self.to_types(),
+        )))
+    }
+
+    fn to_response(&self, input_name: &str) -> Option<CompositeType> {
+        if !input_name.starts_with("The response is a") {
+            return None;
+        }
+
+        Some(CompositeType::Response(TypeWithoutName::new(
+            self.to_types(),
+        )))
+    }
+
+    fn to_parameters(&self, input_name: &str) -> Option<CompositeType> {
+        if !input_name.starts_with("Parameters") {
+            return None;
+        }
+
+        Some(CompositeType::Parameters(TypeWithoutName::new(
+            self.to_types(),
+        )))
+    }
+
+    fn to_composite_type(&self, input_name: &str) -> Option<CompositeType> {
+        self.to_enum(input_name)
+            .or_else(|| self.to_response(input_name))
+            .or_else(|| self.to_object(input_name))
+            .or_else(|| self.to_parameters(input_name))
+    }
+
+    fn regex_to_name(re: &Regex, input_name: &str) -> String {
+        re.captures(input_name)
+            .unwrap()
+            .get(1)
+            .unwrap()
+            .as_str()
+            .to_string()
+            .to_camel()
+    }
 }
 
 impl<'a> Tables<'a> {
-    fn get_type_containing(&self, name: &str) -> Option<Vec<types::Type>> {
-        self.get_type_containing_as_table(name)
-            .map(|table| table.to_types())
-    }
-
-    fn get_type_containing_as_table(&self, name: &str) -> Option<&md_parser::Table> {
-        self.get_all_type_containing_as_table(name)
-            .iter()
-            .map(|(_, table)| *table)
-            .find(|_| true)
-    }
-
-    fn get_all_type_containing_as_table(&self, name: &str) -> HashMap<String, &md_parser::Table> {
+    fn get_all_tables_as_types(&self) -> Vec<CompositeType> {
         self.tables
             .iter()
-            .filter(|(key, _)| key.contains(name))
-            .map(|(k, table)| (k.clone(), *table))
+            .flat_map(|(k, v)| v.to_composite_type(k))
             .collect()
     }
 }
@@ -207,8 +372,8 @@ mod tests {
             use std::path::Path;
 
             let input = include_str!(concat!(TEST_DIR!(), "/", $test_file, ".md"));
-            let tree = ApiMethod::try_new(input);
-            let api_method = parse_api_method(&tree.children[0]).unwrap();
+            let tree = TokenTreeFactory::create(input);
+            let api_method = ApiMethod::try_new(&tree.children[0]).unwrap();
 
             let tree_as_str = format!("{tree:#?}");
             let api_method_as_str = format!("{api_method:#?}");
@@ -241,5 +406,10 @@ mod tests {
     #[test]
     fn search_result() {
         run_test!("search_result");
+    }
+
+    #[test]
+    fn enum_test() {
+        run_test!("enum");
     }
 }
