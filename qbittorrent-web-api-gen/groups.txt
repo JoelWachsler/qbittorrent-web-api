@@ -17,6 +17,7 @@
                                         TypeInfo {
                                             name: "username",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Username used to access the WebUI",
                                             ),
@@ -26,6 +27,7 @@
                                         TypeInfo {
                                             name: "password",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Password used to access the WebUI",
                                             ),
@@ -89,6 +91,7 @@
                                         TypeInfo {
                                             name: "qt",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "QT version",
                                             ),
@@ -98,6 +101,7 @@
                                         TypeInfo {
                                             name: "libtorrent",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "libtorrent version",
                                             ),
@@ -107,6 +111,7 @@
                                         TypeInfo {
                                             name: "boost",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Boost version",
                                             ),
@@ -116,6 +121,7 @@
                                         TypeInfo {
                                             name: "openssl",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "OpenSSL version",
                                             ),
@@ -125,6 +131,7 @@
                                         TypeInfo {
                                             name: "bitness",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Application bitness (e.g. 64-bit)",
                                             ),
@@ -521,6 +528,7 @@
                                         TypeInfo {
                                             name: "normal",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Include normal messages (default: true)",
                                             ),
@@ -530,6 +538,7 @@
                                         TypeInfo {
                                             name: "info",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Include info messages (default: true)",
                                             ),
@@ -539,6 +548,7 @@
                                         TypeInfo {
                                             name: "warning",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Include warning messages (default: true)",
                                             ),
@@ -548,6 +558,7 @@
                                         TypeInfo {
                                             name: "critical",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Include critical messages (default: true)",
                                             ),
@@ -557,6 +568,7 @@
                                         TypeInfo {
                                             name: "last_known_id",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Exclude messages with \"message id\" <= last_known_id (default: -1)",
                                             ),
@@ -583,6 +595,7 @@
                                         TypeInfo {
                                             name: "last_known_id",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Exclude messages with \"message id\" <= last_known_id (default: -1)",
                                             ),
@@ -618,6 +631,7 @@
                                         TypeInfo {
                                             name: "rid",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)",
                                             ),
@@ -633,6 +647,7 @@
                                         TypeInfo {
                                             name: "rid",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Response ID",
                                             ),
@@ -642,6 +657,7 @@
                                         TypeInfo {
                                             name: "full_update",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Whether the response contains all the data or partial data",
                                             ),
@@ -652,6 +668,7 @@
                                             type_info: TypeInfo {
                                                 name: "torrents",
                                                 is_optional: false,
+                                                is_list: false,
                                                 description: Some(
                                                     "Property: torrent hash, value: same as [torrent list](#get-torrent-list)",
                                                 ),
@@ -663,6 +680,7 @@
                                         TypeInfo {
                                             name: "torrents_removed",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "List of hashes of torrents removed since last request",
                                             ),
@@ -673,6 +691,7 @@
                                             type_info: TypeInfo {
                                                 name: "categories",
                                                 is_optional: false,
+                                                is_list: false,
                                                 description: Some(
                                                     "Info for categories added since last request",
                                                 ),
@@ -684,6 +703,7 @@
                                         TypeInfo {
                                             name: "categories_removed",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "List of categories removed since last request",
                                             ),
@@ -693,6 +713,7 @@
                                         TypeInfo {
                                             name: "tags",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "List of tags added since last request",
                                             ),
@@ -702,6 +723,7 @@
                                         TypeInfo {
                                             name: "tags_removed",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "List of tags removed since last request",
                                             ),
@@ -712,6 +734,7 @@
                                             type_info: TypeInfo {
                                                 name: "server_state",
                                                 is_optional: false,
+                                                is_list: false,
                                                 description: Some(
                                                     "Global transfer info",
                                                 ),
@@ -740,6 +763,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent hash",
                                             ),
@@ -749,6 +773,7 @@
                                         TypeInfo {
                                             name: "rid",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)",
                                             ),
@@ -784,6 +809,7 @@
                                         TypeInfo {
                                             name: "dl_info_speed",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Global download rate (bytes/s)",
                                             ),
@@ -793,6 +819,7 @@
                                         TypeInfo {
                                             name: "dl_info_data",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Data downloaded this session (bytes)",
                                             ),
@@ -802,6 +829,7 @@
                                         TypeInfo {
                                             name: "up_info_speed",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Global upload rate (bytes/s)",
                                             ),
@@ -811,6 +839,7 @@
                                         TypeInfo {
                                             name: "up_info_data",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Data uploaded this session (bytes)",
                                             ),
@@ -820,6 +849,7 @@
                                         TypeInfo {
                                             name: "dl_rate_limit",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Download rate limit (bytes/s)",
                                             ),
@@ -829,6 +859,7 @@
                                         TypeInfo {
                                             name: "up_rate_limit",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Upload rate limit (bytes/s)",
                                             ),
@@ -838,6 +869,7 @@
                                         TypeInfo {
                                             name: "dht_nodes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "DHT nodes connected to",
                                             ),
@@ -847,6 +879,7 @@
                                         TypeInfo {
                                             name: "connection_status",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Connection status. See possible values here below",
                                             ),
@@ -899,6 +932,7 @@
                                         TypeInfo {
                                             name: "limit",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The global download speed limit to set in bytes/second",
                                             ),
@@ -933,6 +967,7 @@
                                         TypeInfo {
                                             name: "limit",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The global upload speed limit to set in bytes/second",
                                             ),
@@ -957,6 +992,7 @@
                                         TypeInfo {
                                             name: "peers",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The peer to ban, or multiple peers separated by a pipe \\",
                                             ),
@@ -992,6 +1028,7 @@
                                         TypeInfo {
                                             name: "filter",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Filter torrent list by state. Allowed state filters: all, downloading, seeding, completed, paused, active, inactive, resumed, stalled, stalled_uploading, stalled_downloading, errored",
                                             ),
@@ -1001,6 +1038,7 @@
                                         TypeInfo {
                                             name: "category",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Get torrents with the given category (empty string means \"without category\"; no \"category\" parameter means \"any category\" <- broken until [#11748](https://github.com/qbittorrent/qBittorrent/issues/11748) is resolved). Remember to URL-encode the category name. For example, My category becomes My%20category",
                                             ),
@@ -1010,6 +1048,7 @@
                                         TypeInfo {
                                             name: "tag",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Get torrents with the given tag (empty string means \"without tag\"; no \"tag\" parameter means \"any tag\". Remember to URL-encode the category name. For example, My tag becomes My%20tag",
                                             ),
@@ -1019,6 +1058,7 @@
                                         TypeInfo {
                                             name: "sort",
                                             is_optional: true,
+                                            is_list: true,
                                             description: Some(
                                                 "Sort torrents by given key. They can be sorted using any field of the response's JSON array (which are documented below) as the sort key.",
                                             ),
@@ -1028,6 +1068,7 @@
                                         TypeInfo {
                                             name: "reverse",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Enable reverse sorting. Defaults to false",
                                             ),
@@ -1037,6 +1078,7 @@
                                         TypeInfo {
                                             name: "limit",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Limit the number of torrents returned",
                                             ),
@@ -1046,6 +1088,7 @@
                                         TypeInfo {
                                             name: "offset",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Set offset (if less than 0, offset from end)",
                                             ),
@@ -1055,6 +1098,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Filter by hashes. Can contain multiple hashes separated by \\",
                                             ),
@@ -1210,6 +1254,7 @@
                                         TypeInfo {
                                             name: "added_on",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Time (Unix Epoch) when the torrent was added to the client",
                                             ),
@@ -1219,6 +1264,7 @@
                                         TypeInfo {
                                             name: "amount_left",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Amount of data left to download (bytes)",
                                             ),
@@ -1228,6 +1274,7 @@
                                         TypeInfo {
                                             name: "auto_tmm",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Whether this torrent is managed by Automatic Torrent Management",
                                             ),
@@ -1237,6 +1284,7 @@
                                         TypeInfo {
                                             name: "availability",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Percentage of file pieces currently available",
                                             ),
@@ -1246,6 +1294,7 @@
                                         TypeInfo {
                                             name: "category",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Category of the torrent",
                                             ),
@@ -1255,6 +1304,7 @@
                                         TypeInfo {
                                             name: "completed",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Amount of transfer data completed (bytes)",
                                             ),
@@ -1264,6 +1314,7 @@
                                         TypeInfo {
                                             name: "completion_on",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Time (Unix Epoch) when the torrent completed",
                                             ),
@@ -1273,6 +1324,7 @@
                                         TypeInfo {
                                             name: "content_path",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Absolute path of torrent content (root path for multifile torrents, absolute file path for singlefile torrents)",
                                             ),
@@ -1282,6 +1334,7 @@
                                         TypeInfo {
                                             name: "dl_limit",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent download speed limit (bytes/s). -1 if ulimited.",
                                             ),
@@ -1291,6 +1344,7 @@
                                         TypeInfo {
                                             name: "dlspeed",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent download speed (bytes/s)",
                                             ),
@@ -1300,6 +1354,7 @@
                                         TypeInfo {
                                             name: "downloaded",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Amount of data downloaded",
                                             ),
@@ -1309,6 +1364,7 @@
                                         TypeInfo {
                                             name: "downloaded_session",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Amount of data downloaded this session",
                                             ),
@@ -1318,6 +1374,7 @@
                                         TypeInfo {
                                             name: "eta",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent ETA (seconds)",
                                             ),
@@ -1327,6 +1384,7 @@
                                         TypeInfo {
                                             name: "f_l_piece_prio",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "True if first last piece are prioritized",
                                             ),
@@ -1336,6 +1394,7 @@
                                         TypeInfo {
                                             name: "force_start",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "True if force start is enabled for this torrent",
                                             ),
@@ -1345,6 +1404,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent hash",
                                             ),
@@ -1354,6 +1414,7 @@
                                         TypeInfo {
                                             name: "last_activity",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Last time (Unix Epoch) when a chunk was downloaded/uploaded",
                                             ),
@@ -1363,6 +1424,7 @@
                                         TypeInfo {
                                             name: "magnet_uri",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Magnet URI corresponding to this torrent",
                                             ),
@@ -1372,6 +1434,7 @@
                                         TypeInfo {
                                             name: "max_ratio",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Maximum share ratio until torrent is stopped from seeding/uploading",
                                             ),
@@ -1381,6 +1444,7 @@
                                         TypeInfo {
                                             name: "max_seeding_time",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Maximum seeding time (seconds) until torrent is stopped from seeding",
                                             ),
@@ -1390,6 +1454,7 @@
                                         TypeInfo {
                                             name: "name",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent name",
                                             ),
@@ -1399,6 +1464,7 @@
                                         TypeInfo {
                                             name: "num_complete",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of seeds in the swarm",
                                             ),
@@ -1408,6 +1474,7 @@
                                         TypeInfo {
                                             name: "num_incomplete",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of leechers in the swarm",
                                             ),
@@ -1417,6 +1484,7 @@
                                         TypeInfo {
                                             name: "num_leechs",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of leechers connected to",
                                             ),
@@ -1426,6 +1494,7 @@
                                         TypeInfo {
                                             name: "num_seeds",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of seeds connected to",
                                             ),
@@ -1435,6 +1504,7 @@
                                         TypeInfo {
                                             name: "priority",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent priority. Returns -1 if queuing is disabled or torrent is in seed mode",
                                             ),
@@ -1444,6 +1514,7 @@
                                         TypeInfo {
                                             name: "progress",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent progress (percentage/100)",
                                             ),
@@ -1453,6 +1524,7 @@
                                         TypeInfo {
                                             name: "ratio",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent share ratio. Max ratio value: 9999.",
                                             ),
@@ -1462,6 +1534,7 @@
                                         TypeInfo {
                                             name: "ratio_limit",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "TODO (what is different from max_ratio?)",
                                             ),
@@ -1471,6 +1544,7 @@
                                         TypeInfo {
                                             name: "save_path",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Path where this torrent's data is stored",
                                             ),
@@ -1480,6 +1554,7 @@
                                         TypeInfo {
                                             name: "seeding_time",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent elapsed time while complete (seconds)",
                                             ),
@@ -1489,6 +1564,7 @@
                                         TypeInfo {
                                             name: "seeding_time_limit",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "TODO (what is different from max_seeding_time?) seeding_time_limit is a per torrent setting, when Automatic Torrent Management is disabled, furthermore then max_seeding_time is set to seeding_time_limit for this torrent. If Automatic Torrent Management is enabled, the value is -2. And if max_seeding_time is unset it have a default value -1.",
                                             ),
@@ -1498,6 +1574,7 @@
                                         TypeInfo {
                                             name: "seen_complete",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Time (Unix Epoch) when this torrent was last seen complete",
                                             ),
@@ -1507,6 +1584,7 @@
                                         TypeInfo {
                                             name: "seq_dl",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "True if sequential download is enabled",
                                             ),
@@ -1516,6 +1594,7 @@
                                         TypeInfo {
                                             name: "size",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Total size (bytes) of files selected for download",
                                             ),
@@ -1525,6 +1604,7 @@
                                         TypeInfo {
                                             name: "state",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent state. See table here below for the possible values",
                                             ),
@@ -1534,6 +1614,7 @@
                                         TypeInfo {
                                             name: "super_seeding",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "True if super seeding is enabled",
                                             ),
@@ -1543,6 +1624,7 @@
                                         TypeInfo {
                                             name: "tags",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Comma-concatenated tag list of the torrent",
                                             ),
@@ -1552,6 +1634,7 @@
                                         TypeInfo {
                                             name: "time_active",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Total active time (seconds)",
                                             ),
@@ -1561,6 +1644,7 @@
                                         TypeInfo {
                                             name: "total_size",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Total size (bytes) of all file in this torrent (including unselected ones)",
                                             ),
@@ -1570,6 +1654,7 @@
                                         TypeInfo {
                                             name: "tracker",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The first tracker with working status. Returns empty string if no tracker is working.",
                                             ),
@@ -1579,6 +1664,7 @@
                                         TypeInfo {
                                             name: "up_limit",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent upload speed limit (bytes/s). -1 if ulimited.",
                                             ),
@@ -1588,6 +1674,7 @@
                                         TypeInfo {
                                             name: "uploaded",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Amount of data uploaded",
                                             ),
@@ -1597,6 +1684,7 @@
                                         TypeInfo {
                                             name: "uploaded_session",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Amount of data uploaded this session",
                                             ),
@@ -1606,6 +1694,7 @@
                                         TypeInfo {
                                             name: "upspeed",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent upload speed (bytes/s)",
                                             ),
@@ -1632,6 +1721,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the generic properties of",
                                             ),
@@ -1658,6 +1748,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the trackers of",
                                             ),
@@ -1715,6 +1806,7 @@
                                         TypeInfo {
                                             name: "url",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Tracker url",
                                             ),
@@ -1724,6 +1816,7 @@
                                         TypeInfo {
                                             name: "status",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Tracker status. See the table below for possible values",
                                             ),
@@ -1733,6 +1826,7 @@
                                         TypeInfo {
                                             name: "tier",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Tracker priority tier. Lower tier trackers are tried before higher tiers. Tier numbers are valid when >= 0, < 0 is used as placeholder when tier does not exist for special entries (such as DHT).",
                                             ),
@@ -1742,6 +1836,7 @@
                                         TypeInfo {
                                             name: "num_peers",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of peers for current torrent, as reported by the tracker",
                                             ),
@@ -1751,6 +1846,7 @@
                                         TypeInfo {
                                             name: "num_seeds",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of seeds for current torrent, asreported by the tracker",
                                             ),
@@ -1760,6 +1856,7 @@
                                         TypeInfo {
                                             name: "num_leeches",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of leeches for current torrent, as reported by the tracker",
                                             ),
@@ -1769,6 +1866,7 @@
                                         TypeInfo {
                                             name: "num_downloaded",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of completed downlods for current torrent, as reported by the tracker",
                                             ),
@@ -1778,6 +1876,7 @@
                                         TypeInfo {
                                             name: "msg",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Tracker message (there is no way of knowing what this message is - it's up to tracker admins)",
                                             ),
@@ -1804,6 +1903,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the webseeds of",
                                             ),
@@ -1819,6 +1919,7 @@
                                         TypeInfo {
                                             name: "url",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "URL of the web seed",
                                             ),
@@ -1845,6 +1946,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the contents of",
                                             ),
@@ -1854,6 +1956,7 @@
                                         TypeInfo {
                                             name: "indexes",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "The indexes of the files you want to retrieve. indexes can contain multiple values separated by \\",
                                             ),
@@ -1915,6 +2018,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the pieces' states of",
                                             ),
@@ -1941,6 +2045,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent you want to get the pieces' hashes of",
                                             ),
@@ -1965,6 +2070,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to pause. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -1989,6 +2095,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to resume. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2013,6 +2120,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to delete. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2023,6 +2131,7 @@
                                             type_info: TypeInfo {
                                                 name: "deleteFiles",
                                                 is_optional: false,
+                                                is_list: false,
                                                 description: None,
                                             },
                                             ref_type: "If set to true, the downloaded data will also be deleted, otherwise has no effect.",
@@ -2047,6 +2156,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to recheck. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2071,6 +2181,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to reannounce. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2095,27 +2206,17 @@
                                         TypeInfo {
                                             name: "urls",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "URLs separated with newlines",
                                             ),
-                                        },
-                                    ),
-                                    Object(
-                                        Object {
-                                            type_info: TypeInfo {
-                                                name: "torrents",
-                                                is_optional: false,
-                                                description: Some(
-                                                    "Raw data of torrent file. torrents can be presented multiple times.",
-                                                ),
-                                            },
-                                            ref_type: "Raw",
                                         },
                                     ),
                                     String(
                                         TypeInfo {
                                             name: "savepath",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Download folder",
                                             ),
@@ -2125,6 +2226,7 @@
                                         TypeInfo {
                                             name: "cookie",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Cookie sent to download the .torrent file",
                                             ),
@@ -2134,6 +2236,7 @@
                                         TypeInfo {
                                             name: "category",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Category for the torrent",
                                             ),
@@ -2143,6 +2246,7 @@
                                         TypeInfo {
                                             name: "tags",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Tags for the torrent, split by ','",
                                             ),
@@ -2152,6 +2256,7 @@
                                         TypeInfo {
                                             name: "skip_checking",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Skip hash checking. Possible values are true, false (default)",
                                             ),
@@ -2161,6 +2266,7 @@
                                         TypeInfo {
                                             name: "paused",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Add torrents in the paused state. Possible values are true, false (default)",
                                             ),
@@ -2170,6 +2276,7 @@
                                         TypeInfo {
                                             name: "root_folder",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Create the root folder. Possible values are true, false, unset (default)",
                                             ),
@@ -2179,6 +2286,7 @@
                                         TypeInfo {
                                             name: "rename",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Rename torrent",
                                             ),
@@ -2188,6 +2296,7 @@
                                         TypeInfo {
                                             name: "upLimit",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Set torrent upload speed limit. Unit in bytes/second",
                                             ),
@@ -2197,6 +2306,7 @@
                                         TypeInfo {
                                             name: "dlLimit",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Set torrent download speed limit. Unit in bytes/second",
                                             ),
@@ -2206,6 +2316,7 @@
                                         TypeInfo {
                                             name: "ratioLimit",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Set torrent share ratio limit",
                                             ),
@@ -2215,6 +2326,7 @@
                                         TypeInfo {
                                             name: "seedingTimeLimit",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Set torrent seeding time limit. Unit in seconds",
                                             ),
@@ -2224,6 +2336,7 @@
                                         TypeInfo {
                                             name: "autoTMM",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Whether Automatic Torrent Management should be used",
                                             ),
@@ -2233,6 +2346,7 @@
                                         TypeInfo {
                                             name: "sequentialDownload",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Enable sequential download. Possible values are true, false (default)",
                                             ),
@@ -2242,6 +2356,7 @@
                                         TypeInfo {
                                             name: "firstLastPiecePrio",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Prioritize download first last piece. Possible values are true, false (default)",
                                             ),
@@ -2274,6 +2389,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
@@ -2283,6 +2399,7 @@
                                         TypeInfo {
                                             name: "origUrl",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The tracker URL you want to edit",
                                             ),
@@ -2292,6 +2409,7 @@
                                         TypeInfo {
                                             name: "newUrl",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The new URL to replace the origUrl",
                                             ),
@@ -2316,6 +2434,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
@@ -2325,6 +2444,7 @@
                                         TypeInfo {
                                             name: "urls",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "URLs to remove, separated by \\",
                                             ),
@@ -2349,6 +2469,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent, or multiple hashes separated by a pipe \\",
                                             ),
@@ -2358,6 +2479,7 @@
                                         TypeInfo {
                                             name: "peers",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The peer to add, or multiple peers separated by a pipe \\",
                                             ),
@@ -2382,6 +2504,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to increase the priority of. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2406,6 +2529,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to decrease the priority of. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2430,6 +2554,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to set to the maximum priority. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2454,6 +2579,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to set to the minimum priority. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2478,6 +2604,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
@@ -2487,6 +2614,7 @@
                                         TypeInfo {
                                             name: "id",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "File ids, separated by \\",
                                             ),
@@ -2496,6 +2624,7 @@
                                         TypeInfo {
                                             name: "priority",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "File priority to set (consult [torrent contents API](#get-torrent-contents) for possible values)",
                                             ),
@@ -2656,6 +2785,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to toggle sequential download for. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2680,6 +2810,7 @@
                                         TypeInfo {
                                             name: "hashes",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hashes of the torrents you want to toggle the first/last piece priority for. hashes can contain multiple hashes separated by \\",
                                             ),
@@ -2720,6 +2851,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
@@ -2729,6 +2861,7 @@
                                         TypeInfo {
                                             name: "oldPath",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The old path of the torrent",
                                             ),
@@ -2738,6 +2871,7 @@
                                         TypeInfo {
                                             name: "newPath",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The new path to use for the file",
                                             ),
@@ -2762,6 +2896,7 @@
                                         TypeInfo {
                                             name: "hash",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The hash of the torrent",
                                             ),
@@ -2771,6 +2906,7 @@
                                         TypeInfo {
                                             name: "oldPath",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The old path of the torrent",
                                             ),
@@ -2780,6 +2916,7 @@
                                         TypeInfo {
                                             name: "newPath",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "The new path to use for the file",
                                             ),
@@ -2813,6 +2950,7 @@
                                         TypeInfo {
                                             name: "path",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Full path of added folder (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
@@ -2837,6 +2975,7 @@
                                         TypeInfo {
                                             name: "url",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "URL of RSS feed (e.g. \"[http://thepiratebay.org/rss//top100/200](http://thepiratebay.org/rss//top100/200)\")",
                                             ),
@@ -2846,6 +2985,7 @@
                                         TypeInfo {
                                             name: "path",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "Full path of added folder (e.g. \"The Pirate Bay\\Top100\\Video\")",
                                             ),
@@ -2870,6 +3010,7 @@
                                         TypeInfo {
                                             name: "path",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Full path of removed item (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
@@ -2894,6 +3035,7 @@
                                         TypeInfo {
                                             name: "itemPath",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
@@ -2903,6 +3045,7 @@
                                         TypeInfo {
                                             name: "destPath",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "New full path of item (e.g. \"The Pirate Bay\")",
                                             ),
@@ -2927,6 +3070,7 @@
                                         TypeInfo {
                                             name: "withData",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "True if you need current feed articles",
                                             ),
@@ -2951,6 +3095,7 @@
                                         TypeInfo {
                                             name: "itemPath",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
@@ -2960,6 +3105,7 @@
                                         TypeInfo {
                                             name: "articleId",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "ID of article",
                                             ),
@@ -2984,6 +3130,7 @@
                                         TypeInfo {
                                             name: "itemPath",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Current full path of item (e.g. \"The Pirate Bay\\Top100\")",
                                             ),
@@ -3008,6 +3155,7 @@
                                         TypeInfo {
                                             name: "ruleName",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Rule name (e.g. \"Punisher\")",
                                             ),
@@ -3017,6 +3165,7 @@
                                         TypeInfo {
                                             name: "ruleDef",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "JSON encoded rule definition",
                                             ),
@@ -3041,6 +3190,7 @@
                                         TypeInfo {
                                             name: "ruleName",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Rule name (e.g. \"Punisher\")",
                                             ),
@@ -3050,6 +3200,7 @@
                                         TypeInfo {
                                             name: "newRuleName",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "New rule name (e.g. \"The Punisher\")",
                                             ),
@@ -3074,6 +3225,7 @@
                                         TypeInfo {
                                             name: "ruleName",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Rule name (e.g. \"Punisher\")",
                                             ),
@@ -3125,6 +3277,7 @@
                                         TypeInfo {
                                             name: "pattern",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Pattern to search for (e.g. \"Ubuntu 18.04\")",
                                             ),
@@ -3134,6 +3287,7 @@
                                         TypeInfo {
                                             name: "plugins",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Plugins to use for searching (e.g. \"legittorrents\"). Supports multiple plugins separated by \\",
                                             ),
@@ -3143,6 +3297,7 @@
                                         TypeInfo {
                                             name: "category",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Categories to limit your search to (e.g. \"legittorrents\"). Available categories depend on the specified plugins. Also supports all",
                                             ),
@@ -3158,6 +3313,7 @@
                                         TypeInfo {
                                             name: "id",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
@@ -3182,6 +3338,7 @@
                                         TypeInfo {
                                             name: "id",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
@@ -3208,6 +3365,7 @@
                                         TypeInfo {
                                             name: "id",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job. If not specified, all search jobs are returned",
                                             ),
@@ -3223,6 +3381,7 @@
                                         TypeInfo {
                                             name: "id",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
@@ -3232,6 +3391,7 @@
                                         TypeInfo {
                                             name: "status",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Current status of the search job (either Running or Stopped)",
                                             ),
@@ -3241,6 +3401,7 @@
                                         TypeInfo {
                                             name: "total",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Total number of results. If the status is Running this number may contineu to increase",
                                             ),
@@ -3267,6 +3428,7 @@
                                         TypeInfo {
                                             name: "id",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
@@ -3276,6 +3438,7 @@
                                         TypeInfo {
                                             name: "limit",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "max number of results to return. 0 or negative means no limit",
                                             ),
@@ -3285,6 +3448,7 @@
                                         TypeInfo {
                                             name: "offset",
                                             is_optional: true,
+                                            is_list: false,
                                             description: Some(
                                                 "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
                                             ),
@@ -3301,6 +3465,7 @@
                                         TypeInfo {
                                             name: "descrLink",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "URL of the torrent's description page",
                                             ),
@@ -3310,6 +3475,7 @@
                                         TypeInfo {
                                             name: "fileName",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Name of the file",
                                             ),
@@ -3319,6 +3485,7 @@
                                         TypeInfo {
                                             name: "fileSize",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Size of the file in Bytes",
                                             ),
@@ -3328,6 +3495,7 @@
                                         TypeInfo {
                                             name: "fileUrl",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Torrent download link (usually either .torrent file or magnet link)",
                                             ),
@@ -3337,6 +3505,7 @@
                                         TypeInfo {
                                             name: "nbLeechers",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of leechers",
                                             ),
@@ -3346,6 +3515,7 @@
                                         TypeInfo {
                                             name: "nbSeeders",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Number of seeders",
                                             ),
@@ -3355,6 +3525,7 @@
                                         TypeInfo {
                                             name: "siteUrl",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "URL of the torrent site",
                                             ),
@@ -3371,6 +3542,7 @@
                                             type_info: TypeInfo {
                                                 name: "results",
                                                 is_optional: false,
+                                                is_list: false,
                                                 description: Some(
                                                     "Array of result objects- see table below",
                                                 ),
@@ -3382,6 +3554,7 @@
                                         TypeInfo {
                                             name: "status",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Current status of the search job (either Running or Stopped)",
                                             ),
@@ -3391,6 +3564,7 @@
                                         TypeInfo {
                                             name: "total",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Total number of results. If the status is Running this number may continue to increase",
                                             ),
@@ -3415,6 +3589,7 @@
                                         TypeInfo {
                                             name: "id",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "ID of the search job",
                                             ),
@@ -3441,6 +3616,7 @@
                                         TypeInfo {
                                             name: "enabled",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Whether the plugin is enabled",
                                             ),
@@ -3450,6 +3626,7 @@
                                         TypeInfo {
                                             name: "fullName",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Full name of the plugin",
                                             ),
@@ -3459,6 +3636,7 @@
                                         TypeInfo {
                                             name: "name",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Short name of the plugin",
                                             ),
@@ -3468,6 +3646,7 @@
                                         TypeInfo {
                                             name: "supportedCategories",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "List of category objects",
                                             ),
@@ -3477,6 +3656,7 @@
                                         TypeInfo {
                                             name: "url",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "URL of the torrent site",
                                             ),
@@ -3486,6 +3666,7 @@
                                         TypeInfo {
                                             name: "version",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Installed version of the plugin",
                                             ),
@@ -3510,6 +3691,7 @@
                                         TypeInfo {
                                             name: "sources",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Url or file path of the plugin to install (e.g. \"[https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py](https://raw.githubusercontent.com/qbittorrent/search-plugins/master/nova3/engines/legittorrents.py)\"). Supports multiple sources separated by \\",
                                             ),
@@ -3534,6 +3716,7 @@
                                         TypeInfo {
                                             name: "names",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Name of the plugin to uninstall (e.g. \"legittorrents\"). Supports multiple names separated by \\",
                                             ),
@@ -3558,6 +3741,7 @@
                                         TypeInfo {
                                             name: "names",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Name of the plugin to enable/disable (e.g. \"legittorrents\"). Supports multiple names separated by \\",
                                             ),
@@ -3567,6 +3751,7 @@
                                         TypeInfo {
                                             name: "enable",
                                             is_optional: false,
+                                            is_list: false,
                                             description: Some(
                                                 "Whether the plugins should be enabled",
                                             ),

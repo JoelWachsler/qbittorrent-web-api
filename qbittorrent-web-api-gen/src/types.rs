@@ -16,16 +16,16 @@ pub struct TypeDescription {
 pub struct TypeInfo {
     pub name: String,
     pub is_optional: bool,
-    // is_list: bool,
+    pub is_list: bool,
     pub description: Option<String>,
 }
 
 impl TypeInfo {
-    pub fn new(name: &str, is_optional: bool, description: Option<String>) -> Self {
+    pub fn new(name: &str, is_optional: bool, is_list: bool, description: Option<String>) -> Self {
         Self {
             name: name.into(),
             is_optional,
-            // is_list,
+            is_list,
             description,
         }
     }
@@ -74,10 +74,6 @@ impl Type {
         }
     }
 
-    // pub fn is_list(&self) -> bool {
-    //     self.get_type_info().is_list || matches!(self, Type::StringArray(_))
-    // }
-
     pub fn to_borrowed_type(&self) -> String {
         match self {
             Type::Number(_) => "i32".into(),
@@ -116,7 +112,12 @@ impl Type {
         .trim();
 
         let is_optional = name.contains(OPTIONAL);
-        let create_type_info = || TypeInfo::new(type_name, is_optional, description.clone());
+        let is_list = description
+            .clone()
+            .map(|desc| desc.contains("array"))
+            .unwrap_or(false);
+        let create_type_info =
+            || TypeInfo::new(type_name, is_optional, is_list, description.clone());
 
         let create_object_type = |name: &str| {
             Some(Type::Object(Object {
@@ -126,6 +127,7 @@ impl Type {
         };
 
         match type_as_str {
+            "raw" => None,
             "bool" => Some(Type::Bool(create_type_info())),
             "integer" | "number" | "int" => Some(Type::Number(create_type_info())),
             "string" => Some(Type::String(create_type_info())),

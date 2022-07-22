@@ -27,21 +27,30 @@ impl CompositeTypes {
         }
     }
 
-    pub fn parameters(&self) -> Option<&Vec<types::Type>> {
-        self.composite_types.iter().find_map(|type_| match type_ {
-            CompositeType::Parameters(p) => Some(&p.types),
-            _ => None,
-        })
+    pub fn parameters(&self) -> Vec<&types::Type> {
+        self.composite_types
+            .iter()
+            .find_map(|type_| match type_ {
+                CompositeType::Parameters(p) => Some(p.types.iter().collect()),
+                _ => None,
+            })
+            .unwrap_or_default()
     }
 
-    pub fn optional_parameters(&self) -> Option<Vec<&types::Type>> {
+    pub fn optional_parameters(&self) -> Vec<&types::Type> {
         self.parameters()
-            .map(|params| params.iter().filter(|param| param.is_optional()).collect())
+            .iter()
+            .filter(|param| param.is_optional())
+            .copied()
+            .collect()
     }
 
-    pub fn mandatory_params(&self) -> Option<Vec<&types::Type>> {
+    pub fn mandatory_params(&self) -> Vec<&types::Type> {
         self.parameters()
-            .map(|params| params.iter().filter(|param| !param.is_optional()).collect())
+            .iter()
+            .filter(|param| !param.is_optional())
+            .copied()
+            .collect()
     }
 
     pub fn response(&self) -> Option<&Vec<types::Type>> {
@@ -385,11 +394,6 @@ mod tests {
                 $test_file,
                 ".check"
             );
-
-            // prevent user from accidentally leaving the current macro in a test
-            if Path::new(file).exists() {
-                panic!("Test case already exists: {file}");
-            }
 
             fs::write(file, api_method_as_str).unwrap();
             fs::write(tree_file, tree_as_str).unwrap();

@@ -13,6 +13,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "id",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "ID of the search job",
                                 ),
@@ -22,6 +23,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "limit",
                                 is_optional: true,
+                                is_list: false,
                                 description: Some(
                                     "max number of results to return. 0 or negative means no limit",
                                 ),
@@ -31,6 +33,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "offset",
                                 is_optional: true,
+                                is_list: false,
                                 description: Some(
                                     "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
                                 ),
@@ -47,6 +50,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "descrLink",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "URL of the torrent's description page",
                                 ),
@@ -56,6 +60,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "fileName",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "Name of the file",
                                 ),
@@ -65,6 +70,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "fileSize",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "Size of the file in Bytes",
                                 ),
@@ -74,6 +80,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "fileUrl",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "Torrent download link (usually either .torrent file or magnet link)",
                                 ),
@@ -83,6 +90,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "nbLeechers",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "Number of leechers",
                                 ),
@@ -92,6 +100,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "nbSeeders",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "Number of seeders",
                                 ),
@@ -101,6 +110,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "siteUrl",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "URL of the torrent site",
                                 ),
@@ -117,6 +127,7 @@ ApiMethod {
                                 type_info: TypeInfo {
                                     name: "results",
                                     is_optional: false,
+                                    is_list: false,
                                     description: Some(
                                         "Array of result objects- see table below",
                                     ),
@@ -128,6 +139,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "status",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "Current status of the search job (either Running or Stopped)",
                                 ),
@@ -137,6 +149,7 @@ ApiMethod {
                             TypeInfo {
                                 name: "total",
                                 is_optional: false,
+                                is_list: false,
                                 description: Some(
                                     "Total number of results. If the status is Running this number may continue to increase",
                                 ),

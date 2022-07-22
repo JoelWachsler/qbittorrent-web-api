@@ -156,7 +156,7 @@ impl types::Type {
             &self.get_type_info().description,
             quote! {
                 #[serde(rename = #orig_name)]
-                #name_snake: #type_name
+                pub #name_snake: #type_name
             },
         )
     }
@@ -223,6 +223,69 @@ impl<'a> GroupMethod<'a> {
         Self { group, method }
     }
 
+    fn generate_method(&self) -> TokenStream {
+        let method_name = self.method.name_snake();
+        let structs = self.method.structs();
+        let enums = self.method.enums();
+        let builder = self.generate_request_builder();
+        let response_struct = self.generate_response_struct();
+        let request_method = self.generate_request_method();
+
+        quote! {
+            pub mod #method_name {
+                #structs
+                #enums
+                #builder
+                #response_struct
+                #request_method
+            }
+        }
+    }
+
+    fn generate_request_method(&self) -> TokenStream {
+        let method_name = self.method.name_snake();
+
+        let parameters = self
+            .method
+            .types
+            .mandatory_params()
+            .iter()
+            .map(|param| param.to_parameter())
+            .collect();
+
+        let form_builder = self.mandatory_parameters_as_form_builder();
+
+        let method_impl = if self.method.types.optional_parameters().is_empty() {
+            self.generate_send_method(
+                &method_name,
+                parameters,
+                quote! { self.auth },
+                quote! { form },
+                quote! {
+                    let form = reqwest::multipart::Form::new();
+                    #form_builder
+                },
+            )
+        } else {
+            quote! {
+                pub fn #method_name(&self, #(#parameters),*) -> Builder<'_> {
+                    let form = reqwest::multipart::Form::new();
+                    #form_builder
+                    Builder { group: self, form }
+                }
+            }
+        };
+
+        let group_struct_name = self.group.struct_name();
+        let method_impl_with_docs = util::add_docs(&self.method.description, method_impl);
+
+        quote! {
+            impl<'a> super::#group_struct_name<'a> {
+                #method_impl_with_docs
+            }
+        }
+    }
+
     fn generate_response_struct(&self) -> TokenStream {
         let response = match self.method.types.response() {
             Some(res) => res,
@@ -239,20 +302,26 @@ impl<'a> GroupMethod<'a> {
         }
     }
 
-    fn generate_optional_builder(&self) -> TokenStream {
-        let optional_params = match self.method.types.optional_parameters() {
-            Some(params) => params,
-            None => return quote! {},
-        };
+    /// Returns a TokenStream containing a request builder if there are optional
+    /// parameters, otherwise an empty TokenStream is returned.
+    fn generate_request_builder(&self) -> TokenStream {
+        let optional_params = self.method.types.optional_parameters();
+        if optional_params.is_empty() {
+            return quote! {};
+        }
 
         let builder_methods = optional_params
             .iter()
             .map(|param| param.generate_optional_builder_method_with_docs());
 
         let group_name = self.group.struct_name();
-        let mandatory_params = self.mandatory_parameters();
-        let mandatory_param_form_builder = self.mandatory_parameters_as_form_builder();
-        let send_method = self.generate_optional_builder_send_method();
+        let send_method = self.generate_send_method(
+            &util::to_ident("send"),
+            vec![],
+            quote! { self.group.auth },
+            quote! { self.form },
+            quote! {},
+        );
 
         quote! {
             pub struct Builder<'a> {
@@ -261,102 +330,53 @@ impl<'a> GroupMethod<'a> {
             }
 
             impl<'a> Builder<'a> {
-                pub fn new(group: &'a super::#group_name, #mandatory_params) -> Self {
-                    let form = reqwest::multipart::Form::new();
-                    #mandatory_param_form_builder
-                    Self { group, form }
-                }
-
                 #send_method
-
                 #(#builder_methods)*
             }
         }
     }
 
-    fn generate_optional_builder_send_method(&self) -> TokenStream {
+    fn generate_send_method(
+        &self,
+        method_name: &Ident,
+        parameters: Vec<TokenStream>,
+        auth_access: TokenStream,
+        form_access: TokenStream,
+        form_factory: TokenStream,
+    ) -> TokenStream {
         let method_url = format!("/api/v2/{}/{}", self.group.url, self.method.url);
 
-        match self.method.types.response() {
-            Some(_) => {
-                quote! {
-                    pub async fn send(self) -> super::super::Result<Response> {
-                        let res = self
-                            .group
-                            .auth
-                            .authenticated_client(#method_url)
-                            .multipart(self.form)
-                            .send()
-                            .await?
-                            .json::<Response>()
-                            .await?;
-
-                        Ok(res)
-                    }
-                }
-            }
-            None => {
-                quote! {
-                    pub async fn send(self) -> super::super::Result<String> {
-                        let res = self
-                            .group
-                            .auth
-                            .authenticated_client(#method_url)
-                            .multipart(self.form)
-                            .send()
-                            .await?
-                            .text()
-                            .await?;
-
-                        Ok(res)
-                    }
-                }
-            }
-        }
-    }
-
-    fn mandatory_parameters(&self) -> TokenStream {
-        let mandatory_params = match self.method.types.mandatory_params() {
-            Some(p) => p,
-            None => return quote! {},
+        let (response_type, response_parse) = match self.method.types.response() {
+            Some(_) => (quote! { Response }, quote! { .json::<Response>() }),
+            None => (quote! { String }, quote! { .text() }),
         };
 
-        let params = mandatory_params.iter().map(|param| param.to_parameter());
-
         quote! {
-            #(#params),*
+            pub async fn #method_name(self, #(#parameters),*) -> super::super::Result<#response_type> {
+                #form_factory
+                let res = #auth_access
+                    .authenticated_client(#method_url)
+                    .multipart(#form_access)
+                    .send()
+                    .await?
+                    #response_parse
+                    .await?;
+
+                Ok(res)
+            }
         }
     }
 
     fn mandatory_parameters_as_form_builder(&self) -> TokenStream {
-        let mandatory_params = match self.method.types.mandatory_params() {
-            Some(p) => p,
-            None => return quote! {},
-        };
-
-        let builder = mandatory_params
-            .iter()
+        let builder = self
+            .method
+            .types
+            .mandatory_params()
+            .into_iter()
             .map(|param| param.generate_form_builder(quote! { form }));
 
         quote! {
             #(let #builder)*
-        }
-    }
-
-    fn generate_method(&self) -> TokenStream {
-        let method_name = self.method.name_snake();
-        let structs = self.method.structs();
-        let enums = self.method.enums();
-        let builder = self.generate_optional_builder();
-        let response_struct = self.generate_response_struct();
-
-        quote! {
-            pub mod #method_name {
-                #structs
-                #enums
-                #builder
-                #response_struct
-            }
         }
     }
 }
