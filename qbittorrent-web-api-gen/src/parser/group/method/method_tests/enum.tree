@@ -1,0 +1,67 @@
+TokenTree {
+    title: None,
+    content: [],
+    children: [
+        TokenTree {
+            title: Some(
+                "Testing",
+            ),
+            content: [
+                Text(
+                    "",
+                ),
+                Text(
+                    "Name: `foo`",
+                ),
+                Text(
+                    "",
+                ),
+                Text(
+                    "Possible values of `scan_dirs`:",
+                ),
+                Text(
+                    "",
+                ),
+                Table(
+                    Table {
+                        header: TableRow {
+                            raw: "Value                       | Description",
+                            columns: [
+                                "Value",
+                                "Description",
+                            ],
+                        },
+                        split: "----------------------------|------------",
+                        rows: [
+                            TableRow {
+                                raw: "`0`                         | Download to the monitored folder",
+                                columns: [
+                                    "0",
+                                    "Download to the monitored folder",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`1`                         | Download to the default save path",
+                                columns: [
+                                    "1",
+                                    "Download to the default save path",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`\"/path/to/download/to\"`    | Download to this path",
+                                columns: [
+                                    "\"/path/to/download/to\"",
+                                    "Download to this path",
+                                ],
+                            },
+                        ],
+                    },
+                ),
+                Text(
+                    "",
+                ),
+            ],
+            children: [],
+        },
+    ],
+}

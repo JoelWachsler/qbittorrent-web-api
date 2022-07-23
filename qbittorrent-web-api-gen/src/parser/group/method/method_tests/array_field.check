@@ -1,0 +1,26 @@
+ApiMethod {
+    name: "foo",
+    description: None,
+    url: "foo",
+    types: CompositeTypes {
+        composite_types: [
+            Response(
+                TypeWithoutName {
+                    types: [
+                        Number(
+                            TypeInfo {
+                                name: "amount_left",
+                                description: Some(
+                                    "Amount of data left to download (bytes)",
+                                ),
+                                is_optional: false,
+                                is_list: true,
+                            },
+                        ),
+                    ],
+                    is_list: false,
+                },
+            ),
+        ],
+    },
+}

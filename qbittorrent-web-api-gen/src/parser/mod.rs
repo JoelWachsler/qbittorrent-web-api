@@ -1,9 +1,6 @@
 use crate::{md_parser, types};
 
-use self::group::parse_api_group;
-
 mod group;
-mod util;
 
 #[derive(Debug)]
 pub struct ReturnTypeParameter {
@@ -12,17 +9,14 @@ pub struct ReturnTypeParameter {
     pub return_type: types::Type,
 }
 
-pub use group::{ApiGroup, ApiMethod, ReturnType};
+pub use group::*;
 
 pub fn parse_api_groups(token_tree: md_parser::TokenTree) -> Vec<ApiGroup> {
     parse_groups(extract_relevant_parts(token_tree))
 }
 
 pub fn parse_groups(trees: Vec<md_parser::TokenTree>) -> Vec<ApiGroup> {
-    trees
-        .into_iter()
-        .map(|tree| parse_api_group(&tree))
-        .collect()
+    trees.iter().map(ApiGroup::new).collect()
 }
 
 fn extract_relevant_parts(tree: md_parser::TokenTree) -> Vec<md_parser::TokenTree> {

@@ -1,0 +1,167 @@
+ApiMethod {
+    name: "results",
+    description: Some(
+        "The response is a JSON object with the following fields\n\n\n\n\nExample:\n\n```JSON\n{\n    \"results\": [\n        {\n            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41\",\n            \"fileName\": \"Ubuntu-10.04-32bit-NeTV.ova\",\n            \"fileSize\": -1,\n            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=8d5f512e1acb687029b8d7cc6c5a84dce51d7a41&f=Ubuntu-10.04-32bit-NeTV.ova.torrent\",\n            \"nbLeechers\": 1,\n            \"nbSeeders\": 0,\n            \"siteUrl\": \"http://www.legittorrents.info\"\n        },\n        {\n            \"descrLink\": \"http://www.legittorrents.info/index.php?page=torrent-details&id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475\",\n            \"fileName\": \"mangOH-Legato-17_06-Ubuntu-16_04.ova\",\n            \"fileSize\": -1,\n            \"fileUrl\": \"http://www.legittorrents.info/download.php?id=d5179f53e105dc2c2401bcfaa0c2c4936a6aa475&f=mangOH-Legato-17_06-Ubuntu-16_04.ova.torrent\",\n            \"nbLeechers\": 0,\n            \"nbSeeders\": 59,\n            \"siteUrl\": \"http://www.legittorrents.info\"\n        }\n    ],\n    \"status\": \"Running\",\n    \"total\": 2\n}\n```",
+    ),
+    url: "results",
+    types: CompositeTypes {
+        composite_types: [
+            Parameters(
+                TypeWithoutName {
+                    types: [
+                        Number(
+                            TypeInfo {
+                                name: "id",
+                                description: Some(
+                                    "ID of the search job",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        Number(
+                            TypeInfo {
+                                name: "limit",
+                                description: Some(
+                                    "max number of results to return. 0 or negative means no limit",
+                                ),
+                                is_optional: true,
+                                is_list: false,
+                            },
+                        ),
+                        Number(
+                            TypeInfo {
+                                name: "offset",
+                                description: Some(
+                                    "result to start at. A negative number means count backwards (e.g. -2 returns the 2 most recent results)",
+                                ),
+                                is_optional: true,
+                                is_list: false,
+                            },
+                        ),
+                    ],
+                    is_list: false,
+                },
+            ),
+            Object(
+                TypeWithName {
+                    name: "Result",
+                    types: [
+                        String(
+                            TypeInfo {
+                                name: "descrLink",
+                                description: Some(
+                                    "URL of the torrent's description page",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "fileName",
+                                description: Some(
+                                    "Name of the file",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        Number(
+                            TypeInfo {
+                                name: "fileSize",
+                                description: Some(
+                                    "Size of the file in Bytes",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "fileUrl",
+                                description: Some(
+                                    "Torrent download link (usually either .torrent file or magnet link)",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        Number(
+                            TypeInfo {
+                                name: "nbLeechers",
+                                description: Some(
+                                    "Number of leechers",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        Number(
+                            TypeInfo {
+                                name: "nbSeeders",
+                                description: Some(
+                                    "Number of seeders",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "siteUrl",
+                                description: Some(
+                                    "URL of the torrent site",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                    ],
+                },
+            ),
+            Response(
+                TypeWithoutName {
+                    types: [
+                        Object(
+                            Object {
+                                type_info: TypeInfo {
+                                    name: "results",
+                                    description: Some(
+                                        "Array of result objects- see table below",
+                                    ),
+                                    is_optional: false,
+                                    is_list: true,
+                                },
+                                ref_type: String(
+                                    "Result",
+                                ),
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "status",
+                                description: Some(
+                                    "Current status of the search job (either Running or Stopped)",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        Number(
+                            TypeInfo {
+                                name: "total",
+                                description: Some(
+                                    "Total number of results. If the status is Running this number may continue to increase",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                    ],
+                    is_list: false,
+                },
+            ),
+        ],
+    },
+}

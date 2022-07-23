@@ -1,0 +1,37 @@
+ApiMethod {
+    name: "foo",
+    description: None,
+    url: "foo",
+    types: CompositeTypes {
+        composite_types: [
+            Enum(
+                Enum {
+                    name: "ScanDirs",
+                    values: [
+                        EnumValue {
+                            description: Some(
+                                "Download to the monitored folder",
+                            ),
+                            value: "DownloadToTheMonitoredFolder",
+                            original_value: "0",
+                        },
+                        EnumValue {
+                            description: Some(
+                                "Download to the default save path",
+                            ),
+                            value: "DownloadToTheDefaultSavePath",
+                            original_value: "1",
+                        },
+                        EnumValue {
+                            description: Some(
+                                "Download to this path",
+                            ),
+                            value: "\"/path/to/download/to\"",
+                            original_value: "\"/path/to/download/to\"",
+                        },
+                    ],
+                },
+            ),
+        ],
+    },
+}

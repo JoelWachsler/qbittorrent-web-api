@@ -4,8 +4,7 @@ mod url;
 
 use crate::md_parser;
 
-use self::{description::parse_group_description, method::parse_api_method, url::get_group_url};
-pub use method::{ApiMethod, ReturnType};
+pub use method::*;
 
 #[derive(Debug)]
 pub struct ApiGroup {
@@ -15,25 +14,29 @@ pub struct ApiGroup {
     pub url: String,
 }
 
-pub fn parse_api_group(tree: &md_parser::TokenTree) -> ApiGroup {
-    let methods = tree.children.iter().flat_map(parse_api_method).collect();
+impl ApiGroup {
+    pub fn new(tree: &md_parser::TokenTree) -> ApiGroup {
+        ApiGroup {
+            name: tree.name(),
+            methods: tree.methods(),
+            description: tree.parse_group_description(),
+            url: tree.get_group_url(),
+        }
+    }
+}
 
-    let group_description = parse_group_description(&tree.content);
-    let group_url = get_group_url(&tree.content);
+impl md_parser::TokenTree {
+    fn name(&self) -> String {
+        self.title
+            .clone()
+            .unwrap()
+            .to_lowercase()
+            .trim_end_matches("(experimental)")
+            .trim()
+            .replace(' ', "_")
+    }
 
-    let name = tree
-        .title
-        .clone()
-        .unwrap()
-        .to_lowercase()
-        .trim_end_matches("(experimental)")
-        .trim()
-        .replace(' ', "_");
-
-    ApiGroup {
-        name,
-        methods,
-        description: group_description,
-        url: group_url,
+    fn methods(&self) -> Vec<ApiMethod> {
+        self.children.iter().flat_map(ApiMethod::try_new).collect()
     }
 }

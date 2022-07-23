@@ -6,10 +6,16 @@ license = "MIT"
 keywords = ["qbittorrent"]
 repository = "https://github.com/JoelWachsler/qbittorrent-web-api"
 description = "Generated web api for qBittorrent"
-exclude = ["*.txt", "tests"]
+exclude = ["*.txt", "tests", "src/md_parser/token_tree_factory_tests"]
+# we use trybuild instead
+autotests = false
 
 [lib]
 proc-macro = true
+
+[[test]]
+name = "tests"
+path = "tests/tests.rs"
 
 [dependencies]
 syn = { version = "1.0.98", features = ["extra-traits"]}
@@ -26,3 +32,4 @@ trybuild = { version = "1.0.63", features = ["diff"] }
 anyhow = "1.0.58"
 tokio = { version = "1.19.2", features = ["full"] }
 reqwest = { version = "0.11.11", features = ["json", "multipart"] }
+pretty_assertions = "1.2.1"

@@ -1,0 +1,17 @@
+TokenTree {
+    title: None,
+    content: [],
+    children: [
+        TokenTree {
+            title: Some(
+                "A",
+            ),
+            content: [
+                Text(
+                    "a|b",
+                ),
+            ],
+            children: [],
+        },
+    ],
+}

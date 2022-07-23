@@ -1,10 +1,9 @@
-use anyhow::Result;
-use qbittorrent_web_api_gen::QBittorrentApiGen;
-use tokio::time::{sleep, Duration};
+mod common;
 
-const USERNAME: &str = "admin";
-const PASSWORD: &str = "adminadmin";
-const BASE_URL: &str = "http://localhost:8080";
+use anyhow::Result;
+use common::*;
+use qbittorrent_web_api_gen::QBittorrentApiGen;
+use tokio::time::*;
 
 #[derive(QBittorrentApiGen)]
 struct Api {}

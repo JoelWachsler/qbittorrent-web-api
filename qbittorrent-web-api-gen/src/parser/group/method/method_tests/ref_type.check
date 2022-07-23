@@ -1,0 +1,110 @@
+ApiMethod {
+    name: "plugins",
+    description: Some(
+        "The response is a JSON array of objects containing the following fields\n\n\n```JSON\n[\n    {\n        \"enabled\": true,\n        \"fullName\": \"Legit Torrents\",\n        \"name\": \"legittorrents\",\n        \"supportedCategories\": [{\n            \"id\": \"all\",\n            \"name\": \"All categories\"\n        }, {\n            \"id\": \"anime\",\n            \"name\": \"Anime\"\n        }, {\n            \"id\": \"books\",\n            \"name\": \"Books\"\n        }, {\n            \"id\": \"games\",\n            \"name\": \"Games\"\n        }, {\n            \"id\": \"movies\",\n            \"name\": \"Movies\"\n        }, {\n            \"id\": \"music\",\n            \"name\": \"Music\"\n        }, {\n            \"id\": \"tv\",\n            \"name\": \"TV shows\"\n        }],\n        \"url\": \"http://www.legittorrents.info\",\n        \"version\": \"2.3\"\n    }\n]\n```",
+    ),
+    url: "plugins",
+    types: CompositeTypes {
+        composite_types: [
+            Object(
+                TypeWithName {
+                    name: "Category",
+                    types: [
+                        String(
+                            TypeInfo {
+                                name: "id",
+                                description: Some(
+                                    "Id",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "name",
+                                description: Some(
+                                    "Name",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                    ],
+                },
+            ),
+            Response(
+                TypeWithoutName {
+                    types: [
+                        Bool(
+                            TypeInfo {
+                                name: "enabled",
+                                description: Some(
+                                    "Whether the plugin is enabled",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "fullName",
+                                description: Some(
+                                    "Full name of the plugin",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "name",
+                                description: Some(
+                                    "Short name of the plugin",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        Object(
+                            Object {
+                                type_info: TypeInfo {
+                                    name: "supportedCategories",
+                                    description: Some(
+                                        "List of category objects",
+                                    ),
+                                    is_optional: false,
+                                    is_list: true,
+                                },
+                                ref_type: String(
+                                    "Category",
+                                ),
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "url",
+                                description: Some(
+                                    "URL of the torrent site",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                        String(
+                            TypeInfo {
+                                name: "version",
+                                description: Some(
+                                    "Installed version of the plugin",
+                                ),
+                                is_optional: false,
+                                is_list: false,
+                            },
+                        ),
+                    ],
+                    is_list: true,
+                },
+            ),
+        ],
+    },
+}

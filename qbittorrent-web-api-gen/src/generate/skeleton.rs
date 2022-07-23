@@ -10,13 +10,7 @@ pub fn generate_skeleton(ident: &syn::Ident) -> proc_macro2::TokenStream {
     let auth = auth_ident();
 
     quote! {
-        use reqwest::RequestBuilder;
-        use serde::Deserialize;
-        use thiserror::Error;
-
-        use super::#ident;
-
-        impl #ident {
+        impl super::#ident {
             /// Creates an authenticated client.
             /// base_url is the url to the qbittorrent instance, i.e. http://localhost:8080
             pub async fn login(
@@ -61,7 +55,7 @@ pub fn generate_skeleton(ident: &syn::Ident) -> proc_macro2::TokenStream {
         }
 
         #[allow(clippy::enum_variant_names)]
-        #[derive(Debug, Error)]
+        #[derive(Debug, thiserror::Error)]
         pub enum Error {
             #[error("failed to parse auth cookie")]
             AuthCookieParseError,
@@ -81,7 +75,7 @@ pub fn generate_skeleton(ident: &syn::Ident) -> proc_macro2::TokenStream {
         }
 
         impl #auth {
-            fn authenticated_client(&self, url: &str) -> RequestBuilder {
+            fn authenticated_client(&self, url: &str) -> reqwest::RequestBuilder {
                 let url = format!("{}{}", self.base_url, url);
                 let cookie = self.auth_cookie.clone();
 

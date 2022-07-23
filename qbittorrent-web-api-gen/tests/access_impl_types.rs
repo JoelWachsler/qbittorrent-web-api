@@ -10,7 +10,7 @@ mod foo {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let _ = foo::api_impl::ApplicationPreferencesBittorrentProtocol::TCP;
+    let _ = foo::api_impl::application::preferences::BittorrentProtocol::TCP;
 
     Ok(())
 }
