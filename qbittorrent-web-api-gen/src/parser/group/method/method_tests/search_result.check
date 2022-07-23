@@ -133,7 +133,9 @@ ApiMethod {
                                     is_optional: false,
                                     is_list: true,
                                 },
-                                ref_type: "",
+                                ref_type: String(
+                                    "Result",
+                                ),
                             },
                         ),
                         String(

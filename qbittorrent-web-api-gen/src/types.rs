@@ -31,10 +31,16 @@ impl TypeInfo {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum RefType {
+    String(String),
+    Map(String, String),
+}
+
 #[derive(Debug, Clone)]
 pub struct Object {
     pub type_info: TypeInfo,
-    pub ref_type: String,
+    pub ref_type: RefType,
 }
 
 #[derive(Debug, Clone)]
@@ -63,17 +69,6 @@ pub enum Type {
 }
 
 impl Type {
-    pub fn to_owned_type(&self) -> String {
-        match self {
-            Type::Number(_) => "i128".into(),
-            Type::Float(_) => "f32".into(),
-            Type::Bool(_) => "bool".into(),
-            Type::String(_) => "String".into(),
-            Type::StringArray(_) => "String".into(),
-            Type::Object(_) => "String".into(),
-        }
-    }
-
     pub fn to_borrowed_type(&self) -> String {
         match self {
             Type::Number(_) => "i32".into(),
@@ -81,7 +76,7 @@ impl Type {
             Type::Bool(_) => "bool".into(),
             Type::String(_) => "str".into(),
             Type::StringArray(_) => "&[str]".into(),
-            Type::Object(_) => "str".into(),
+            Type::Object(_) => todo!(),
         }
     }
 
@@ -136,10 +131,10 @@ impl Type {
             )
         };
 
-        let create_object_type = |name: &str| {
+        let create_object_type = |ref_type: RefType| {
             Some(Type::Object(Object {
                 type_info: create_type_info(),
-                ref_type: name.to_camel(),
+                ref_type,
             }))
         };
 
@@ -150,30 +145,85 @@ impl Type {
             "string" => Some(Type::String(create_type_info())),
             "array" => description
                 .extract_type()
-                .and_then(|t| create_object_type(&t))
+                .and_then(create_object_type)
                 .or_else(|| Some(Type::StringArray(create_type_info()))),
             "float" => Some(Type::Float(create_type_info())),
-            name => create_object_type(name),
+            name => description
+                .extract_type()
+                .and_then(create_object_type)
+                .or_else(|| {
+                    let n = if name.is_empty() {
+                        "String".into()
+                    } else {
+                        name.into()
+                    };
+
+                    create_object_type(RefType::String(n))
+                }),
         }
     }
 }
 
 trait ExtractType {
-    fn extract_type(&self) -> Option<String>;
+    fn extract_type(&self) -> Option<RefType>;
 }
 
 impl ExtractType for Option<String> {
-    fn extract_type(&self) -> Option<String> {
-        self.as_ref().and_then(|t| {
-            let re = RegexBuilder::new(r".*Array of (\w+) objects.*")
-                .case_insensitive(true)
-                .build()
-                .unwrap();
+    fn extract_type(&self) -> Option<RefType> {
+        let list_type = || {
+            self.as_ref().and_then(|t| {
+                let re = RegexBuilder::new(r"(?:Array|List) of (\w+) objects")
+                    .case_insensitive(true)
+                    .build()
+                    .unwrap();
 
-            let cap = re.captures(t)?;
+                let cap = re.captures(t)?;
 
-            cap.get(1).map(|m| m.as_str().to_camel())
-        })
+                cap.get(1)
+                    .map(|m| m.as_str().to_camel())
+                    .map(RefType::String)
+            })
+        };
+
+        let map_type = || {
+            self.as_ref().and_then(|t| {
+                let re = RegexBuilder::new(r"map from (\w+) to (\w+) object")
+                    .case_insensitive(true)
+                    .build()
+                    .unwrap();
+
+                let cap = re.captures(t)?;
+                let key_type = match cap.get(1).map(|m| m.as_str().to_camel()) {
+                    Some(k) => k,
+                    None => return None,
+                };
+                let value_type = match cap.get(2).map(|m| m.as_str().to_camel()) {
+                    Some(v) => v,
+                    None => return None,
+                };
+
+                Some(RefType::Map(key_type, value_type))
+            })
+        };
+
+        let object_type = || {
+            self.as_ref().and_then(|t| {
+                let re = RegexBuilder::new(r"(\w+) object see table below")
+                    .case_insensitive(true)
+                    .build()
+                    .unwrap();
+
+                let cap = re.captures(t)?;
+                let object_type = match cap.get(1).map(|m| m.as_str().to_camel()) {
+                    Some(k) => k,
+                    None => return None,
+                };
+
+                Some(RefType::String(object_type))
+            })
+        };
+
+        list_type().or_else(map_type).or_else(object_type)
     }
 }
 
@@ -185,6 +235,6 @@ mod tests {
     fn test_regex() {
         let input = Some("Array of result objects- see table below".to_string());
         let res = input.extract_type();
-        assert_eq!(res.unwrap(), "Result");
+        assert_eq!(res.unwrap(), RefType::String("Result".into()));
     }
 }

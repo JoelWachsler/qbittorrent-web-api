@@ -628,6 +628,33 @@
                 url: "maindata",
                 types: CompositeTypes {
                     composite_types: [
+                        Object(
+                            TypeWithName {
+                                name: "Categories",
+                                types: [
+                                    String(
+                                        TypeInfo {
+                                            name: "name",
+                                            description: Some(
+                                                "Category name",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "savePath",
+                                            description: Some(
+                                                "Save path",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                ],
+                            },
+                        ),
                         Parameters(
                             TypeWithoutName {
                                 types: [
@@ -643,6 +670,73 @@
                                     ),
                                 ],
                                 is_list: false,
+                            },
+                        ),
+                        Object(
+                            TypeWithName {
+                                name: "ServerState",
+                                types: [
+                                    Number(
+                                        TypeInfo {
+                                            name: "average_time_queue",
+                                            description: Some(
+                                                "Average time queue",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "dl_info_data",
+                                            description: Some(
+                                                "Download info data",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "dl_info_speed",
+                                            description: Some(
+                                                "Download info speed",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "queued_io_jobs",
+                                            description: Some(
+                                                "Queued io jobs",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "total_buffers_size",
+                                            description: Some(
+                                                "Total buffers size",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "total_peer_connections",
+                                            description: Some(
+                                                "Total peer connections",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                ],
                             },
                         ),
                         Response(
@@ -664,7 +758,7 @@
                                             description: Some(
                                                 "Whether the response contains all the data or partial data",
                                             ),
-                                            is_optional: false,
+                                            is_optional: true,
                                             is_list: false,
                                         },
                                     ),
@@ -673,12 +767,15 @@
                                             type_info: TypeInfo {
                                                 name: "torrents",
                                                 description: Some(
-                                                    "Property: torrent hash, value: same as [torrent list](#get-torrent-list)",
+                                                    "Property: torrent hash, value: same as [torrent list](#get-torrent-list), map from string to torrents object",
                                                 ),
-                                                is_optional: false,
+                                                is_optional: true,
                                                 is_list: false,
                                             },
-                                            ref_type: "Object",
+                                            ref_type: Map(
+                                                "String",
+                                                "Torrents",
+                                            ),
                                         },
                                     ),
                                     Object(
@@ -688,10 +785,12 @@
                                                 description: Some(
                                                     "List of hashes of torrents removed since last request",
                                                 ),
-                                                is_optional: false,
+                                                is_optional: true,
                                                 is_list: true,
                                             },
-                                            ref_type: "",
+                                            ref_type: String(
+                                                "String",
+                                            ),
                                         },
                                     ),
                                     Object(
@@ -699,12 +798,15 @@
                                             type_info: TypeInfo {
                                                 name: "categories",
                                                 description: Some(
-                                                    "Info for categories added since last request",
+                                                    "Info for categories added since last request, map from string to categories object",
                                                 ),
-                                                is_optional: false,
+                                                is_optional: true,
                                                 is_list: false,
                                             },
-                                            ref_type: "Object",
+                                            ref_type: Map(
+                                                "String",
+                                                "Categories",
+                                            ),
                                         },
                                     ),
                                     Object(
@@ -714,10 +816,12 @@
                                                 description: Some(
                                                     "List of categories removed since last request",
                                                 ),
-                                                is_optional: false,
+                                                is_optional: true,
                                                 is_list: true,
                                             },
-                                            ref_type: "",
+                                            ref_type: String(
+                                                "String",
+                                            ),
                                         },
                                     ),
                                     Object(
@@ -727,10 +831,12 @@
                                                 description: Some(
                                                     "List of tags added since last request",
                                                 ),
-                                                is_optional: false,
+                                                is_optional: true,
                                                 is_list: true,
                                             },
-                                            ref_type: "",
+                                            ref_type: String(
+                                                "String",
+                                            ),
                                         },
                                     ),
                                     Object(
@@ -740,10 +846,12 @@
                                                 description: Some(
                                                     "List of tags removed since last request",
                                                 ),
-                                                is_optional: false,
+                                                is_optional: true,
                                                 is_list: true,
                                             },
-                                            ref_type: "",
+                                            ref_type: String(
+                                                "String",
+                                            ),
                                         },
                                     ),
                                     Object(
@@ -751,16 +859,475 @@
                                             type_info: TypeInfo {
                                                 name: "server_state",
                                                 description: Some(
-                                                    "Global transfer info",
+                                                    "server_state object see table below",
                                                 ),
-                                                is_optional: false,
+                                                is_optional: true,
                                                 is_list: false,
                                             },
-                                            ref_type: "Object",
+                                            ref_type: String(
+                                                "ServerState",
+                                            ),
                                         },
                                     ),
                                 ],
                                 is_list: false,
+                            },
+                        ),
+                        Object(
+                            TypeWithName {
+                                name: "Torrents",
+                                types: [
+                                    Number(
+                                        TypeInfo {
+                                            name: "added_on",
+                                            description: Some(
+                                                "Time (Unix Epoch) when the torrent was added to the client",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "amount_left",
+                                            description: Some(
+                                                "Amount of data left to download (bytes)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Bool(
+                                        TypeInfo {
+                                            name: "auto_tmm",
+                                            description: Some(
+                                                "Whether this torrent is managed by Automatic Torrent Management",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Float(
+                                        TypeInfo {
+                                            name: "availability",
+                                            description: Some(
+                                                "Percentage of file pieces currently available",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "category",
+                                            description: Some(
+                                                "Category of the torrent",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "completed",
+                                            description: Some(
+                                                "Amount of transfer data completed (bytes)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "completion_on",
+                                            description: Some(
+                                                "Time (Unix Epoch) when the torrent completed",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "content_path",
+                                            description: Some(
+                                                "Absolute path of torrent content (root path for multifile torrents, absolute file path for singlefile torrents)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "dl_limit",
+                                            description: Some(
+                                                "Torrent download speed limit (bytes/s). -1 if ulimited.",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "dlspeed",
+                                            description: Some(
+                                                "Torrent download speed (bytes/s)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "downloaded",
+                                            description: Some(
+                                                "Amount of data downloaded",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "downloaded_session",
+                                            description: Some(
+                                                "Amount of data downloaded this session",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "eta",
+                                            description: Some(
+                                                "Torrent ETA (seconds)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Bool(
+                                        TypeInfo {
+                                            name: "f_l_piece_prio",
+                                            description: Some(
+                                                "True if first last piece are prioritized",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Bool(
+                                        TypeInfo {
+                                            name: "force_start",
+                                            description: Some(
+                                                "True if force start is enabled for this torrent",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "hash",
+                                            description: Some(
+                                                "Torrent hash",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "last_activity",
+                                            description: Some(
+                                                "Last time (Unix Epoch) when a chunk was downloaded/uploaded",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "magnet_uri",
+                                            description: Some(
+                                                "Magnet URI corresponding to this torrent",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Float(
+                                        TypeInfo {
+                                            name: "max_ratio",
+                                            description: Some(
+                                                "Maximum share ratio until torrent is stopped from seeding/uploading",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "max_seeding_time",
+                                            description: Some(
+                                                "Maximum seeding time (seconds) until torrent is stopped from seeding",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "name",
+                                            description: Some(
+                                                "Torrent name",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "num_complete",
+                                            description: Some(
+                                                "Number of seeds in the swarm",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "num_incomplete",
+                                            description: Some(
+                                                "Number of leechers in the swarm",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "num_leechs",
+                                            description: Some(
+                                                "Number of leechers connected to",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "num_seeds",
+                                            description: Some(
+                                                "Number of seeds connected to",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "priority",
+                                            description: Some(
+                                                "Torrent priority. Returns -1 if queuing is disabled or torrent is in seed mode",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Float(
+                                        TypeInfo {
+                                            name: "progress",
+                                            description: Some(
+                                                "Torrent progress (percentage/100)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Float(
+                                        TypeInfo {
+                                            name: "ratio",
+                                            description: Some(
+                                                "Torrent share ratio. Max ratio value: 9999.",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Float(
+                                        TypeInfo {
+                                            name: "ratio_limit",
+                                            description: Some(
+                                                "TODO (what is different from max_ratio?)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "save_path",
+                                            description: Some(
+                                                "Path where this torrent's data is stored",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "seeding_time",
+                                            description: Some(
+                                                "Torrent elapsed time while complete (seconds)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "seeding_time_limit",
+                                            description: Some(
+                                                "TODO (what is different from max_seeding_time?) seeding_time_limit is a per torrent setting, when Automatic Torrent Management is disabled, furthermore then max_seeding_time is set to seeding_time_limit for this torrent. If Automatic Torrent Management is enabled, the value is -2. And if max_seeding_time is unset it have a default value -1.",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "seen_complete",
+                                            description: Some(
+                                                "Time (Unix Epoch) when this torrent was last seen complete",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Bool(
+                                        TypeInfo {
+                                            name: "seq_dl",
+                                            description: Some(
+                                                "True if sequential download is enabled",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "size",
+                                            description: Some(
+                                                "Total size (bytes) of files selected for download",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "state",
+                                            description: Some(
+                                                "Torrent state. See table here below for the possible values",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Bool(
+                                        TypeInfo {
+                                            name: "super_seeding",
+                                            description: Some(
+                                                "True if super seeding is enabled",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "tags",
+                                            description: Some(
+                                                "Comma-concatenated tag list of the torrent",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "time_active",
+                                            description: Some(
+                                                "Total active time (seconds)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "total_size",
+                                            description: Some(
+                                                "Total size (bytes) of all file in this torrent (including unselected ones)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "tracker",
+                                            description: Some(
+                                                "The first tracker with working status. Returns empty string if no tracker is working.",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "up_limit",
+                                            description: Some(
+                                                "Torrent upload speed limit (bytes/s). -1 if ulimited.",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "uploaded",
+                                            description: Some(
+                                                "Amount of data uploaded",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "uploaded_session",
+                                            description: Some(
+                                                "Amount of data uploaded this session",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    Number(
+                                        TypeInfo {
+                                            name: "upspeed",
+                                            description: Some(
+                                                "Torrent upload speed (bytes/s)",
+                                            ),
+                                            is_optional: true,
+                                            is_list: false,
+                                        },
+                                    ),
+                                ],
                             },
                         ),
                     ],
@@ -2161,15 +2728,14 @@
                                             is_list: false,
                                         },
                                     ),
-                                    Object(
-                                        Object {
-                                            type_info: TypeInfo {
-                                                name: "deleteFiles",
-                                                description: None,
-                                                is_optional: false,
-                                                is_list: false,
-                                            },
-                                            ref_type: "If set to true, the downloaded data will also be deleted, otherwise has no effect.",
+                                    Bool(
+                                        TypeInfo {
+                                            name: "deleteFiles",
+                                            description: Some(
+                                                "If set to true, the downloaded data will also be deleted, otherwise has no effect.",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
                                         },
                                     ),
                                 ],
@@ -3614,7 +4180,9 @@
                                                 is_optional: false,
                                                 is_list: true,
                                             },
-                                            ref_type: "",
+                                            ref_type: String(
+                                                "Result",
+                                            ),
                                         },
                                     ),
                                     String(
@@ -3678,6 +4246,33 @@
                 url: "plugins",
                 types: CompositeTypes {
                     composite_types: [
+                        Object(
+                            TypeWithName {
+                                name: "Category",
+                                types: [
+                                    String(
+                                        TypeInfo {
+                                            name: "id",
+                                            description: Some(
+                                                "Id",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                    String(
+                                        TypeInfo {
+                                            name: "name",
+                                            description: Some(
+                                                "Name",
+                                            ),
+                                            is_optional: false,
+                                            is_list: false,
+                                        },
+                                    ),
+                                ],
+                            },
+                        ),
                         Response(
                             TypeWithoutName {
                                 types: [
@@ -3721,7 +4316,9 @@
                                                 is_optional: false,
                                                 is_list: true,
                                             },
-                                            ref_type: "",
+                                            ref_type: String(
+                                                "Category",
+                                            ),
                                         },
                                     ),
                                     String(

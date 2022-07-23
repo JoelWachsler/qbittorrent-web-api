@@ -1002,17 +1002,17 @@ HTTP Status Code                  | Scenario
 
 The response is a JSON object with the following possible fields
 
-Property                      | Type    | Description
-------------------------------|---------|------------
-`rid`                         | integer | Response ID
-`full_update`                 | bool    | Whether the response contains all the data or partial data
-`torrents`                    | object  | Property: torrent hash, value: same as [torrent list](#get-torrent-list)
-`torrents_removed`            | array   | List of hashes of torrents removed since last request
-`categories`                  | object  | Info for categories added since last request
-`categories_removed`          | array   | List of categories removed since last request
-`tags`                        | array   | List of tags added since last request
-`tags_removed`                | array   | List of tags removed since last request
-`server_state`                | object  | Global transfer info
+Property                        | Type      | Description
+--------------------------------|-----------|------------
+`rid`                           | integer   | Response ID
+`full_update`_optional_         | bool      | Whether the response contains all the data or partial data
+`torrents`_optional_            | object    | Property: torrent hash, value: same as [torrent list](#get-torrent-list), map from string to torrents object
+`torrents_removed`_optional_    | array     | List of hashes of torrents removed since last request
+`categories`_optional_          | object    | Info for categories added since last request, map from string to categories object
+`categories_removed`_optional_  | array     | List of categories removed since last request
+`tags`_optional_                | array     | List of tags added since last request
+`tags_removed`_optional_        | array     | List of tags removed since last request
+`server_state`_optional_        | object    | `server_state` object see table below
 
 Example:
 
@@ -1028,6 +1028,74 @@ Example:
     }
 }
 ```
+
+**ServerState object:**
+
+Property                      | Type    | Description
+------------------------------|---------|------------
+`average_time_queue`          | integer | Average time queue
+`dl_info_data`                | number  | Download info data
+`dl_info_speed`               | number  | Download info speed
+`queued_io_jobs`              | integer | Queued io jobs
+`total_buffers_size`          | number  | Total buffers size
+`total_peer_connections`      | integer | Total peer connections
+
+**Categories object:**
+
+Property                      | Type    | Description
+------------------------------|---------|------------
+`name`                        | string  | Category name
+`savePath`                    | string  | Save path
+
+**Torrents object:**
+
+Property                        | Type      | Description
+--------------------------------|-----------|------------
+`added_on`_optional_            | integer   | Time (Unix Epoch) when the torrent was added to the client
+`amount_left`_optional_         | integer   | Amount of data left to download (bytes)
+`auto_tmm`_optional_            | bool      | Whether this torrent is managed by Automatic Torrent Management
+`availability`_optional_        | float     | Percentage of file pieces currently available
+`category`_optional_            | string    | Category of the torrent
+`completed`_optional_           | integer   | Amount of transfer data completed (bytes)
+`completion_on`_optional_       | integer   | Time (Unix Epoch) when the torrent completed
+`content_path`_optional_        | string    | Absolute path of torrent content (root path for multifile torrents, absolute file path for singlefile torrents)
+`dl_limit`_optional_            | integer   | Torrent download speed limit (bytes/s). `-1` if ulimited.
+`dlspeed`_optional_             | integer   | Torrent download speed (bytes/s)
+`downloaded`_optional_          | integer   | Amount of data downloaded
+`downloaded_session`_optional_  | integer   | Amount of data downloaded this session
+`eta`_optional_                 | integer   | Torrent ETA (seconds)
+`f_l_piece_prio`_optional_      | bool      | True if first last piece are prioritized
+`force_start`_optional_         | bool      | True if force start is enabled for this torrent
+`hash`_optional_                | string    | Torrent hash
+`last_activity`_optional_       | integer   | Last time (Unix Epoch) when a chunk was downloaded/uploaded
+`magnet_uri`_optional_          | string    | Magnet URI corresponding to this torrent
+`max_ratio`_optional_           | float     | Maximum share ratio until torrent is stopped from seeding/uploading
+`max_seeding_time`_optional_    | integer   | Maximum seeding time (seconds) until torrent is stopped from seeding
+`name`_optional_                | string    | Torrent name
+`num_complete`_optional_        | integer   | Number of seeds in the swarm
+`num_incomplete`_optional_      | integer   | Number of leechers in the swarm
+`num_leechs`_optional_          | integer   | Number of leechers connected to
+`num_seeds`_optional_           | integer   | Number of seeds connected to
+`priority`_optional_            | integer   | Torrent priority. Returns -1 if queuing is disabled or torrent is in seed mode
+`progress`_optional_            | float     | Torrent progress (percentage/100)
+`ratio`_optional_               | float     | Torrent share ratio. Max ratio value: 9999.
+`ratio_limit`_optional_         | float     | TODO (what is different from `max_ratio`?)
+`save_path`_optional_           | string    | Path where this torrent's data is stored
+`seeding_time`_optional_        | integer   | Torrent elapsed time while complete (seconds)
+`seeding_time_limit`_optional_  | integer   | TODO (what is different from `max_seeding_time`?) seeding_time_limit is a per torrent setting, when Automatic Torrent Management is disabled, furthermore then max_seeding_time is set to seeding_time_limit for this torrent. If Automatic Torrent Management is enabled, the value is -2. And if max_seeding_time is unset it have a default value -1.
+`seen_complete`_optional_       | integer   | Time (Unix Epoch) when this torrent was last seen complete
+`seq_dl`_optional_              | bool      | True if sequential download is enabled
+`size`_optional_                | integer   | Total size (bytes) of files selected for download
+`state`_optional_               | string    | Torrent state. See table here below for the possible values
+`super_seeding`_optional_       | bool      | True if super seeding is enabled
+`tags`_optional_                | string    | Comma-concatenated tag list of the torrent
+`time_active`_optional_         | integer   | Total active time (seconds)
+`total_size`_optional_          | integer   | Total size (bytes) of all file in this torrent (including unselected ones)
+`tracker`_optional_             | string    | The first tracker with working status. Returns empty string if no tracker is working.
+`up_limit`_optional_            | integer   | Torrent upload speed limit (bytes/s). `-1` if ulimited.
+`uploaded`_optional_            | integer   | Amount of data uploaded
+`uploaded_session`_optional_    | integer   | Amount of data uploaded this session
+`upspeed`_optional_             | integer   | Torrent upload speed (bytes/s)
 
 ## Get torrent peers data ##
 
@@ -1756,7 +1824,7 @@ Name: `delete`
 Parameter   | Type     | Description
 ------------|----------|------------
 `hashes`    | string   | The hashes of the torrents you want to delete. `hashes` can contain multiple hashes separated by `\|`, to delete multiple torrents, or set to `all`, to delete all torrents.
-`deleteFiles` | If set to `true`, the downloaded data will also be deleted, otherwise has no effect.
+`deleteFiles` | bool | If set to `true`, the downloaded data will also be deleted, otherwise has no effect.
 
 Example:
 
@@ -3274,6 +3342,13 @@ Field                             | Type    | Description
     }
 ]
 ```
+
+**Category object:**
+
+Field                      | Type    | Description
+---------------------------|---------|------------
+`id`                       | string  | Id
+`name`                     | string  | Name
 
 ## Install search plugin ##
 

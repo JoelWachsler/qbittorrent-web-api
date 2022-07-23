@@ -422,4 +422,9 @@ mod tests {
     fn array_field() {
         run_test!("array_field");
     }
+
+    #[test]
+    fn ref_type() {
+        run_test!("ref_type");
+    }
 }

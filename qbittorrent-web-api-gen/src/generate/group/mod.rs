@@ -147,14 +147,36 @@ impl parser::TypeWithName {
 }
 
 impl types::Type {
+    fn owned_type_ident(&self) -> TokenStream {
+        let owned_type = match self {
+            types::Type::Number(_) => quote! { i128 },
+            types::Type::Float(_) => quote! { f32 },
+            types::Type::Bool(_) => quote! { bool },
+            types::Type::String(_) => quote! { String },
+            types::Type::StringArray(_) => quote! { String },
+            types::Type::Object(obj) => match &obj.ref_type {
+                types::RefType::String(str) => {
+                    let str_ident = &util::to_ident(str);
+                    quote! { #str_ident }
+                }
+                types::RefType::Map(key, value) => {
+                    let key_ident = util::to_ident(key);
+                    let value_ident = util::to_ident(value);
+                    quote! { std::collections::HashMap<#key_ident, #value_ident> }
+                }
+            },
+        };
+
+        if self.is_list() {
+            quote! { std::vec::Vec<#owned_type> }
+        } else {
+            owned_type
+        }
+    }
+
     fn generate_struct_field(&self) -> TokenStream {
         let name_snake = self.name_snake();
-        let type_name = util::to_ident(&self.to_owned_type());
-        let type_ = if self.is_list() {
-            quote! { std::vec::Vec<#type_name> }
-        } else {
-            quote! { #type_name }
-        };
+        let type_ = self.owned_type_ident();
         let orig_name = self.name();
 
         util::add_docs(
@@ -440,11 +462,10 @@ impl types::Type {
     }
 
     fn borrowed_type(&self) -> TokenStream {
+        let type_ = self.borrowed_type_ident();
         if self.should_borrow() {
-            let type_ = self.borrowed_type_ident();
             quote! { &#type_ }
         } else {
-            let type_ = self.borrowed_type_ident();
             quote! { #type_ }
         }
     }

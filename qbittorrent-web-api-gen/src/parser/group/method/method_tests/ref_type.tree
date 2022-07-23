@@ -1,0 +1,276 @@
+TokenTree {
+    title: None,
+    content: [],
+    children: [
+        TokenTree {
+            title: Some(
+                "Get search plugins",
+            ),
+            content: [
+                Text(
+                    "",
+                ),
+                Text(
+                    "Name: `plugins`",
+                ),
+                Text(
+                    "",
+                ),
+                Asterisk(
+                    "Parameters:",
+                ),
+                Text(
+                    "",
+                ),
+                Text(
+                    "None",
+                ),
+                Text(
+                    "",
+                ),
+                Asterisk(
+                    "Returns:",
+                ),
+                Text(
+                    "",
+                ),
+                Table(
+                    Table {
+                        header: TableRow {
+                            raw: "HTTP Status Code                  | Scenario",
+                            columns: [
+                                "HTTP Status Code",
+                                "Scenario",
+                            ],
+                        },
+                        split: "----------------------------------|---------------------",
+                        rows: [
+                            TableRow {
+                                raw: "200                               | All scenarios- see JSON below",
+                                columns: [
+                                    "200",
+                                    "All scenarios- see JSON below",
+                                ],
+                            },
+                        ],
+                    },
+                ),
+                Text(
+                    "",
+                ),
+                Text(
+                    "The response is a JSON array of objects containing the following fields",
+                ),
+                Text(
+                    "",
+                ),
+                Table(
+                    Table {
+                        header: TableRow {
+                            raw: "Field                             | Type    | Description",
+                            columns: [
+                                "Field",
+                                "Type",
+                                "Description",
+                            ],
+                        },
+                        split: "----------------------------------|---------|------------",
+                        rows: [
+                            TableRow {
+                                raw: "`enabled`                         | bool    | Whether the plugin is enabled",
+                                columns: [
+                                    "enabled",
+                                    "bool",
+                                    "Whether the plugin is enabled",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`fullName`                        | string  | Full name of the plugin",
+                                columns: [
+                                    "fullName",
+                                    "string",
+                                    "Full name of the plugin",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`name`                            | string  | Short name of the plugin",
+                                columns: [
+                                    "name",
+                                    "string",
+                                    "Short name of the plugin",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`supportedCategories`             | array   | List of category objects",
+                                columns: [
+                                    "supportedCategories",
+                                    "array",
+                                    "List of category objects",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`url`                             | string  | URL of the torrent site",
+                                columns: [
+                                    "url",
+                                    "string",
+                                    "URL of the torrent site",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`version`                         | string  | Installed version of the plugin",
+                                columns: [
+                                    "version",
+                                    "string",
+                                    "Installed version of the plugin",
+                                ],
+                            },
+                        ],
+                    },
+                ),
+                Text(
+                    "",
+                ),
+                Text(
+                    "```JSON",
+                ),
+                Text(
+                    "[",
+                ),
+                Text(
+                    "    {",
+                ),
+                Text(
+                    "        \"enabled\": true,",
+                ),
+                Text(
+                    "        \"fullName\": \"Legit Torrents\",",
+                ),
+                Text(
+                    "        \"name\": \"legittorrents\",",
+                ),
+                Text(
+                    "        \"supportedCategories\": [{",
+                ),
+                Text(
+                    "            \"id\": \"all\",",
+                ),
+                Text(
+                    "            \"name\": \"All categories\"",
+                ),
+                Text(
+                    "        }, {",
+                ),
+                Text(
+                    "            \"id\": \"anime\",",
+                ),
+                Text(
+                    "            \"name\": \"Anime\"",
+                ),
+                Text(
+                    "        }, {",
+                ),
+                Text(
+                    "            \"id\": \"books\",",
+                ),
+                Text(
+                    "            \"name\": \"Books\"",
+                ),
+                Text(
+                    "        }, {",
+                ),
+                Text(
+                    "            \"id\": \"games\",",
+                ),
+                Text(
+                    "            \"name\": \"Games\"",
+                ),
+                Text(
+                    "        }, {",
+                ),
+                Text(
+                    "            \"id\": \"movies\",",
+                ),
+                Text(
+                    "            \"name\": \"Movies\"",
+                ),
+                Text(
+                    "        }, {",
+                ),
+                Text(
+                    "            \"id\": \"music\",",
+                ),
+                Text(
+                    "            \"name\": \"Music\"",
+                ),
+                Text(
+                    "        }, {",
+                ),
+                Text(
+                    "            \"id\": \"tv\",",
+                ),
+                Text(
+                    "            \"name\": \"TV shows\"",
+                ),
+                Text(
+                    "        }],",
+                ),
+                Text(
+                    "        \"url\": \"http://www.legittorrents.info\",",
+                ),
+                Text(
+                    "        \"version\": \"2.3\"",
+                ),
+                Text(
+                    "    }",
+                ),
+                Text(
+                    "]",
+                ),
+                Text(
+                    "```",
+                ),
+                Text(
+                    "",
+                ),
+                Asterisk(
+                    "Category object:",
+                ),
+                Text(
+                    "",
+                ),
+                Table(
+                    Table {
+                        header: TableRow {
+                            raw: "Field                      | Type    | Description",
+                            columns: [
+                                "Field",
+                                "Type",
+                                "Description",
+                            ],
+                        },
+                        split: "---------------------------|---------|------------",
+                        rows: [
+                            TableRow {
+                                raw: "`id`                       | string  | Id",
+                                columns: [
+                                    "id",
+                                    "string",
+                                    "Id",
+                                ],
+                            },
+                            TableRow {
+                                raw: "`name`                     | string  | Name",
+                                columns: [
+                                    "name",
+                                    "string",
+                                    "Name",
+                                ],
+                            },
+                        ],
+                    },
+                ),
+            ],
+            children: [],
+        },
+    ],
+}

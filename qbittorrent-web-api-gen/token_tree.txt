@@ -4497,17 +4497,17 @@ TokenTree {
                         Table(
                             Table {
                                 header: TableRow {
-                                    raw: "Property                      | Type    | Description",
+                                    raw: "Property                        | Type      | Description",
                                     columns: [
                                         "Property",
                                         "Type",
                                         "Description",
                                     ],
                                 },
-                                split: "------------------------------|---------|------------",
+                                split: "--------------------------------|-----------|------------",
                                 rows: [
                                     TableRow {
-                                        raw: "`rid`                         | integer | Response ID",
+                                        raw: "`rid`                           | integer   | Response ID",
                                         columns: [
                                             "rid",
                                             "integer",
@@ -4515,67 +4515,67 @@ TokenTree {
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`full_update`                 | bool    | Whether the response contains all the data or partial data",
+                                        raw: "`full_update`_optional_         | bool      | Whether the response contains all the data or partial data",
                                         columns: [
-                                            "full_update",
+                                            "full_update_optional_",
                                             "bool",
                                             "Whether the response contains all the data or partial data",
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`torrents`                    | object  | Property: torrent hash, value: same as [torrent list](#get-torrent-list)",
+                                        raw: "`torrents`_optional_            | object    | Property: torrent hash, value: same as [torrent list](#get-torrent-list), map from string to torrents object",
                                         columns: [
-                                            "torrents",
+                                            "torrents_optional_",
                                             "object",
-                                            "Property: torrent hash, value: same as [torrent list](#get-torrent-list)",
+                                            "Property: torrent hash, value: same as [torrent list](#get-torrent-list), map from string to torrents object",
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`torrents_removed`            | array   | List of hashes of torrents removed since last request",
+                                        raw: "`torrents_removed`_optional_    | array     | List of hashes of torrents removed since last request",
                                         columns: [
-                                            "torrents_removed",
+                                            "torrents_removed_optional_",
                                             "array",
                                             "List of hashes of torrents removed since last request",
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`categories`                  | object  | Info for categories added since last request",
+                                        raw: "`categories`_optional_          | object    | Info for categories added since last request, map from string to categories object",
                                         columns: [
-                                            "categories",
+                                            "categories_optional_",
                                             "object",
-                                            "Info for categories added since last request",
+                                            "Info for categories added since last request, map from string to categories object",
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`categories_removed`          | array   | List of categories removed since last request",
+                                        raw: "`categories_removed`_optional_  | array     | List of categories removed since last request",
                                         columns: [
-                                            "categories_removed",
+                                            "categories_removed_optional_",
                                             "array",
                                             "List of categories removed since last request",
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`tags`                        | array   | List of tags added since last request",
+                                        raw: "`tags`_optional_                | array     | List of tags added since last request",
                                         columns: [
-                                            "tags",
+                                            "tags_optional_",
                                             "array",
                                             "List of tags added since last request",
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`tags_removed`                | array   | List of tags removed since last request",
+                                        raw: "`tags_removed`_optional_        | array     | List of tags removed since last request",
                                         columns: [
-                                            "tags_removed",
+                                            "tags_removed_optional_",
                                             "array",
                                             "List of tags removed since last request",
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`server_state`                | object  | Global transfer info",
+                                        raw: "`server_state`_optional_        | object    | `server_state` object see table below",
                                         columns: [
-                                            "server_state",
+                                            "server_state_optional_",
                                             "object",
-                                            "Global transfer info",
+                                            "server_state object see table below",
                                         ],
                                     },
                                 ],
@@ -4625,6 +4625,502 @@ TokenTree {
                         ),
                         Text(
                             "```",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterisk(
+                            "ServerState object:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Property                      | Type    | Description",
+                                    columns: [
+                                        "Property",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "------------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`average_time_queue`          | integer | Average time queue",
+                                        columns: [
+                                            "average_time_queue",
+                                            "integer",
+                                            "Average time queue",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`dl_info_data`                | number  | Download info data",
+                                        columns: [
+                                            "dl_info_data",
+                                            "number",
+                                            "Download info data",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`dl_info_speed`               | number  | Download info speed",
+                                        columns: [
+                                            "dl_info_speed",
+                                            "number",
+                                            "Download info speed",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`queued_io_jobs`              | integer | Queued io jobs",
+                                        columns: [
+                                            "queued_io_jobs",
+                                            "integer",
+                                            "Queued io jobs",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`total_buffers_size`          | number  | Total buffers size",
+                                        columns: [
+                                            "total_buffers_size",
+                                            "number",
+                                            "Total buffers size",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`total_peer_connections`      | integer | Total peer connections",
+                                        columns: [
+                                            "total_peer_connections",
+                                            "integer",
+                                            "Total peer connections",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterisk(
+                            "Categories object:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Property                      | Type    | Description",
+                                    columns: [
+                                        "Property",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "------------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`name`                        | string  | Category name",
+                                        columns: [
+                                            "name",
+                                            "string",
+                                            "Category name",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`savePath`                    | string  | Save path",
+                                        columns: [
+                                            "savePath",
+                                            "string",
+                                            "Save path",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterisk(
+                            "Torrents object:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Property                        | Type      | Description",
+                                    columns: [
+                                        "Property",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "--------------------------------|-----------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`added_on`_optional_            | integer   | Time (Unix Epoch) when the torrent was added to the client",
+                                        columns: [
+                                            "added_on_optional_",
+                                            "integer",
+                                            "Time (Unix Epoch) when the torrent was added to the client",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`amount_left`_optional_         | integer   | Amount of data left to download (bytes)",
+                                        columns: [
+                                            "amount_left_optional_",
+                                            "integer",
+                                            "Amount of data left to download (bytes)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`auto_tmm`_optional_            | bool      | Whether this torrent is managed by Automatic Torrent Management",
+                                        columns: [
+                                            "auto_tmm_optional_",
+                                            "bool",
+                                            "Whether this torrent is managed by Automatic Torrent Management",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`availability`_optional_        | float     | Percentage of file pieces currently available",
+                                        columns: [
+                                            "availability_optional_",
+                                            "float",
+                                            "Percentage of file pieces currently available",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`category`_optional_            | string    | Category of the torrent",
+                                        columns: [
+                                            "category_optional_",
+                                            "string",
+                                            "Category of the torrent",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`completed`_optional_           | integer   | Amount of transfer data completed (bytes)",
+                                        columns: [
+                                            "completed_optional_",
+                                            "integer",
+                                            "Amount of transfer data completed (bytes)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`completion_on`_optional_       | integer   | Time (Unix Epoch) when the torrent completed",
+                                        columns: [
+                                            "completion_on_optional_",
+                                            "integer",
+                                            "Time (Unix Epoch) when the torrent completed",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`content_path`_optional_        | string    | Absolute path of torrent content (root path for multifile torrents, absolute file path for singlefile torrents)",
+                                        columns: [
+                                            "content_path_optional_",
+                                            "string",
+                                            "Absolute path of torrent content (root path for multifile torrents, absolute file path for singlefile torrents)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`dl_limit`_optional_            | integer   | Torrent download speed limit (bytes/s). `-1` if ulimited.",
+                                        columns: [
+                                            "dl_limit_optional_",
+                                            "integer",
+                                            "Torrent download speed limit (bytes/s). -1 if ulimited.",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`dlspeed`_optional_             | integer   | Torrent download speed (bytes/s)",
+                                        columns: [
+                                            "dlspeed_optional_",
+                                            "integer",
+                                            "Torrent download speed (bytes/s)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`downloaded`_optional_          | integer   | Amount of data downloaded",
+                                        columns: [
+                                            "downloaded_optional_",
+                                            "integer",
+                                            "Amount of data downloaded",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`downloaded_session`_optional_  | integer   | Amount of data downloaded this session",
+                                        columns: [
+                                            "downloaded_session_optional_",
+                                            "integer",
+                                            "Amount of data downloaded this session",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`eta`_optional_                 | integer   | Torrent ETA (seconds)",
+                                        columns: [
+                                            "eta_optional_",
+                                            "integer",
+                                            "Torrent ETA (seconds)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`f_l_piece_prio`_optional_      | bool      | True if first last piece are prioritized",
+                                        columns: [
+                                            "f_l_piece_prio_optional_",
+                                            "bool",
+                                            "True if first last piece are prioritized",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`force_start`_optional_         | bool      | True if force start is enabled for this torrent",
+                                        columns: [
+                                            "force_start_optional_",
+                                            "bool",
+                                            "True if force start is enabled for this torrent",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`hash`_optional_                | string    | Torrent hash",
+                                        columns: [
+                                            "hash_optional_",
+                                            "string",
+                                            "Torrent hash",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`last_activity`_optional_       | integer   | Last time (Unix Epoch) when a chunk was downloaded/uploaded",
+                                        columns: [
+                                            "last_activity_optional_",
+                                            "integer",
+                                            "Last time (Unix Epoch) when a chunk was downloaded/uploaded",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`magnet_uri`_optional_          | string    | Magnet URI corresponding to this torrent",
+                                        columns: [
+                                            "magnet_uri_optional_",
+                                            "string",
+                                            "Magnet URI corresponding to this torrent",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`max_ratio`_optional_           | float     | Maximum share ratio until torrent is stopped from seeding/uploading",
+                                        columns: [
+                                            "max_ratio_optional_",
+                                            "float",
+                                            "Maximum share ratio until torrent is stopped from seeding/uploading",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`max_seeding_time`_optional_    | integer   | Maximum seeding time (seconds) until torrent is stopped from seeding",
+                                        columns: [
+                                            "max_seeding_time_optional_",
+                                            "integer",
+                                            "Maximum seeding time (seconds) until torrent is stopped from seeding",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`name`_optional_                | string    | Torrent name",
+                                        columns: [
+                                            "name_optional_",
+                                            "string",
+                                            "Torrent name",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`num_complete`_optional_        | integer   | Number of seeds in the swarm",
+                                        columns: [
+                                            "num_complete_optional_",
+                                            "integer",
+                                            "Number of seeds in the swarm",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`num_incomplete`_optional_      | integer   | Number of leechers in the swarm",
+                                        columns: [
+                                            "num_incomplete_optional_",
+                                            "integer",
+                                            "Number of leechers in the swarm",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`num_leechs`_optional_          | integer   | Number of leechers connected to",
+                                        columns: [
+                                            "num_leechs_optional_",
+                                            "integer",
+                                            "Number of leechers connected to",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`num_seeds`_optional_           | integer   | Number of seeds connected to",
+                                        columns: [
+                                            "num_seeds_optional_",
+                                            "integer",
+                                            "Number of seeds connected to",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`priority`_optional_            | integer   | Torrent priority. Returns -1 if queuing is disabled or torrent is in seed mode",
+                                        columns: [
+                                            "priority_optional_",
+                                            "integer",
+                                            "Torrent priority. Returns -1 if queuing is disabled or torrent is in seed mode",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`progress`_optional_            | float     | Torrent progress (percentage/100)",
+                                        columns: [
+                                            "progress_optional_",
+                                            "float",
+                                            "Torrent progress (percentage/100)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`ratio`_optional_               | float     | Torrent share ratio. Max ratio value: 9999.",
+                                        columns: [
+                                            "ratio_optional_",
+                                            "float",
+                                            "Torrent share ratio. Max ratio value: 9999.",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`ratio_limit`_optional_         | float     | TODO (what is different from `max_ratio`?)",
+                                        columns: [
+                                            "ratio_limit_optional_",
+                                            "float",
+                                            "TODO (what is different from max_ratio?)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`save_path`_optional_           | string    | Path where this torrent's data is stored",
+                                        columns: [
+                                            "save_path_optional_",
+                                            "string",
+                                            "Path where this torrent's data is stored",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`seeding_time`_optional_        | integer   | Torrent elapsed time while complete (seconds)",
+                                        columns: [
+                                            "seeding_time_optional_",
+                                            "integer",
+                                            "Torrent elapsed time while complete (seconds)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`seeding_time_limit`_optional_  | integer   | TODO (what is different from `max_seeding_time`?) seeding_time_limit is a per torrent setting, when Automatic Torrent Management is disabled, furthermore then max_seeding_time is set to seeding_time_limit for this torrent. If Automatic Torrent Management is enabled, the value is -2. And if max_seeding_time is unset it have a default value -1.",
+                                        columns: [
+                                            "seeding_time_limit_optional_",
+                                            "integer",
+                                            "TODO (what is different from max_seeding_time?) seeding_time_limit is a per torrent setting, when Automatic Torrent Management is disabled, furthermore then max_seeding_time is set to seeding_time_limit for this torrent. If Automatic Torrent Management is enabled, the value is -2. And if max_seeding_time is unset it have a default value -1.",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`seen_complete`_optional_       | integer   | Time (Unix Epoch) when this torrent was last seen complete",
+                                        columns: [
+                                            "seen_complete_optional_",
+                                            "integer",
+                                            "Time (Unix Epoch) when this torrent was last seen complete",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`seq_dl`_optional_              | bool      | True if sequential download is enabled",
+                                        columns: [
+                                            "seq_dl_optional_",
+                                            "bool",
+                                            "True if sequential download is enabled",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`size`_optional_                | integer   | Total size (bytes) of files selected for download",
+                                        columns: [
+                                            "size_optional_",
+                                            "integer",
+                                            "Total size (bytes) of files selected for download",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`state`_optional_               | string    | Torrent state. See table here below for the possible values",
+                                        columns: [
+                                            "state_optional_",
+                                            "string",
+                                            "Torrent state. See table here below for the possible values",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`super_seeding`_optional_       | bool      | True if super seeding is enabled",
+                                        columns: [
+                                            "super_seeding_optional_",
+                                            "bool",
+                                            "True if super seeding is enabled",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`tags`_optional_                | string    | Comma-concatenated tag list of the torrent",
+                                        columns: [
+                                            "tags_optional_",
+                                            "string",
+                                            "Comma-concatenated tag list of the torrent",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`time_active`_optional_         | integer   | Total active time (seconds)",
+                                        columns: [
+                                            "time_active_optional_",
+                                            "integer",
+                                            "Total active time (seconds)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`total_size`_optional_          | integer   | Total size (bytes) of all file in this torrent (including unselected ones)",
+                                        columns: [
+                                            "total_size_optional_",
+                                            "integer",
+                                            "Total size (bytes) of all file in this torrent (including unselected ones)",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`tracker`_optional_             | string    | The first tracker with working status. Returns empty string if no tracker is working.",
+                                        columns: [
+                                            "tracker_optional_",
+                                            "string",
+                                            "The first tracker with working status. Returns empty string if no tracker is working.",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`up_limit`_optional_            | integer   | Torrent upload speed limit (bytes/s). `-1` if ulimited.",
+                                        columns: [
+                                            "up_limit_optional_",
+                                            "integer",
+                                            "Torrent upload speed limit (bytes/s). -1 if ulimited.",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`uploaded`_optional_            | integer   | Amount of data uploaded",
+                                        columns: [
+                                            "uploaded_optional_",
+                                            "integer",
+                                            "Amount of data uploaded",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`uploaded_session`_optional_    | integer   | Amount of data uploaded this session",
+                                        columns: [
+                                            "uploaded_session_optional_",
+                                            "integer",
+                                            "Amount of data uploaded this session",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`upspeed`_optional_             | integer   | Torrent upload speed (bytes/s)",
+                                        columns: [
+                                            "upspeed_optional_",
+                                            "integer",
+                                            "Torrent upload speed (bytes/s)",
+                                        ],
+                                    },
+                                ],
+                            },
                         ),
                         Text(
                             "",
@@ -8171,9 +8667,10 @@ TokenTree {
                                         ],
                                     },
                                     TableRow {
-                                        raw: "`deleteFiles` | If set to `true`, the downloaded data will also be deleted, otherwise has no effect.",
+                                        raw: "`deleteFiles` | bool | If set to `true`, the downloaded data will also be deleted, otherwise has no effect.",
                                         columns: [
                                             "deleteFiles",
+                                            "bool",
                                             "If set to true, the downloaded data will also be deleted, otherwise has no effect.",
                                         ],
                                     },
@@ -14633,6 +15130,46 @@ TokenTree {
                         ),
                         Text(
                             "```",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Asterisk(
+                            "Category object:",
+                        ),
+                        Text(
+                            "",
+                        ),
+                        Table(
+                            Table {
+                                header: TableRow {
+                                    raw: "Field                      | Type    | Description",
+                                    columns: [
+                                        "Field",
+                                        "Type",
+                                        "Description",
+                                    ],
+                                },
+                                split: "---------------------------|---------|------------",
+                                rows: [
+                                    TableRow {
+                                        raw: "`id`                       | string  | Id",
+                                        columns: [
+                                            "id",
+                                            "string",
+                                            "Id",
+                                        ],
+                                    },
+                                    TableRow {
+                                        raw: "`name`                     | string  | Name",
+                                        columns: [
+                                            "name",
+                                            "string",
+                                            "Name",
+                                        ],
+                                    },
+                                ],
+                            },
                         ),
                         Text(
                             "",
