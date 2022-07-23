@@ -1,9 +1,9 @@
+mod api_group;
+mod api_method;
 mod group;
 mod group_method;
 mod skeleton;
 mod util;
-mod api_method;
-mod api_group;
 
 use case::CaseExt;
 use proc_macro2::TokenStream;
