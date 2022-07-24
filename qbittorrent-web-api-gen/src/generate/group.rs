@@ -72,7 +72,7 @@ impl types::Type {
 
     fn owned_type_ident(&self) -> TokenStream {
         let owned_type = match self {
-            types::Type::Number(_) => quote! { i128 },
+            types::Type::Number(_) => quote! { i64 },
             types::Type::Float(_) => quote! { f32 },
             types::Type::Bool(_) => quote! { bool },
             types::Type::String(_) => quote! { String },
