@@ -6,16 +6,22 @@ use quote::quote;
 use super::{group_method::GroupMethod, skeleton::auth_ident, util};
 
 #[derive(Debug)]
-pub struct GroupGeneration {
+pub struct GroupGeneration<'a> {
     api_group: parser::ApiGroup,
-    response_derives: Vec<String>,
+    struct_derives: &'a [&'a str],
+    enum_derives: &'a [&'a str],
 }
 
-impl GroupGeneration {
-    pub fn new(api_group: parser::ApiGroup, response_derives: Vec<String>) -> Self {
+impl<'a> GroupGeneration<'a> {
+    pub fn new(
+        api_group: parser::ApiGroup,
+        struct_derives: &'a [&'a str],
+        enum_derives: &'a [&'a str],
+    ) -> Self {
         Self {
             api_group,
-            response_derives,
+            struct_derives,
+            enum_derives,
         }
     }
 
@@ -104,10 +110,18 @@ impl GroupGeneration {
         self.name_camel()
     }
 
-    pub fn response_derives(&self, additional_derives: Vec<&str>) -> TokenStream {
+    pub fn struct_derives(&self) -> TokenStream {
+        self.derives(self.struct_derives, &[])
+    }
+
+    pub fn enum_derives(&self) -> TokenStream {
+        self.derives(self.enum_derives, &["PartialEq", "Eq"])
+    }
+
+    pub fn derives(&self, derives: &'a [&'a str], additional_derives: &[&str]) -> TokenStream {
         let derives = self
-            .all_derives()
-            .chain(additional_derives.into_iter())
+            .all_derives(derives)
+            .chain(additional_derives.iter().copied())
             .map(|s| syn::parse_str::<syn::Path>(s).unwrap())
             .map(|derive| quote! { #derive });
 
@@ -116,12 +130,11 @@ impl GroupGeneration {
         }
     }
 
-    fn all_derives(&self) -> impl Iterator<Item = &str> {
+    fn all_derives(&self, derives: &'a [&'a str]) -> impl Iterator<Item = &'a str> {
         let base = vec!["serde::Deserialize", "Debug"].into_iter();
-        let additional = self
-            .response_derives
+        let additional = derives
             .iter()
-            .map(|s| s.as_str())
+            .copied()
             .filter(|item| item != &"serde::Deserialize")
             .filter(|item| item != &"Debug");
 

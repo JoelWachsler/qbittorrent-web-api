@@ -5,12 +5,19 @@ use quote::quote;
 
 use super::{api_group::GroupGeneration, util};
 
-pub fn generate_groups(groups: Vec<parser::ApiGroup>, resp_derives: Vec<String>) -> TokenStream {
+pub fn generate_groups(
+    groups: Vec<parser::ApiGroup>,
+    struct_derives: Vec<String>,
+    enum_derives: Vec<String>,
+) -> TokenStream {
+    let struct_derives_borrowed: Vec<&str> = struct_derives.iter().map(|s| s.as_str()).collect();
+    let enum_derive_borrowed: Vec<&str> = enum_derives.iter().map(|s| s.as_str()).collect();
+
     let gr = groups
         .into_iter()
         // implemented manually
         .filter(|group| group.name != "authentication")
-        .map(|group| GroupGeneration::new(group, resp_derives.clone()))
+        .map(|group| GroupGeneration::new(group, &struct_derives_borrowed, &enum_derive_borrowed))
         .map(generate_group);
 
     quote! {
@@ -29,7 +36,7 @@ fn generate_group(group: GroupGeneration) -> TokenStream {
 #[derive(Debug)]
 pub struct StructGenerator<'a> {
     type_: &'a parser::TypeWithName,
-    group: &'a GroupGeneration,
+    group: &'a GroupGeneration<'a>,
 }
 
 impl<'a> StructGenerator<'a> {
@@ -44,7 +51,7 @@ impl<'a> StructGenerator<'a> {
             .iter()
             .map(|obj| obj.generate_struct_field());
         let name = util::to_ident(&self.type_.name);
-        let derives = self.group.response_derives(vec![]);
+        let derives = self.group.struct_derives();
 
         quote! {
             #derives
@@ -109,7 +116,7 @@ impl types::Type {
 #[derive(Debug)]
 pub struct EnumGeneration<'a> {
     enum_: &'a parser::Enum,
-    group: &'a GroupGeneration,
+    group: &'a GroupGeneration<'a>,
 }
 
 impl<'a> EnumGeneration<'a> {
@@ -124,7 +131,7 @@ impl<'a> EnumGeneration<'a> {
             .iter()
             .map(|enum_value| enum_value.generate());
         let name = util::to_ident(&self.enum_.name);
-        let derives = self.group.response_derives(vec!["PartialEq", "Eq"]);
+        let derives = self.group.enum_derives();
 
         quote! {
             #[allow(clippy::enum_variant_names)]
