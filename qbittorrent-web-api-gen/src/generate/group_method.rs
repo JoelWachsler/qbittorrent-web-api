@@ -10,7 +10,7 @@ use super::{
 
 #[derive(Debug)]
 pub struct GroupMethod<'a> {
-    group: &'a GroupGeneration,
+    group: &'a GroupGeneration<'a>,
     method: &'a parser::ApiMethod,
 }
 
@@ -116,7 +116,7 @@ impl<'a> GroupMethod<'a> {
             .iter()
             .map(|field| field.generate_struct_field());
 
-        let derives = self.group.response_derives(vec![]);
+        let derives = self.group.struct_derives();
 
         quote! {
             #derives
