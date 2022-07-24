@@ -2,23 +2,27 @@ use crate::parser;
 use proc_macro2::{Ident, TokenStream};
 use quote::quote;
 
-use super::util;
+use super::{
+    api_group::GroupGeneration,
+    group::{EnumGeneration, StructGenerator},
+    util,
+};
 
 #[derive(Debug)]
 pub struct GroupMethod<'a> {
-    group: &'a parser::ApiGroup,
+    group: &'a GroupGeneration,
     method: &'a parser::ApiMethod,
 }
 
 impl<'a> GroupMethod<'a> {
-    pub fn new(group: &'a parser::ApiGroup, method: &'a parser::ApiMethod) -> Self {
+    pub fn new(group: &'a GroupGeneration, method: &'a parser::ApiMethod) -> Self {
         Self { group, method }
     }
 
     pub fn generate_method(&self) -> TokenStream {
         let method_name = self.method.name_snake();
-        let structs = self.method.structs();
-        let enums = self.method.enums();
+        let structs = self.structs();
+        let enums = self.enums();
         let builder = self.generate_request_builder();
         let response_struct = self.generate_response_struct();
         let request_method = self.generate_request_method();
@@ -31,6 +35,29 @@ impl<'a> GroupMethod<'a> {
                 #response_struct
                 #request_method
             }
+        }
+    }
+
+    pub fn structs(&self) -> TokenStream {
+        let objects = self.method.types.objects();
+        let structs = objects
+            .iter()
+            .map(|obj| StructGenerator::new(obj, self.group).generate_struct());
+
+        quote! {
+            #(#structs)*
+        }
+    }
+
+    pub fn enums(&self) -> TokenStream {
+        let enums = self.method.types.enums();
+        let generated_enums = enums
+            .iter()
+            .map(|enum_| EnumGeneration::new(enum_, self.group))
+            .map(|e| e.generate());
+
+        quote! {
+            #(#generated_enums)*
         }
     }
 
@@ -89,8 +116,10 @@ impl<'a> GroupMethod<'a> {
             .iter()
             .map(|field| field.generate_struct_field());
 
+        let derives = self.group.response_derives(vec![]);
+
         quote! {
-            #[derive(Debug, serde::Deserialize)]
+            #derives
             pub struct Response {
                 #(#struct_fields,)*
             }
@@ -139,7 +168,7 @@ impl<'a> GroupMethod<'a> {
         form_access: TokenStream,
         form_factory: TokenStream,
     ) -> TokenStream {
-        let method_url = format!("/api/v2/{}/{}", self.group.url, self.method.url);
+        let method_url = format!("/api/v2/{}/{}", self.group.url(), self.method.url);
 
         let (response_type, response_parse) = match self.method.types.response() {
             Some(resp) => {

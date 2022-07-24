@@ -3,13 +3,14 @@ use case::CaseExt;
 use proc_macro2::{Ident, TokenStream};
 use quote::quote;
 
-use super::util;
+use super::{api_group::GroupGeneration, util};
 
-pub fn generate_groups(groups: Vec<parser::ApiGroup>) -> TokenStream {
+pub fn generate_groups(groups: Vec<parser::ApiGroup>, resp_derives: Vec<String>) -> TokenStream {
     let gr = groups
-        .iter()
+        .into_iter()
         // implemented manually
         .filter(|group| group.name != "authentication")
+        .map(|group| GroupGeneration::new(group, resp_derives.clone()))
         .map(generate_group);
 
     quote! {
@@ -17,7 +18,7 @@ pub fn generate_groups(groups: Vec<parser::ApiGroup>) -> TokenStream {
     }
 }
 
-fn generate_group(group: &parser::ApiGroup) -> TokenStream {
+fn generate_group(group: GroupGeneration) -> TokenStream {
     let group = group.generate();
 
     quote! {
@@ -25,13 +26,28 @@ fn generate_group(group: &parser::ApiGroup) -> TokenStream {
     }
 }
 
-impl parser::TypeWithName {
+#[derive(Debug)]
+pub struct StructGenerator<'a> {
+    type_: &'a parser::TypeWithName,
+    group: &'a GroupGeneration,
+}
+
+impl<'a> StructGenerator<'a> {
+    pub fn new(type_: &'a parser::TypeWithName, group: &'a GroupGeneration) -> Self {
+        Self { type_, group }
+    }
+
     pub fn generate_struct(&self) -> TokenStream {
-        let fields = self.types.iter().map(|obj| obj.generate_struct_field());
-        let name = util::to_ident(&self.name);
+        let fields = self
+            .type_
+            .types
+            .iter()
+            .map(|obj| obj.generate_struct_field());
+        let name = util::to_ident(&self.type_.name);
+        let derives = self.group.response_derives(vec![]);
 
         quote! {
-            #[derive(Debug, serde::Deserialize)]
+            #derives
             pub struct #name {
                 #(#fields,)*
             }
@@ -90,14 +106,29 @@ impl types::Type {
     }
 }
 
-impl parser::Enum {
+#[derive(Debug)]
+pub struct EnumGeneration<'a> {
+    enum_: &'a parser::Enum,
+    group: &'a GroupGeneration,
+}
+
+impl<'a> EnumGeneration<'a> {
+    pub fn new(enum_: &'a parser::Enum, group: &'a GroupGeneration) -> Self {
+        Self { enum_, group }
+    }
+
     pub fn generate(&self) -> TokenStream {
-        let values = self.values.iter().map(|enum_value| enum_value.generate());
-        let name = util::to_ident(&self.name);
+        let values = self
+            .enum_
+            .values
+            .iter()
+            .map(|enum_value| enum_value.generate());
+        let name = util::to_ident(&self.enum_.name);
+        let derives = self.group.response_derives(vec!["PartialEq", "Eq"]);
 
         quote! {
             #[allow(clippy::enum_variant_names)]
-            #[derive(Debug, serde::Deserialize, PartialEq, Eq)]
+            #derives
             pub enum #name {
                 #(#values,)*
             }
